@@ -759,13 +759,13 @@ button, input, textarea, select { font-family: var(--sans); border: none; outlin
   .container { padding: 0 20px; }
   .nav { padding: 0 20px; }
 }
-</style>
+.mobile-drawer{display:none;position:fixed;inset:0;z-index:999;}.mobile-drawer.open{display:flex;}.mobile-drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);}.mobile-drawer-panel{position:absolute;top:0;right:0;width:280px;height:100%;background:#F5F0E9;padding:80px 32px 32px;display:flex;flex-direction:column;gap:28px;box-shadow:-8px 0 40px rgba(0,0,0,0.1);}.mobile-drawer-panel a{font-family:"Instrument Serif",Georgia,serif;font-size:22px;color:#3A3A3A;text-decoration:none;}.mobile-drawer-panel a:hover{color:#4CAF9F;}.mobile-drawer-close{position:absolute;top:20px;right:24px;font-size:28px;color:#3A3A3A;cursor:pointer;background:none;border:none;font-weight:300;}@media(min-width:901px){.mobile-drawer{display:none!important;}}</style>
 <noscript>
 <style>
 .reveal { opacity: 1 !important; transform: none !important; }
 .sol-hero-breadcrumb, .sol-hero h1, .sol-hero-sub { opacity: 1 !important; transform: none !important; animation: none !important; }
 .graph-bar { height: auto !important; }
-</style>
+.mobile-drawer{display:none;position:fixed;inset:0;z-index:999;}.mobile-drawer.open{display:flex;}.mobile-drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);}.mobile-drawer-panel{position:absolute;top:0;right:0;width:280px;height:100%;background:#F5F0E9;padding:80px 32px 32px;display:flex;flex-direction:column;gap:28px;box-shadow:-8px 0 40px rgba(0,0,0,0.1);}.mobile-drawer-panel a{font-family:"Instrument Serif",Georgia,serif;font-size:22px;color:#3A3A3A;text-decoration:none;}.mobile-drawer-panel a:hover{color:#4CAF9F;}.mobile-drawer-close{position:absolute;top:20px;right:24px;font-size:28px;color:#3A3A3A;cursor:pointer;background:none;border:none;font-weight:300;}@media(min-width:901px){.mobile-drawer{display:none!important;}}</style>
 </noscript>
 <link rel="icon" href="/public/favicon.ico"><link rel="apple-touch-icon" href="/public/apple-touch-icon.png"><meta name="theme-color" content="#4CAF9F"></head>
 <body>
@@ -788,11 +788,11 @@ button, input, textarea, select { font-family: var(--sans); border: none; outlin
     <div class="nav-right">
       <a href="/#join" class="nav-cta">Be part of it <span class="cta-arrow">→</span></a>
     </div>
-    <div class="nav-hamburger" onclick="this.classList.toggle('open')">
+    <div class="nav-hamburger" onclick="document.getElementById('mobileDrawer').classList.add('open')">
       <span></span><span></span>
     </div>
   </div>
-</nav>
+</nav><div id="mobileDrawer" class="mobile-drawer"><div class="mobile-drawer-overlay" onclick="document.getElementById('mobileDrawer').classList.remove('open')"></div><div class="mobile-drawer-panel"><button class="mobile-drawer-close" onclick="document.getElementById('mobileDrawer').classList.remove('open')">&times;</button><a href="/">Home</a><a href="/blog">Blog</a><a href="/share">Share your experience</a><a href="/privacy" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Privacy</a><a href="/terms" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Terms</a></div></div>
 
 <!-- HERO -->
 <main>
@@ -801,7 +801,7 @@ button, input, textarea, select { font-family: var(--sans); border: none; outlin
   <div class="container">
     <nav class="sol-hero-breadcrumb" aria-label="Breadcrumb">
       <a href="/">Stop Being Alone</a> / Solutions
-    </nav>
+    </nav><div id="mobileDrawer" class="mobile-drawer"><div class="mobile-drawer-overlay" onclick="document.getElementById('mobileDrawer').classList.remove('open')"></div><div class="mobile-drawer-panel"><button class="mobile-drawer-close" onclick="document.getElementById('mobileDrawer').classList.remove('open')">&times;</button><a href="/">Home</a><a href="/blog">Blog</a><a href="/share">Share your experience</a><a href="/privacy" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Privacy</a><a href="/terms" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Terms</a></div></div>
     <h1>I work remotely and feel <em>disconnected.</em></h1>
     <p class="sol-hero-sub">You saved 2 hours on commuting and lost something you can't name. The silence isn't peaceful anymore. It's heavy. And you feel guilty for even saying it out loud.</p>
   </div>
@@ -1143,7 +1143,7 @@ button, input, textarea, select { font-family: var(--sans); border: none; outlin
         <div class="related-card-link">Read more <span>→</span></div>
       </a>
 
-    </nav>
+    </nav><div id="mobileDrawer" class="mobile-drawer"><div class="mobile-drawer-overlay" onclick="document.getElementById('mobileDrawer').classList.remove('open')"></div><div class="mobile-drawer-panel"><button class="mobile-drawer-close" onclick="document.getElementById('mobileDrawer').classList.remove('open')">&times;</button><a href="/">Home</a><a href="/blog">Blog</a><a href="/share">Share your experience</a><a href="/privacy" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Privacy</a><a href="/terms" style="font-size:14px;color:#9A9590;font-family:DM Sans,sans-serif">Terms</a></div></div>
   </div>
 </section>
 
