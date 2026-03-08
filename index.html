@@ -351,15 +351,6 @@ button, input, textarea, select {
   flex-direction: column;
   gap: 5px;
 }
-
-/* Mobile nav drawer */
-.mobile-nav{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,0.3)}
-.mobile-nav.open{display:flex}
-.mobile-nav-panel{background:var(--cream);width:280px;margin-left:auto;height:100%;padding:80px 32px 32px;display:flex;flex-direction:column;gap:24px;box-shadow:-8px 0 40px rgba(0,0,0,0.1)}
-.mobile-nav-panel a{font-family:var(--serif);font-size:22px;color:var(--ink);text-decoration:none}
-.mobile-nav-panel a:hover{color:var(--accent)}
-.mobile-nav-close{position:absolute;top:20px;right:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--ink);cursor:pointer;background:none;border:none}
-
 .nav-hamburger span {
   display: block;
   width: 18px;
@@ -1235,7 +1226,6 @@ button, input, textarea, select {
   max-width: 900px;
   margin: 0 auto;
 }
-@media (max-width:700px) { .why-quote p { font-size: 22px; } .why-quote { padding: 48px 24px; } }
 .why-quote-author {
   margin-top: 24px;
   font-size: 13px;
@@ -1932,22 +1922,11 @@ button, input, textarea, select {
     <div class="nav-right">
       <a href="#join" class="nav-cta">Be part of it <span class="cta-arrow">→</span></a>
     </div>
-    <div class="nav-hamburger" onclick="document.getElementById('mobile-nav').classList.add('open')">
+    <div class="nav-hamburger" onclick="this.classList.toggle('open')">
       <span></span><span></span>
     </div>
   </div>
 </nav>
-<div id="mobile-nav" class="mobile-nav" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="mobile-nav-panel">
-    <button class="mobile-nav-close" onclick="document.getElementById('mobile-nav').classList.remove('open')">&times;</button>
-    <a href="/#epidemic" onclick="document.getElementById('mobile-nav').classList.remove('open')">The data</a>
-    <a href="/#why-now" onclick="document.getElementById('mobile-nav').classList.remove('open')">Why now</a>
-    <a href="/#approach" onclick="document.getElementById('mobile-nav').classList.remove('open')">Our approach</a>
-    <a href="/blog">Blog</a>
-    <a href="/share" style="display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);padding:12px 24px;border-radius:100px;font-size:16px;margin-top:12px;width:fit-content">Be part of it →</a>
-  </div>
-</div>
-
 <main class="page-bg">
 
 <!-- ============ HERO ============ -->
@@ -2347,7 +2326,7 @@ button, input, textarea, select {
     </div>
 
     <div class="why-quote reveal">
-      <p>"We're not another dating app or mindfulness tool. We're the movement that will solve the <span style="position:relative;display:inline-block"><span style="position:relative;z-index:1">biggest public health crisis</span><span style="position:absolute;bottom:4px;left:-2px;right:-2px;height:12px;background:var(--accent);opacity:0.38;border-radius:2px;transform:skewX(-3deg);z-index:0"></span></span> of our generation, powered by AI and built with the people who live it every day."</p>
+      <p>"We're not another dating app or mindfulness tool. We're the movement that will solve the <span style="position:relative;display:inline"><span style="position:relative;z-index:1">biggest public health crisis</span><span style="position:absolute;bottom:4px;left:-2px;right:-2px;height:12px;background:var(--accent);opacity:0.38;border-radius:2px;transform:skewX(-3deg);z-index:0"></span></span> of our generation, powered by AI and built with the people who live it every day."</p>
       <div class="why-quote-author">Stop Being Alone - Team</div>
     </div>
   </div>
@@ -2607,8 +2586,8 @@ button, input, textarea, select {
 
       <div class="footer-col">
         <div class="footer-col-title">Legal</div>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
       </div>
 
       <div class="footer-col">
