@@ -1881,7 +1881,7 @@ button, input, textarea, select {
 </noscript>
 <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
-<link rel="icon" href="/public/favicon.ico"><link rel="apple-touch-icon" href="/public/apple-touch-icon.png"><meta name="theme-color" content="#4CAF9F"></head>
+</head>
 <body>
 
 <!-- ============ TICKER ============ -->
@@ -1943,7 +1943,7 @@ button, input, textarea, select {
 
     <div class="hero-input-wrap">
       <input type="text" id="hero-input" placeholder="What makes you feel most alone?">
-      <button onclick="window.location.href='/solutions?q='+encodeURIComponent(document.getElementById('hero-input').value)">Find your path →</button>
+      <button onclick="handleFindPath()">Find your path →</button>
     </div>
 
     <p class="hero-trust">Your words stay private. We're here to listen, not to sell.</p>
@@ -2669,6 +2669,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
+function handleFindPath(){
+  var v=document.getElementById('hero-input').value.trim().toLowerCase();
+  var routes={
+    'my friends drifted away':'/solutions/friends-drifted-away',
+    'i work remotely and feel disconnected':'/solutions/remote-work-disconnected',
+    'i went through a breakup':'/solutions/went-through-a-breakup',
+    'i struggle to make new friends':'/solutions/struggle-to-make-friends',
+    'i feel isolated at work':'/solutions/isolated-at-work',
+    'i moved to a new city':'/solutions/moved-to-a-new-city',
+    'i lost someone close':'/solutions/lost-someone-close'
+  };
+  if(routes[v]){window.location.href=routes[v];return;}
+  if(v.includes('friend')&&v.includes('drift'))window.location.href='/solutions/friends-drifted-away';
+  else if(v.includes('remote')||v.includes('disconnect'))window.location.href='/solutions/remote-work-disconnected';
+  else if(v.includes('breakup')||v.includes('broke up'))window.location.href='/solutions/went-through-a-breakup';
+  else if(v.includes('make friend')||v.includes('new friend')||v.includes('struggle'))window.location.href='/solutions/struggle-to-make-friends';
+  else if(v.includes('work')&&v.includes('isolat'))window.location.href='/solutions/isolated-at-work';
+  else if(v.includes('moved')||v.includes('new city'))window.location.href='/solutions/moved-to-a-new-city';
+  else if(v.includes('lost')||v.includes('grief')||v.includes('died'))window.location.href='/solutions/lost-someone-close';
+  else window.location.href='/blog';
+}
 function handleJoinSubmit(){
   var name=document.getElementById('join-name').value.trim();
   var email=document.getElementById('join-email').value.trim();
