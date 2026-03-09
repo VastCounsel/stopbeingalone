@@ -6,16 +6,20 @@
   <title>My Account - Stop Being Alone</title>
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/supabase-auth.css">
+  <link rel="icon" href="/public/favicon.ico">
   <style>
     :root {
       --cream: #F5F0E9;
       --ink: #3A3A3A;
       --accent: #4CAF9F;
       --accent-light: #C2E0D8;
+      --rose: #FF9F8A;
+      --blue-soft: #7AACB8;
       --card-bg: #FFFFFF;
       --card-border: #E5DDD4;
+      --ink-light: rgba(58,58,58,0.55);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,14 +31,18 @@
       min-height: 100vh;
     }
 
-    /* MINIMAL NAV */
+    /* ========== NAV ========== */
     .account-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 40px;
+      padding: 18px 40px;
+      background: rgba(245,240,233,0.9);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--card-border);
-      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .account-nav-logo {
@@ -44,10 +52,10 @@
       text-decoration: none;
     }
 
-    .account-nav-actions {
+    .account-nav-right {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
     }
 
     .account-nav-link {
@@ -58,9 +66,7 @@
       transition: opacity 0.2s;
     }
 
-    .account-nav-link:hover {
-      opacity: 1;
-    }
+    .account-nav-link:hover { opacity: 1; }
 
     .account-logout-btn {
       font-size: 14px;
@@ -80,139 +86,312 @@
       color: #FFFFFF;
     }
 
-    /* CONTENT */
-    .account-container {
-      max-width: 640px;
+    /* ========== HEADER ========== */
+    .account-header {
+      padding: 48px 40px 0;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 60px 24px 80px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
 
-    .account-title {
+    .account-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .account-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .account-avatar-initial {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .account-header-text h1 {
       font-family: 'Instrument Serif', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 400;
-      margin-bottom: 8px;
+      line-height: 1.2;
     }
 
-    .account-subtitle {
-      font-size: 16px;
-      opacity: 0.6;
-      margin-bottom: 40px;
+    .account-header-text p {
+      font-size: 14px;
+      color: var(--ink-light);
+      margin-top: 4px;
     }
 
-    /* CARDS */
-    .account-card {
+    /* ========== GRID ========== */
+    .account-grid {
+      max-width: 960px;
+      margin: 36px auto 0;
+      padding: 0 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ========== CARDS ========== */
+    .acc-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 32px;
+      padding: 28px;
+      transition: box-shadow 0.2s;
+    }
+
+    .acc-card:hover {
+      box-shadow: 0 4px 20px rgba(58,58,58,0.06);
+    }
+
+    .acc-card-full {
+      grid-column: 1 / -1;
+    }
+
+    .acc-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 20px;
     }
 
-    .account-card-title {
+    .acc-card-title {
       font-family: 'Instrument Serif', serif;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 400;
-      margin-bottom: 20px;
     }
 
-    .account-field {
+    .acc-card-badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    .badge-active {
+      background: #E8F8F5;
+      color: #1E8449;
+    }
+
+    .badge-inactive {
+      background: #FFF0ED;
+      color: #C0392B;
+    }
+
+    .badge-soon {
+      background: var(--cream);
+      color: var(--ink-light);
+      border: 1px solid var(--card-border);
+    }
+
+    /* ========== PROFILE FIELDS ========== */
+    .acc-field {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #F0EBE3;
     }
 
-    .account-field:last-child {
-      border-bottom: none;
+    .acc-field:last-child { border-bottom: none; }
+
+    .acc-field-label {
+      font-size: 13px;
+      color: var(--ink-light);
     }
 
-    .account-field-label {
+    .acc-field-value {
       font-size: 14px;
-      opacity: 0.5;
-    }
-
-    .account-field-value {
-      font-size: 15px;
       font-weight: 500;
     }
 
-    /* SUBSCRIPTION CTA */
-    .account-sub-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 32px;
+    /* ========== PLAN CARD ========== */
+    .plan-status {
       text-align: center;
+      padding: 8px 0 4px;
     }
 
-    .account-sub-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 22px;
-      margin-bottom: 8px;
+    .plan-status p {
+      font-size: 14px;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
-    .account-sub-text {
-      font-size: 15px;
-      opacity: 0.6;
-      margin-bottom: 24px;
-    }
-
-    .account-sub-btn {
+    .plan-btn {
       display: inline-block;
-      padding: 14px 32px;
+      padding: 12px 28px;
       background: var(--accent);
       color: #FFFFFF;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
       transition: background 0.2s;
     }
 
-    .account-sub-btn:hover {
-      background: #3d9488;
+    .plan-btn:hover { background: #3d9488; }
+
+    /* ========== PRODUCT FEATURE CARDS ========== */
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
     }
 
-    /* DANGER ZONE */
-    .account-danger {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--card-border);
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 20px;
     }
 
-    .account-danger-btn {
+    .feature-icon-chat { background: rgba(76,175,159,0.12); }
+    .feature-icon-events { background: rgba(122,172,184,0.15); }
+    .feature-icon-plan { background: rgba(255,159,138,0.15); }
+    .feature-icon-progress { background: rgba(76,175,159,0.12); }
+
+    .feature-desc {
       font-size: 14px;
+      color: var(--ink-light);
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .feature-cta {
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .feature-cta:hover { gap: 10px; }
+
+    .feature-cta-disabled {
+      color: var(--ink-light);
+      cursor: default;
+    }
+
+    .feature-cta-disabled:hover { gap: 6px; }
+
+    /* ========== LONELINESS SCORE ========== */
+    .score-visual {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .score-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: var(--cream);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .score-label {
+      font-size: 13px;
+      color: var(--ink-light);
+      white-space: nowrap;
+    }
+
+    .score-empty {
+      font-size: 14px;
+      color: var(--ink-light);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    /* ========== DANGER ========== */
+    .acc-danger {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 8px;
+    }
+
+    .acc-danger-btn {
+      font-size: 13px;
       color: #C0392B;
       background: none;
       border: none;
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
-      opacity: 0.6;
+      opacity: 0.5;
       transition: opacity 0.2s;
     }
 
-    .account-danger-btn:hover {
-      opacity: 1;
-    }
+    .acc-danger-btn:hover { opacity: 1; }
 
-    /* LOADING STATE */
+    /* ========== LOADING ========== */
     .account-loading {
-      text-align: center;
-      padding: 120px 24px;
-      font-size: 16px;
-      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      font-size: 15px;
+      color: var(--ink-light);
     }
 
-    @media (max-width: 520px) {
+    .loading-dot {
+      display: inline-block;
+      animation: pulse 1.4s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 80%, 100% { opacity: 0.3; }
+      40% { opacity: 1; }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 700px) {
       .account-nav { padding: 16px 20px; }
-      .account-container { padding: 40px 20px 60px; }
-      .account-title { font-size: 28px; }
-      .account-card { padding: 24px; }
+      .account-header { padding: 32px 20px 0; }
+      .account-grid {
+        grid-template-columns: 1fr;
+        padding: 24px 20px 60px;
+      }
+      .acc-card-full { grid-column: 1; }
+      .account-header-text h1 { font-size: 26px; }
+      .account-avatar { width: 52px; height: 52px; }
+      .account-avatar-initial { font-size: 20px; }
+      .acc-danger { justify-content: flex-start; }
     }
   </style>
 </head>
@@ -221,52 +400,136 @@
   <!-- NAV -->
   <nav class="account-nav">
     <a href="/" class="account-nav-logo">Stop Being Alone</a>
-    <div class="account-nav-actions">
+    <div class="account-nav-right">
       <a href="/" class="account-nav-link">Home</a>
+      <a href="/blog" class="account-nav-link">Blog</a>
       <button class="account-logout-btn" onclick="signOut()">Log out</button>
     </div>
   </nav>
 
   <!-- LOADING -->
-  <div id="account-loading" class="account-loading">Loading your account...</div>
+  <div id="account-loading" class="account-loading">
+    <span>Loading<span class="loading-dot"> .</span><span class="loading-dot"> .</span><span class="loading-dot"> .</span></span>
+  </div>
 
-  <!-- CONTENT (hidden until loaded) -->
-  <div id="account-content" class="account-container" style="display:none;">
-    
-    <h1 class="account-title" id="account-greeting">Your account</h1>
-    <p class="account-subtitle" id="account-email-display"></p>
+  <!-- CONTENT -->
+  <div id="account-content" style="display:none;">
 
-    <!-- PROFILE -->
-    <div class="account-card">
-      <h2 class="account-card-title">Profile</h2>
-      <div class="account-field">
-        <span class="account-field-label">Email</span>
-        <span class="account-field-value" id="profile-email">--</span>
+    <!-- HEADER -->
+    <div class="account-header">
+      <div class="account-avatar" id="account-avatar">
+        <span class="account-avatar-initial" id="account-initial">?</span>
       </div>
-      <div class="account-field">
-        <span class="account-field-label">Name</span>
-        <span class="account-field-value" id="profile-name">--</span>
-      </div>
-      <div class="account-field">
-        <span class="account-field-label">Provider</span>
-        <span class="account-field-value" id="profile-provider">--</span>
-      </div>
-      <div class="account-field">
-        <span class="account-field-label">Member since</span>
-        <span class="account-field-value" id="profile-since">--</span>
+      <div class="account-header-text">
+        <h1 id="account-greeting">Your account</h1>
+        <p id="account-meta"></p>
       </div>
     </div>
 
-    <!-- SUBSCRIPTION -->
-    <div class="account-sub-card">
-      <h2 class="account-sub-title">Your plan</h2>
-      <p class="account-sub-text">You don't have an active subscription yet. Start your free trial to access all features.</p>
-      <a href="/#pricing" class="account-sub-btn">View plans</a>
-    </div>
+    <!-- GRID -->
+    <div class="account-grid">
 
-    <!-- DANGER ZONE -->
-    <div class="account-danger">
-      <button class="account-danger-btn" onclick="handleDeleteAccount()">Delete my account</button>
+      <!-- PROFILE -->
+      <div class="acc-card">
+        <div class="acc-card-header">
+          <h2 class="acc-card-title">Profile</h2>
+        </div>
+        <div class="acc-field">
+          <span class="acc-field-label">Email</span>
+          <span class="acc-field-value" id="p-email">--</span>
+        </div>
+        <div class="acc-field">
+          <span class="acc-field-label">Name</span>
+          <span class="acc-field-value" id="p-name">--</span>
+        </div>
+        <div class="acc-field">
+          <span class="acc-field-label">Provider</span>
+          <span class="acc-field-value" id="p-provider">--</span>
+        </div>
+        <div class="acc-field">
+          <span class="acc-field-label">Member since</span>
+          <span class="acc-field-value" id="p-since">--</span>
+        </div>
+      </div>
+
+      <!-- PLAN -->
+      <div class="acc-card">
+        <div class="acc-card-header">
+          <h2 class="acc-card-title">Your plan</h2>
+          <span class="acc-card-badge badge-inactive" id="plan-badge">No plan</span>
+        </div>
+        <div class="plan-status">
+          <p>You don't have an active subscription yet. Start your free trial to unlock all features.</p>
+          <a href="/#pricing" class="plan-btn">View plans</a>
+        </div>
+      </div>
+
+      <!-- LONELINESS SCORE -->
+      <div class="acc-card acc-card-full">
+        <div class="acc-card-header">
+          <h2 class="acc-card-title">Your loneliness score</h2>
+          <span class="acc-card-badge badge-soon">Coming soon</span>
+        </div>
+        <p class="score-empty">Complete your first weekly check-in to see your score and track your progress over time.</p>
+        <div class="score-visual" style="margin-top:16px;">
+          <div class="score-bar-bg"><div class="score-bar-fill" id="score-fill"></div></div>
+          <span class="score-label" id="score-label">-- / 100</span>
+        </div>
+      </div>
+
+      <!-- FEATURE: AI CHAT -->
+      <div class="acc-card feature-card">
+        <div>
+          <div class="feature-icon feature-icon-chat">
+            <svg width="20" height="20" fill="none" stroke="#4CAF9F" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h2 class="acc-card-title">AI Companion</h2>
+          <p class="feature-desc">A judgment-free space to talk through what you're feeling. Available anytime.</p>
+        </div>
+        <a href="#" class="feature-cta feature-cta-disabled">Coming soon <span>&#8594;</span></a>
+      </div>
+
+      <!-- FEATURE: EVENTS -->
+      <div class="acc-card feature-card">
+        <div>
+          <div class="feature-icon feature-icon-events">
+            <svg width="20" height="20" fill="none" stroke="#7AACB8" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h2 class="acc-card-title">Events near you</h2>
+          <p class="feature-desc">Curated local events matched to your interests. Updated weekly for your city.</p>
+        </div>
+        <a href="#" class="feature-cta feature-cta-disabled">Coming soon <span>&#8594;</span></a>
+      </div>
+
+      <!-- FEATURE: WEEKLY PLAN -->
+      <div class="acc-card feature-card">
+        <div>
+          <div class="feature-icon feature-icon-plan">
+            <svg width="20" height="20" fill="none" stroke="#FF9F8A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <h2 class="acc-card-title">Weekly action plan</h2>
+          <p class="feature-desc">Personalized weekly missions to help you build meaningful connections step by step.</p>
+        </div>
+        <a href="#" class="feature-cta feature-cta-disabled">Coming soon <span>&#8594;</span></a>
+      </div>
+
+      <!-- FEATURE: PROGRESS -->
+      <div class="acc-card feature-card">
+        <div>
+          <div class="feature-icon feature-icon-progress">
+            <svg width="20" height="20" fill="none" stroke="#4CAF9F" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h2 class="acc-card-title">Progress tracking</h2>
+          <p class="feature-desc">Monthly reports on your journey. See how far you've come and what's working.</p>
+        </div>
+        <a href="#" class="feature-cta feature-cta-disabled">Coming soon <span>&#8594;</span></a>
+      </div>
+
+      <!-- DANGER -->
+      <div class="acc-danger">
+        <button class="acc-danger-btn" onclick="handleDeleteAccount()">Delete my account</button>
+      </div>
+
     </div>
   </div>
 
@@ -278,7 +541,7 @@
       const sb = window.sbaSupabase;
       if (!sb) { window.location.href = '/?login=true'; return; }
       const { data: { session } } = await sb.auth.getSession();
-      
+
       if (!session) {
         window.location.href = '/?login=true';
         return;
@@ -288,26 +551,38 @@
       const loading = document.getElementById('account-loading');
       const content = document.getElementById('account-content');
 
-      // Populate fields
-      const name = user.user_metadata?.full_name || user.user_metadata?.name || '--';
+      const name = user.user_metadata?.full_name || user.user_metadata?.name || null;
       const email = user.email || '--';
       const provider = user.app_metadata?.provider || 'email';
       const since = new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const firstName = name ? name.split(' ')[0] : email.split('@')[0];
+      const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null;
 
-      document.getElementById('account-greeting').textContent = name !== '--' ? `Welcome, ${name.split(' ')[0]}.` : 'Your account';
-      document.getElementById('account-email-display').textContent = email;
-      document.getElementById('profile-email').textContent = email;
-      document.getElementById('profile-name').textContent = name;
-      document.getElementById('profile-provider').textContent = provider.charAt(0).toUpperCase() + provider.slice(1);
-      document.getElementById('profile-since').textContent = since;
+      // Header
+      document.getElementById('account-greeting').textContent = 'Welcome back, ' + firstName + '.';
+      document.getElementById('account-meta').textContent = email + '  \u00B7  Member since ' + since;
+
+      // Avatar
+      const avatarEl = document.getElementById('account-avatar');
+      if (avatarUrl) {
+        avatarEl.innerHTML = '<img src="' + avatarUrl + '" alt="' + firstName + '">';
+      } else {
+        document.getElementById('account-initial').textContent = firstName.charAt(0).toUpperCase();
+      }
+
+      // Profile fields
+      document.getElementById('p-email').textContent = email;
+      document.getElementById('p-name').textContent = name || '--';
+      document.getElementById('p-provider').textContent = provider.charAt(0).toUpperCase() + provider.slice(1);
+      document.getElementById('p-since').textContent = since;
 
       loading.style.display = 'none';
       content.style.display = 'block';
     }
 
     async function handleDeleteAccount() {
-      if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-        if (confirm('This will permanently delete your account and all associated data. Continue?')) {
+      if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
+        if (confirm('This will permanently delete your account and all data. Continue?')) {
           await signOut();
         }
       }
