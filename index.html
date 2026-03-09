@@ -1901,6 +1901,166 @@ button, input, textarea, select {
 .pricing-fine{text-align:center;font-size:12px;color:var(--ink-muted);font-weight:300;margin-top:12px}
 .pricing-save{text-align:center;font-size:12px;font-weight:600;color:var(--accent);margin-top:10px}
 @media(max-width:800px){.pricing-cards{grid-template-columns:1fr;border-radius:20px}.pricing-card{border-right:none;border-bottom:1px solid var(--card-border);padding:36px 28px}.pricing-card:last-child{border-bottom:none}.pricing-card-price{font-size:40px}}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#F5F0E9;--ink:#3A3A3A;--ink-light:#5A5A5A;--ink-muted:#9A9590;--accent:#4CAF9F;--card-bg:#FFFFFF;--card-border:#E5DDD4;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif;--section-py:108px}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+.section-label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:500;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:center}
+.section-label::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+.solution{padding:var(--section-py) 0}
+
+.solution-header{text-align:center;margin-bottom:72px}
+.solution-header h2{
+  font-family:var(--serif);font-size:clamp(36px,4vw,52px);
+  font-weight:400;line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px;
+}
+.solution-header p{
+  font-size:17px;color:var(--ink-light);font-weight:300;line-height:1.7;
+  max-width:520px;margin:0 auto;
+}
+
+.solution-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:24px;max-width:1060px;margin:0 auto;
+  align-items:stretch;
+}
+
+.solution-card{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+}
+
+/* Step label above card */
+.solution-card-step{
+  font-family:var(--serif);font-size:18px;font-style:italic;
+  color:var(--accent);margin-bottom:16px;font-weight:600;
+}
+
+/* Visual card */
+.solution-card-visual{
+  width:100%;background:var(--card-bg);
+  border:1px solid var(--card-border);border-radius:20px;
+  padding:32px 28px;
+  display:flex;flex-direction:column;
+  box-shadow:0 4px 24px rgba(0,0,0,0.03);
+  position:relative;overflow:hidden;
+  flex:1;
+}
+.solution-card-visual-mock{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:20px 0 0;
+  border-top:1px solid var(--card-border);
+  margin-top:4px;
+}
+
+/* Text inside card */
+.solution-card-title{
+  font-family:var(--serif);font-size:22px;font-weight:400;
+  line-height:1.25;margin-bottom:10px;
+}
+.solution-card-desc{
+  font-size:14.5px;color:var(--ink-light);font-weight:300;line-height:1.65;
+  margin-bottom:20px;
+}
+
+/* ===== VISUAL MOCKS ===== */
+
+/* Step 1 - AI Chat mock */
+.sv-chat{width:100%;max-width:260px}
+.sv-chat-bubble{
+  padding:12px 16px;border-radius:16px;font-size:13px;
+  line-height:1.5;margin-bottom:10px;max-width:85%;
+}
+.sv-chat-bubble.ai{
+  background:rgba(76,175,159,.1);color:var(--ink);
+  border-bottom-left-radius:4px;
+  margin-right:auto;
+}
+.sv-chat-bubble.user{
+  background:var(--ink);color:var(--cream);
+  border-bottom-right-radius:4px;
+  margin-left:auto;
+}
+.sv-chat-typing{
+  display:flex;gap:4px;padding:12px 16px;
+  border-radius:16px;border-bottom-left-radius:4px;
+  background:rgba(76,175,159,.1);width:fit-content;
+}
+.sv-chat-typing span{
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:typing 1.4s ease infinite;
+}
+.sv-chat-typing span:nth-child(2){animation-delay:.2s}
+.sv-chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+/* Step 2 - Events list */
+.sv-events{width:100%;max-width:260px}
+.sv-event{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--card-border);
+}
+.sv-event:last-child{border-bottom:none}
+.sv-event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sv-event-dot.match{background:var(--accent);box-shadow:0 0 6px rgba(76,175,159,.25)}
+.sv-event-dot.no{background:var(--card-border)}
+.sv-event-info{flex:1;text-align:left}
+.sv-event-name{font-size:13px;color:var(--ink);font-weight:400}
+.sv-event-location{font-size:11px;color:var(--ink-muted);font-weight:300;margin-top:1px}
+.sv-event-tag{font-size:10px;color:var(--accent);font-weight:600;flex-shrink:0}
+.sv-event.dimmed{opacity:.35}
+
+/* Step 3 - Week plan */
+.sv-week{width:100%;max-width:260px}
+.sv-week-label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-muted);margin-bottom:16px;font-weight:500;text-align:left;
+}
+.sv-week-row{
+  display:flex;align-items:center;gap:12px;
+  padding:15px 0;border-bottom:1px solid var(--card-border);
+}
+.sv-week-row:last-child{border-bottom:none}
+.sv-week-day{
+  font-size:11px;color:var(--ink-muted);width:28px;flex-shrink:0;
+  font-weight:500;text-transform:uppercase;letter-spacing:.04em;
+}
+.sv-week-action{font-size:13px;color:var(--ink);font-weight:300;flex:1;text-align:left}
+.sv-week-check{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.sv-week-check.done{background:rgba(76,175,159,.12)}
+.sv-week-check.done::after{
+  content:'';width:10px;height:8px;
+  background:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%234CAF9F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.sv-week-check.pending{border:1.5px solid var(--card-border)}
+
+.solution-cta{
+  margin-top:72px;text-align:center;
+}
+.solution-cta a{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--cream);
+  padding:16px 36px;border-radius:100px;
+  font-size:16px;font-weight:500;text-decoration:none;
+  transition:all .3s ease;
+}
+.solution-cta a:hover{
+  background:#2A2A26;box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  transform:translateY(-2px);
+}
+.solution-cta p{
+  font-size:13px;color:var(--ink-muted);font-weight:300;margin-top:12px;
+}
+
+@media(max-width:800px){
+  .solution-grid{grid-template-columns:1fr;max-width:380px;gap:48px}
+}
+
 </style>
 <!-- Noscript: make all content visible for crawlers and non-JS browsers -->
 <noscript>
