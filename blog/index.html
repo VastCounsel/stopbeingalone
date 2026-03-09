@@ -36,10 +36,10 @@ a{color:inherit;text-decoration:none}
 .nav-center a:hover{color:var(--ink)}.nav-center a:hover::after{width:100%}
 .nav-center a.active{color:var(--ink)}.nav-center a.active::after{width:100%}
 .nav-right{display:flex;justify-content:flex-end}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);padding:10px 22px;border-radius:100px;font-size:13.5px;font-weight:500;transition:all 0.3s ease}
-.nav-cta:hover{background:#2A2A26;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
-.nav-cta .cta-arrow{display:inline-block;transition:transform 0.3s ease;font-size:15px}
-.nav-cta:hover .cta-arrow{transform:translateX(3px)}
+.nav-auth-buttons{display:flex;align-items:center;gap:8px}.nav-btn-login{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);background:none;border:none;padding:9px 16px;cursor:pointer;transition:opacity 0.2s;text-decoration:none;opacity:0.7}.nav-btn-login:hover{opacity:1}.nav-btn-signup{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:8px;padding:10px 20px;cursor:pointer;transition:background 0.2s;text-decoration:none}.nav-btn-signup:hover{background:#3d9488}
+
+
+
 .nav-hamburger{display:none;width:32px;height:32px;align-items:center;justify-content:center;cursor:pointer;flex-direction:column;gap:5px}
 .nav-hamburger span{display:block;width:18px;height:1.5px;background:var(--ink);transition:all 0.3s}
 
@@ -154,7 +154,7 @@ a{color:inherit;text-decoration:none}
 <nav class="nav"><div class="nav-inner">
   <a href="/" class="nav-logo">Stop Being Alone</a>
   <div class="nav-center"><a href="/#epidemic">The data</a><a href="/#why-now">Why now</a><a href="/#approach">Our approach</a><a href="/blog" class="active">Blog</a></div>
-  <div class="nav-right"><a href="https://buy.stripe.com/3cI5kwf63cWA9qI4nK6Na02" class="nav-cta">Start free trial <span class="cta-arrow">→</span></a></div>
+  <div class="nav-right"><div id="nav-cta-auth" class="nav-auth-buttons"><a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a><a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a></div></div>
   <div class="nav-hamburger" onclick="document.getElementById('mobileDrawer').classList.add('open')"><span></span><span></span></div>
 </div></nav><div id="mobileDrawer" class="mobile-drawer"><div class="mobile-drawer-overlay" onclick="document.getElementById('mobileDrawer').classList.remove('open')"></div><div class="mobile-drawer-panel"><button class="mobile-drawer-close" onclick="document.getElementById('mobileDrawer').classList.remove('open')">&times;</button><a href="/">Home</a><a href="/blog">Blog</a><a href="/share" style="display:inline-flex;align-items:center;gap:8px;background:#3A3A3A;color:#F5F0E9;padding:14px 28px;border-radius:100px;font-size:16px;font-weight:500;margin-top:12px;width:fit-content">Share your experience →</a></div></div>
 
