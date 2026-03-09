@@ -372,7 +372,11 @@ window.handleGoogleAuth = handleGoogleAuth;
 window.handleEmailCapture = handleEmailCapture;
 window.signOut = signOut;
 
-document.addEventListener('DOMContentLoaded', initAuth);
+document.addEventListener('DOMContentLoaded', function() {
+  initAuth();
+  // Init scroll banner after a delay to let auth resolve
+  setTimeout(function() { initScrollBanner(); }, 2000);
+});
 
 // ============================================================
 // SCROLL CAPTURE BANNER
@@ -478,11 +482,7 @@ window.handleBannerSubmit = handleBannerSubmit;
 window.dismissBanner = dismissBanner;
 
 // Init banner after auth check
-var _origInitAuth = initAuth;
-initAuth = async function() {
-  await _origInitAuth();
-  setTimeout(initScrollBanner, 500);
-};
+
 
 
 }
