@@ -275,7 +275,9 @@
   <script src="/supabase-auth.js"></script>
   <script>
     async function loadAccount() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const sb = window.sbaSupabase;
+      if (!sb) { window.location.href = '/?login=true'; return; }
+      const { data: { session } } = await sb.auth.getSession();
       
       if (!session) {
         window.location.href = '/?login=true';
