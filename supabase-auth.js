@@ -130,14 +130,16 @@ function updateUIForGuest() {
   const navCta = document.getElementById('nav-cta-auth');
   if (navCta) {
     navCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-cta-button">Start free trial</a>
+      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a>
+      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a>
     `;
   }
 
   const mobileCta = document.getElementById('mobile-cta-auth');
   if (mobileCta) {
     mobileCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="mobile-cta-button">Start free trial</a>
+      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a>
+      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a>
     `;
   }
 }
