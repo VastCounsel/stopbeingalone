@@ -423,7 +423,7 @@ function showBanner() {
   style.textContent = '#scroll-capture-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120%);z-index:9000;animation:scbSlideUp .5s cubic-bezier(0.16,1,0.3,1) forwards .1s;width:92%;max-width:720px;}' +
     '@keyframes scbSlideUp{to{transform:translateX(-50%) translateY(0)}}' +
     '@keyframes scbSlideDown{to{transform:translateX(-50%) translateY(120%)}}' +
-    '.scb-inner{padding:20px 28px;display:flex;align-items:center;gap:20px;background:#FFFFFF;border:1px solid #E5DDD4;border-radius:16px;box-shadow:0 8px 32px rgba(58,58,58,0.12),0 2px 8px rgba(58,58,58,0.06);}' +
+    '.scb-inner{padding:20px 48px 20px 28px;display:flex;align-items:center;gap:20px;background:#FFFFFF;border:1px solid #E5DDD4;border-radius:16px;box-shadow:0 8px 32px rgba(58,58,58,0.12),0 2px 8px rgba(58,58,58,0.06);}' +
     '.scb-text{font-family:DM Sans,sans-serif;font-size:14px;color:#3A3A3A;flex:1;line-height:1.5;}' +
     '.scb-form{display:flex;gap:8px;flex-shrink:0;}' +
     '.scb-input{padding:10px 14px;background:#F5F0E9;border:1px solid transparent;border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;color:#3A3A3A;outline:none;width:200px;transition:border-color .2s;}' +
@@ -431,7 +431,7 @@ function showBanner() {
     '.scb-input:focus{border-color:#4CAF9F;background:#fff;}' +
     '.scb-btn{padding:10px 18px;background:#4CAF9F;color:#fff;border:none;border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}' +
     '.scb-btn:hover{background:#3d9488;}' +
-    '.scb-close{position:absolute;top:50%;right:16px;transform:translateY(-50%);background:none;border:none;font-size:20px;color:#3A3A3A;opacity:.4;cursor:pointer;transition:opacity .2s;line-height:1;}' +
+    '.scb-close{position:absolute;top:50%;right:24px;transform:translateY(-50%);background:none;border:none;font-size:20px;color:#3A3A3A;opacity:.4;cursor:pointer;transition:opacity .2s;line-height:1;}' +
     '.scb-close:hover{opacity:1;}' +
     '.scb-inner{position:relative;}' +
     '.scb-success{font-family:DM Sans,sans-serif;font-size:14px;color:#1E8449;padding:4px 0;}' +
