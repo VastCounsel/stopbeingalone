@@ -313,32 +313,68 @@ button, input, textarea, select {
   display: flex;
   justify-content: flex-end;
 }
-.nav-cta {
-  display: inline-flex;
+.nav-auth-buttons {
+  display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--ink);
-  color: var(--cream);
-  padding: 10px 22px;
-  border-radius: 100px;
-  font-size: 13.5px;
+}
+.nav-btn-login {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: none;
+  padding: 9px 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: opacity 0.2s;
+  text-decoration: none;
+  opacity: 0.7;
+}
+.nav-btn-login:hover { opacity: 1; }
+.nav-btn-signup {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+.nav-btn-signup:hover { background: #3d9488; }
+.nav-account-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-account-link:hover { opacity: 0.8; }
+.nav-account-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.nav-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  position: relative;
 }
-.nav-cta .cta-arrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-  font-size: 15px;
-}
-.nav-cta:hover {
-  background: #2A2A26;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-.nav-cta:hover .cta-arrow {
-  transform: translateX(3px);
+.nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.nav-avatar-initial {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
 }
 /* Mobile hamburger */
 .nav-hamburger {
@@ -2072,7 +2108,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 </noscript>
 <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
-<link rel="icon" href="/public/favicon.ico"><link rel="apple-touch-icon" href="/public/apple-touch-icon.png"><meta name="theme-color" content="#4CAF9F"></head>
+<link rel="icon" href="/public/favicon.ico"><link rel="apple-touch-icon" href="/public/apple-touch-icon.png"><meta name="theme-color" content="#4CAF9F"><link rel="stylesheet" href="/supabase-auth.css"></head>
 <body>
 
 <!-- ============ TICKER ============ -->
@@ -2112,7 +2148,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
       <a href="/blog">Blog</a>
     </div>
     <div class="nav-right">
-      <a href="https://buy.stripe.com/3cI5kwf63cWA9qI4nK6Na02" class="nav-cta">Start free trial <span class="cta-arrow">→</span></a>
+      <div id="nav-cta-auth" class="nav-auth-buttons"><a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a><a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a></div>
     </div>
     <div class="nav-hamburger" onclick="document.getElementById('mobileDrawer').classList.add('open')">
       <span></span><span></span>
@@ -2974,5 +3010,5 @@ function handleJoinSubmit(){
 }
 document.getElementById('join-email').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();handleJoinSubmit();}});
 </script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-auth.js"></script></body>
 </html>
