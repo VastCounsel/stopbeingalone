@@ -372,4 +372,116 @@ window.handleEmailCapture = handleEmailCapture;
 window.signOut = signOut;
 
 document.addEventListener('DOMContentLoaded', initAuth);
+
+// ============================================================
+// SCROLL CAPTURE BANNER
+// ============================================================
+
+function initScrollBanner() {
+  // Don't show if logged in
+  if (currentUser) return;
+  // Don't show if already dismissed this session
+  if (sessionStorage.getItem('sba_banner_dismissed')) return;
+  // Don't show if already subscribed
+  if (sessionStorage.getItem('sba_banner_subscribed')) return;
+  // Don't show on account page
+  if (window.location.pathname.startsWith('/account')) return;
+
+  var triggered = false;
+
+  function onScroll() {
+    if (triggered) return;
+    var scrollPct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+    if (scrollPct > 0.55) {
+      triggered = true;
+      window.removeEventListener('scroll', onScroll);
+      showBanner();
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function showBanner() {
+  var banner = document.createElement('div');
+  banner.id = 'scroll-capture-banner';
+  banner.innerHTML = '<div class="scb-inner">' +
+    '<p class="scb-text">Weekly insights on loneliness research and practical steps that work.</p>' +
+    '<div class="scb-form">' +
+    '<input type="email" id="scb-email" class="scb-input" placeholder="Your email address">' +
+    '<button id="scb-btn" class="scb-btn" onclick="handleBannerSubmit()">Subscribe</button>' +
+    '</div>' +
+    '<button class="scb-close" onclick="dismissBanner()" aria-label="Close">&times;</button>' +
+    '</div>';
+
+  var style = document.createElement('style');
+  style.textContent = '#scroll-capture-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;transform:translateY(100%);animation:scbSlideUp .4s ease forwards .1s;}' +
+    '@keyframes scbSlideUp{to{transform:translateY(0)}}' +
+    '@keyframes scbSlideDown{to{transform:translateY(100%)}}' +
+    '.scb-inner{max-width:800px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:16px;background:#FFFFFF;border-top:1px solid #E5DDD4;box-shadow:0 -4px 24px rgba(58,58,58,0.08);}' +
+    '.scb-text{font-family:DM Sans,sans-serif;font-size:14px;color:#3A3A3A;flex:1;line-height:1.5;}' +
+    '.scb-form{display:flex;gap:8px;flex-shrink:0;}' +
+    '.scb-input{padding:10px 14px;background:#F5F0E9;border:1px solid transparent;border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;color:#3A3A3A;outline:none;width:200px;transition:border-color .2s;}' +
+    '.scb-input::placeholder{color:#3A3A3A;opacity:.4;}' +
+    '.scb-input:focus{border-color:#4CAF9F;background:#fff;}' +
+    '.scb-btn{padding:10px 18px;background:#4CAF9F;color:#fff;border:none;border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}' +
+    '.scb-btn:hover{background:#3d9488;}' +
+    '.scb-close{position:absolute;top:50%;right:16px;transform:translateY(-50%);background:none;border:none;font-size:20px;color:#3A3A3A;opacity:.4;cursor:pointer;transition:opacity .2s;line-height:1;}' +
+    '.scb-close:hover{opacity:1;}' +
+    '.scb-inner{position:relative;}' +
+    '.scb-success{font-family:DM Sans,sans-serif;font-size:14px;color:#1E8449;padding:4px 0;}' +
+    '@media(max-width:600px){.scb-inner{flex-direction:column;align-items:stretch;gap:10px;padding:16px 20px 20px;}.scb-text{font-size:13px;}.scb-form{width:100%;}.scb-input{flex:1;width:auto;}.scb-close{top:12px;right:12px;transform:none;}}';
+
+  document.head.appendChild(style);
+  document.body.appendChild(banner);
+}
+
+function dismissBanner() {
+  var banner = document.getElementById('scroll-capture-banner');
+  if (banner) {
+    banner.style.animation = 'scbSlideDown .3s ease forwards';
+    setTimeout(function() { banner.remove(); }, 300);
+  }
+  sessionStorage.setItem('sba_banner_dismissed', '1');
+}
+
+async function handleBannerSubmit() {
+  var input = document.getElementById('scb-email');
+  var btn = document.getElementById('scb-btn');
+  var email = input.value.trim();
+
+  if (!email || email.indexOf('@') === -1) {
+    input.style.borderColor = '#C0392B';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    await captureEmail(email);
+    var form = document.querySelector('.scb-form');
+    var text = document.querySelector('.scb-text');
+    form.innerHTML = '';
+    text.innerHTML = '<span class="scb-success">You are in. We will be in touch.</span>';
+    sessionStorage.setItem('sba_banner_subscribed', '1');
+    setTimeout(dismissBanner, 2500);
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Subscribe';
+    input.style.borderColor = '#C0392B';
+  }
+}
+
+window.handleBannerSubmit = handleBannerSubmit;
+window.dismissBanner = dismissBanner;
+
+// Init banner after auth check
+var _origInitAuth = initAuth;
+initAuth = async function() {
+  await _origInitAuth();
+  setTimeout(initScrollBanner, 500);
+};
+
+
 }
