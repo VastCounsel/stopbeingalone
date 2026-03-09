@@ -3009,7 +3009,7 @@ function handleJoinSubmit(){
   fetch('https://subscribe-forms.beehiiv.com/4e8d8ebc-df41-4ecf-9e45-c6a69cd03762',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'email='+encodeURIComponent(email)+'&name='+encodeURIComponent(name)}).catch(function(){});
   setTimeout(function(){window.location.href='/share?name='+encodeURIComponent(name);},800);
 }
-document.getElementById('join-email').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();handleJoinSubmit();}});
+var joinEl=document.getElementById('join-email');if(joinEl){joinEl.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();handleJoinSubmit();}});}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-auth.js"></script></body>
 </html>
