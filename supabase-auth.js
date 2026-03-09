@@ -1,6 +1,8 @@
 // Stop Being Alone - Supabase Auth Module
 // Include after supabase-js CDN script
 
+if (window._sbaAuthLoaded) { /* already loaded */ } else {
+window._sbaAuthLoaded = true;
 const SUPABASE_URL = 'https://krytrynpohddtofrvtnm.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyeXRyeW5wb2hkZHRvZnJ2dG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNDMxNzUsImV4cCI6MjA4ODYxOTE3NX0.jja3j_TJJsyTvO5eRjAlMxOUAexgp_ZFxVJFlkQvYFk';
 
@@ -357,4 +359,14 @@ async function handleEmailCapture(e) {
 // INIT ON LOAD
 // ============================================================
 
+// Expose functions globally
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.setAuthMode = setAuthMode;
+window.handleEmailAuth = handleEmailAuth;
+window.handleGoogleAuth = handleGoogleAuth;
+window.handleEmailCapture = handleEmailCapture;
+window.signOut = signOut;
+
 document.addEventListener('DOMContentLoaded', initAuth);
+}
