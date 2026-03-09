@@ -7,6 +7,7 @@ const SUPABASE_URL = 'https://krytrynpohddtofrvtnm.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyeXRyeW5wb2hkZHRvZnJ2dG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNDMxNzUsImV4cCI6MjA4ODYxOTE3NX0.jja3j_TJJsyTvO5eRjAlMxOUAexgp_ZFxVJFlkQvYFk';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.sbaSupabase = supabase;
 
 // ============================================================
 // AUTH STATE
