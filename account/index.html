@@ -183,11 +183,6 @@
       border-radius: 100px;
     }
 
-    .badge-active {
-      background: #E8F8F5;
-      color: #1E8449;
-    }
-
     .badge-inactive {
       background: #FFF0ED;
       color: #C0392B;
@@ -250,162 +245,153 @@
     .plan-btn:hover { background: #3d9488; }
 
     /* ========== PROGRESS DASHBOARD ========== */
-    .progress-grid {
+    .progress-highlights {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      margin-bottom: 28px;
     }
 
-    .progress-stat {
+    .highlight-card {
       background: var(--cream);
       border-radius: 12px;
-      padding: 20px 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      padding: 20px;
     }
 
-    .progress-stat-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-    }
-
-    .stat-icon-streak { background: rgba(255,159,138,0.2); }
-    .stat-icon-connections { background: rgba(122,172,184,0.2); }
-    .stat-icon-missions { background: rgba(76,175,159,0.15); }
-    .stat-icon-mood { background: rgba(255,199,0,0.15); }
-
-    .progress-stat-value {
+    .highlight-value {
       font-family: 'Instrument Serif', serif;
-      font-size: 32px;
-      font-weight: 400;
+      font-size: 36px;
       line-height: 1;
       margin-bottom: 4px;
+      color: var(--ink);
     }
 
-    .progress-stat-label {
-      font-size: 12px;
+    .highlight-label {
+      font-size: 13px;
       color: var(--ink-light);
       line-height: 1.4;
     }
 
-    /* Weekly mood chart */
-    .mood-chart {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #F0EBE3;
+    .highlight-sub {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 6px;
     }
 
-    .mood-chart-title {
+    /* GRAPH */
+    .graph-section {
+      margin-bottom: 24px;
+    }
+
+    .graph-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .graph-title {
       font-size: 13px;
       font-weight: 600;
       color: var(--ink-light);
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 16px;
     }
 
-    .mood-week {
+    .graph-legend {
       display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      height: 80px;
+      gap: 16px;
     }
 
-    .mood-day {
-      flex: 1;
+    .graph-legend-item {
       display: flex;
-      flex-direction: column;
       align-items: center;
       gap: 6px;
+      font-size: 12px;
+      color: var(--ink-light);
     }
 
-    .mood-bar-wrap {
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .graph-canvas {
+      position: relative;
       width: 100%;
-      height: 60px;
+      height: 200px;
+    }
+
+    .graph-canvas svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .graph-grid-line {
+      stroke: #F0EBE3;
+      stroke-width: 1;
+    }
+
+    .graph-line {
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .graph-area {
+      opacity: 0.08;
+    }
+
+    .graph-dot {
+      transition: r 0.2s;
+    }
+
+    .graph-dot:hover {
+      r: 5;
+    }
+
+    .graph-labels {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding: 0 4px;
     }
 
-    .mood-bar {
-      width: 100%;
-      max-width: 32px;
-      border-radius: 6px 6px 2px 2px;
-      transition: height 0.6s ease;
-    }
-
-    .mood-day-label {
+    .graph-label {
       font-size: 11px;
       color: var(--ink-light);
     }
 
-    /* Streak flame animation */
-    .streak-flame {
-      display: inline-block;
-      animation: flicker 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes flicker {
-      0% { transform: scale(1) rotate(-2deg); }
-      50% { transform: scale(1.1) rotate(1deg); }
-      100% { transform: scale(1) rotate(-1deg); }
-    }
-
-    /* Progress ring */
-    .progress-ring-wrap {
-      position: relative;
-      width: 52px;
-      height: 52px;
-      margin: 0 auto 8px;
-    }
-
-    .progress-ring {
-      transform: rotate(-90deg);
-    }
-
-    .progress-ring-bg {
-      fill: none;
-      stroke: var(--card-border);
-      stroke-width: 4;
-    }
-
-    .progress-ring-fill {
-      fill: none;
-      stroke: var(--accent);
-      stroke-width: 4;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 1s ease;
-    }
-
-    .progress-ring-text {
+    .graph-y-labels {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: -4px;
+      height: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Instrument Serif', serif;
-      font-size: 16px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2px 0;
     }
 
-    /* Motivational message */
-    .progress-message {
-      margin-top: 20px;
+    .graph-y-label {
+      font-size: 10px;
+      color: var(--ink-light);
+      text-align: right;
+      width: 20px;
+    }
+
+    /* POSITIVE MESSAGE */
+    .progress-insight {
       padding: 16px 20px;
-      background: linear-gradient(135deg, rgba(76,175,159,0.08), rgba(122,172,184,0.08));
+      background: linear-gradient(135deg, rgba(76,175,159,0.06), rgba(122,172,184,0.06));
       border-radius: 10px;
+      border-left: 3px solid var(--accent);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.65;
       color: var(--ink);
-    }
-
-    .progress-message strong {
-      color: var(--accent);
     }
 
     /* ========== FEATURE CARDS ========== */
@@ -424,7 +410,6 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 16px;
-      font-size: 20px;
     }
 
     .feature-icon-chat { background: rgba(76,175,159,0.12); }
@@ -514,8 +499,8 @@
       .account-avatar { width: 52px; height: 52px; }
       .account-avatar-initial { font-size: 20px; }
       .acc-danger { justify-content: flex-start; }
-      .progress-grid { grid-template-columns: repeat(2, 1fr); }
-      .mood-week { gap: 4px; }
+      .progress-highlights { grid-template-columns: 1fr; }
+      .graph-canvas { height: 160px; }
     }
   </style>
 </head>
@@ -594,59 +579,45 @@
           <h2 class="acc-card-title">Your progress</h2>
         </div>
 
-        <!-- 4 Stats -->
-        <div class="progress-grid">
-          <!-- Streak -->
-          <div class="progress-stat">
-            <div class="progress-stat-icon stat-icon-streak">
-              <span class="streak-flame" style="font-size:18px;">&#x1F525;</span>
-            </div>
-            <div class="progress-stat-value" id="stat-streak">3</div>
-            <div class="progress-stat-label">day streak</div>
+        <!-- Highlight numbers -->
+        <div class="progress-highlights">
+          <div class="highlight-card">
+            <div class="highlight-value" id="h-streak">3</div>
+            <div class="highlight-label">day streak</div>
+            <div class="highlight-sub" id="h-streak-sub">Your longest: 5 days</div>
           </div>
-
-          <!-- Connections -->
-          <div class="progress-stat">
-            <div class="progress-stat-icon stat-icon-connections">
-              <svg width="18" height="18" fill="none" stroke="#7AACB8" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-            </div>
-            <div class="progress-stat-value" id="stat-connections">5</div>
-            <div class="progress-stat-label">connections this week</div>
+          <div class="highlight-card">
+            <div class="highlight-value" id="h-connections">12</div>
+            <div class="highlight-label">connections this month</div>
+            <div class="highlight-sub" id="h-connections-sub">+4 from last month</div>
           </div>
-
-          <!-- Missions -->
-          <div class="progress-stat">
-            <div class="progress-ring-wrap">
-              <svg class="progress-ring" width="52" height="52" viewBox="0 0 52 52">
-                <circle class="progress-ring-bg" cx="26" cy="26" r="22"/>
-                <circle class="progress-ring-fill" id="missions-ring" cx="26" cy="26" r="22" stroke-dasharray="138.23" stroke-dashoffset="55.29"/>
-              </svg>
-              <div class="progress-ring-text" id="missions-text">3/5</div>
-            </div>
-            <div class="progress-stat-label">missions completed</div>
-          </div>
-
-          <!-- Mood -->
-          <div class="progress-stat">
-            <div class="progress-stat-icon stat-icon-mood">
-              <span style="font-size:18px;">&#x2600;&#xFE0F;</span>
-            </div>
-            <div class="progress-stat-value" id="stat-mood">Good</div>
-            <div class="progress-stat-label">current mood</div>
+          <div class="highlight-card">
+            <div class="highlight-value" id="h-missions">8</div>
+            <div class="highlight-label">missions completed</div>
+            <div class="highlight-sub" id="h-missions-sub">3 this week</div>
           </div>
         </div>
 
-        <!-- Mood chart -->
-        <div class="mood-chart">
-          <div class="mood-chart-title">This week's mood</div>
-          <div class="mood-week" id="mood-week">
-            <!-- Filled by JS -->
+        <!-- Graph: Wellbeing over time -->
+        <div class="graph-section">
+          <div class="graph-header">
+            <span class="graph-title">Wellbeing over time</span>
+            <div class="graph-legend">
+              <div class="graph-legend-item"><div class="legend-dot" style="background:#4CAF9F;"></div> Wellbeing</div>
+              <div class="graph-legend-item"><div class="legend-dot" style="background:#7AACB8;"></div> Connections</div>
+            </div>
+          </div>
+          <div class="graph-canvas" id="graph-canvas">
+            <!-- SVG rendered by JS -->
+          </div>
+          <div class="graph-labels" id="graph-labels">
+            <!-- Labels rendered by JS -->
           </div>
         </div>
 
-        <!-- Motivational message -->
-        <div class="progress-message" id="progress-msg">
-          <strong>3-day streak!</strong> You're building momentum. Keep going -- consistency is what turns small steps into lasting change.
+        <!-- Positive insight -->
+        <div class="progress-insight" id="progress-insight">
+          Your wellbeing has improved steadily over the past 4 weeks. You made 12 connections this month, up from 8 last month. Small, consistent effort is clearly working for you.
         </div>
       </div>
 
@@ -711,95 +682,161 @@
   <script src="/supabase-auth.js"></script>
   <script>
     // ============================================================
-    // MOCK DATA (replace with real Supabase data later)
+    // MOCK DATA (replace with real Supabase queries later)
     // ============================================================
-    const mockData = {
+    var mockData = {
       streak: 3,
-      connections: 5,
-      missionsCompleted: 3,
-      missionsTotal: 5,
-      currentMood: 'Good',
-      weekMoods: [
-        { day: 'Mon', score: 6, color: '#7AACB8' },
-        { day: 'Tue', score: 4, color: '#E5DDD4' },
-        { day: 'Wed', score: 7, color: '#4CAF9F' },
-        { day: 'Thu', score: 5, color: '#7AACB8' },
-        { day: 'Fri', score: 8, color: '#4CAF9F' },
-        { day: 'Sat', score: 0, color: '#E5DDD4' },
-        { day: 'Sun', score: 0, color: '#E5DDD4' }
-      ]
+      longestStreak: 5,
+      connectionsThisMonth: 12,
+      connectionsLastMonth: 8,
+      missionsTotal: 8,
+      missionsThisWeek: 3,
+      // 8 weeks of data, upward trend
+      wellbeing: [4.2, 4.5, 4.1, 5.0, 5.3, 5.8, 6.2, 6.5],
+      connections: [2, 3, 2, 4, 3, 5, 4, 5],
+      weekLabels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8']
     };
 
-    function renderProgress() {
-      // Streak
-      document.getElementById('stat-streak').textContent = mockData.streak;
+    function renderHighlights() {
+      document.getElementById('h-streak').textContent = mockData.streak;
+      document.getElementById('h-streak-sub').textContent = 'Your longest: ' + mockData.longestStreak + ' days';
+      document.getElementById('h-connections').textContent = mockData.connectionsThisMonth;
+      var diff = mockData.connectionsThisMonth - mockData.connectionsLastMonth;
+      document.getElementById('h-connections-sub').textContent = '+' + diff + ' from last month';
+      document.getElementById('h-missions').textContent = mockData.missionsTotal;
+      document.getElementById('h-missions-sub').textContent = mockData.missionsThisWeek + ' this week';
+    }
 
-      // Connections
-      document.getElementById('stat-connections').textContent = mockData.connections;
+    function renderGraph() {
+      var canvas = document.getElementById('graph-canvas');
+      var labelsEl = document.getElementById('graph-labels');
+      var w = canvas.offsetWidth;
+      var h = canvas.offsetHeight;
+      var padL = 28;
+      var padR = 12;
+      var padT = 12;
+      var padB = 8;
+      var graphW = w - padL - padR;
+      var graphH = h - padT - padB;
 
-      // Missions ring
-      const circumference = 2 * Math.PI * 22; // r=22
-      const progress = mockData.missionsCompleted / mockData.missionsTotal;
-      const offset = circumference * (1 - progress);
-      document.getElementById('missions-ring').style.strokeDashoffset = offset;
-      document.getElementById('missions-text').textContent = mockData.missionsCompleted + '/' + mockData.missionsTotal;
+      var wellbeing = mockData.wellbeing;
+      var connections = mockData.connections;
+      var n = wellbeing.length;
 
-      // Mood
-      document.getElementById('stat-mood').textContent = mockData.currentMood;
+      // Scales
+      var maxW = 10;
+      var maxC = Math.max.apply(null, connections) + 2;
 
-      // Mood chart
-      const weekEl = document.getElementById('mood-week');
-      weekEl.innerHTML = '';
-      mockData.weekMoods.forEach(function(d) {
-        const height = d.score > 0 ? Math.max(d.score * 6, 8) : 4;
-        const opacity = d.score > 0 ? 1 : 0.3;
-        const div = document.createElement('div');
-        div.className = 'mood-day';
-        div.innerHTML = '<div class="mood-bar-wrap"><div class="mood-bar" style="height:' + height + 'px;background:' + d.color + ';opacity:' + opacity + ';"></div></div><span class="mood-day-label">' + d.day + '</span>';
-        weekEl.appendChild(div);
+      function xPos(i) { return padL + (i / (n - 1)) * graphW; }
+      function yW(v) { return padT + graphH - (v / maxW) * graphH; }
+      function yC(v) { return padT + graphH - (v / maxC) * graphH; }
+
+      // Build paths
+      var wPoints = wellbeing.map(function(v, i) { return xPos(i) + ',' + yW(v); });
+      var cPoints = connections.map(function(v, i) { return xPos(i) + ',' + yC(v); });
+
+      var wLine = 'M' + wPoints.join(' L');
+      var cLine = 'M' + cPoints.join(' L');
+
+      // Area under wellbeing
+      var wArea = wLine + ' L' + xPos(n-1) + ',' + (padT + graphH) + ' L' + xPos(0) + ',' + (padT + graphH) + ' Z';
+
+      // Grid lines
+      var gridLines = '';
+      for (var g = 0; g <= 4; g++) {
+        var gy = padT + (graphH / 4) * g;
+        gridLines += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (w - padR) + '" y2="' + gy + '" class="graph-grid-line"/>';
+      }
+
+      // Y labels
+      var yLabels = '';
+      var yVals = [10, 7.5, 5, 2.5, 0];
+      for (var y = 0; y <= 4; y++) {
+        var yy = padT + (graphH / 4) * y;
+        yLabels += '<text x="' + (padL - 6) + '" y="' + (yy + 3) + '" text-anchor="end" fill="rgba(58,58,58,0.35)" font-size="10" font-family="DM Sans,sans-serif">' + yVals[y] + '</text>';
+      }
+
+      // Dots
+      var wDots = wellbeing.map(function(v, i) {
+        return '<circle cx="' + xPos(i) + '" cy="' + yW(v) + '" r="3.5" fill="#4CAF9F" class="graph-dot"/>';
+      }).join('');
+
+      var cDots = connections.map(function(v, i) {
+        return '<circle cx="' + xPos(i) + '" cy="' + yC(v) + '" r="3" fill="#7AACB8" class="graph-dot"/>';
+      }).join('');
+
+      canvas.innerHTML = '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' +
+        gridLines +
+        yLabels +
+        '<path d="' + wArea + '" fill="#4CAF9F" class="graph-area"/>' +
+        '<path d="' + wLine + '" stroke="#4CAF9F" class="graph-line"/>' +
+        '<path d="' + cLine + '" stroke="#7AACB8" class="graph-line" stroke-dasharray="4,4"/>' +
+        wDots +
+        cDots +
+        '</svg>';
+
+      // X labels
+      labelsEl.innerHTML = '';
+      mockData.weekLabels.forEach(function(label) {
+        var span = document.createElement('span');
+        span.className = 'graph-label';
+        span.textContent = label;
+        labelsEl.appendChild(span);
       });
+    }
 
-      // Motivational message
-      const msgs = [
-        { min: 7, text: '<strong>Incredible week!</strong> You\'re showing real commitment. The connections you\'re building will compound over time.' },
-        { min: 3, text: '<strong>' + mockData.streak + '-day streak!</strong> You\'re building momentum. Keep going -- consistency is what turns small steps into lasting change.' },
-        { min: 1, text: '<strong>You showed up.</strong> That\'s the hardest part. Every small step counts more than you think.' },
-        { min: 0, text: '<strong>Ready when you are.</strong> Start with one small action today. Your future self will thank you.' }
-      ];
-      const msg = msgs.find(function(m) { return mockData.streak >= m.min; });
-      document.getElementById('progress-msg').innerHTML = msg.text;
+    function renderInsight() {
+      var w = mockData.wellbeing;
+      var first = w[0];
+      var last = w[w.length - 1];
+      var trend = last - first;
+      var connDiff = mockData.connectionsThisMonth - mockData.connectionsLastMonth;
+
+      var msg = '';
+      if (trend > 0 && connDiff > 0) {
+        msg = 'Your wellbeing has improved steadily over the past ' + w.length + ' weeks. You made ' + mockData.connectionsThisMonth + ' connections this month, up from ' + mockData.connectionsLastMonth + ' last month. Small, consistent effort is clearly working for you.';
+      } else if (trend > 0) {
+        msg = 'Your wellbeing score has been climbing. You are ' + (((last - first) / first) * 100).toFixed(0) + '% higher than when you started. That progress is real and it matters.';
+      } else if (connDiff > 0) {
+        msg = 'You made ' + connDiff + ' more connections this month than last. Building relationships takes time, and you are putting in the work. Keep showing up.';
+      } else {
+        msg = 'You are here, and that counts. Every week you check in is a step forward. Progress is rarely linear, but it is always worth it.';
+      }
+
+      document.getElementById('progress-insight').textContent = msg;
     }
 
     // ============================================================
     // LOAD ACCOUNT
     // ============================================================
     async function loadAccount() {
-      const sb = window.sbaSupabase;
+      var sb = window.sbaSupabase;
       if (!sb) { window.location.href = '/?login=true'; return; }
-      const { data: { session } } = await sb.auth.getSession();
+      var sessionResult = await sb.auth.getSession();
+      var session = sessionResult.data.session;
 
       if (!session) {
         window.location.href = '/?login=true';
         return;
       }
 
-      const user = session.user;
-      const loading = document.getElementById('account-loading');
-      const content = document.getElementById('account-content');
+      var user = session.user;
+      var loading = document.getElementById('account-loading');
+      var content = document.getElementById('account-content');
 
-      const name = user.user_metadata?.full_name || user.user_metadata?.name || null;
-      const email = user.email || '--';
-      const provider = user.app_metadata?.provider || 'email';
-      const since = new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      const firstName = name ? name.split(' ')[0] : email.split('@')[0];
-      const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null;
+      var name = (user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) || null;
+      var email = user.email || '--';
+      var provider = (user.app_metadata && user.app_metadata.provider) || 'email';
+      var since = new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      var firstName = name ? name.split(' ')[0] : email.split('@')[0];
+      var avatarUrl = user.user_metadata && (user.user_metadata.avatar_url || user.user_metadata.picture) || null;
 
       // Header
       document.getElementById('account-greeting').textContent = 'Welcome back, ' + firstName + '.';
       document.getElementById('account-meta').textContent = email + '  \u00B7  Member since ' + since;
 
       // Avatar
-      const avatarEl = document.getElementById('account-avatar');
+      var avatarEl = document.getElementById('account-avatar');
       if (avatarUrl) {
         avatarEl.innerHTML = '<img src="' + avatarUrl + '" alt="' + firstName + '">';
       } else {
@@ -812,11 +849,22 @@
       document.getElementById('p-provider').textContent = provider.charAt(0).toUpperCase() + provider.slice(1);
       document.getElementById('p-since').textContent = since;
 
-      // Render progress dashboard
-      renderProgress();
+      // Dashboard
+      renderHighlights();
+      renderInsight();
 
       loading.style.display = 'none';
       content.style.display = 'block';
+
+      // Render graph after content is visible (needs dimensions)
+      requestAnimationFrame(function() {
+        renderGraph();
+      });
+
+      // Re-render graph on resize
+      window.addEventListener('resize', function() {
+        renderGraph();
+      });
     }
 
     async function handleDeleteAccount() {
