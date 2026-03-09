@@ -94,8 +94,9 @@ async function captureEmail(email) {
   // Store in Supabase 'leads' table
   const { data, error } = await supabase
     .from('leads')
-    .upsert({ email, source: window.location.pathname, created_at: new Date().toISOString() }, { onConflict: 'email' });
-  if (error) throw error;
+    .insert({ email: email, source: window.location.pathname, created_at: new Date().toISOString() });
+  // Ignore duplicate email errors (23505)
+  if (error && error.code !== '23505') throw error;
   return data;
 }
 
