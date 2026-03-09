@@ -96,7 +96,7 @@ async function captureEmail(email) {
     .from('leads')
     .insert({ email: email, source: window.location.pathname, created_at: new Date().toISOString() });
   // Ignore duplicate email errors (23505)
-  if (error && error.code !== '23505') throw error;
+  if (error && error.code !== '23505' && error.message.indexOf('duplicate') === -1 && error.message.indexOf('conflict') === -1) throw error;
   return data;
 }
 
