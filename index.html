@@ -2743,6 +2743,18 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 
 
 <!-- ============ PRICING ============ -->
+<!-- EMAIL CAPTURE -->
+<section class="email-capture-section" id="email-capture-section" style="padding:56px 24px;text-align:center;background:var(--cream);">
+  <div style="max-width:520px;margin:0 auto;">
+    <h2 style="font-family:Instrument Serif,serif;font-size:28px;font-weight:400;color:#3A3A3A;margin:0 0 8px;">Not ready yet? Stay in the loop.</h2>
+    <p style="font-family:DM Sans,sans-serif;font-size:15px;color:rgba(58,58,58,0.55);margin:0 0 24px;">Weekly insights on loneliness research and practical steps that work. No spam, unsubscribe anytime.</p>
+    <div style="display:flex;gap:10px;max-width:420px;margin:0 auto;">
+      <input type="email" id="capture-email-input" placeholder="Your email address" style="flex:1;padding:13px 16px;background:#fff;border:1px solid #E5DDD4;border-radius:10px;font-family:DM Sans,sans-serif;font-size:14px;color:#3A3A3A;outline:none;">
+      <button id="capture-email-btn" onclick="handleEmailCapture(event)" style="padding:13px 22px;background:#4CAF9F;color:#fff;border:none;border-radius:10px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">Subscribe</button>
+    </div>
+    <div id="capture-email-msg" style="font-family:DM Sans,sans-serif;font-size:14px;margin-top:12px;display:none;"></div>
+  </div>
+</section>
 <section class="pricing" id="pricing" aria-label="Pricing plans">
   <div class="container">
     
