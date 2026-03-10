@@ -3013,5 +3013,26 @@ function handleJoinSubmit(){
 var joinEl=document.getElementById('join-email');if(joinEl){joinEl.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();handleJoinSubmit();}});}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-auth.js"></script><script src="/js/max-widget.js" defer></script>
+<script>
+// Enrich Stripe Payment Links with user_id when logged in
+document.addEventListener('DOMContentLoaded', async function() {
+  // Wait for supabase-auth.js to initialize
+  setTimeout(async () => {
+    const sb = window.sbaSupabase;
+    if (!sb) return;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+
+    const userId = session.user.id;
+    // Add client_reference_id to all Stripe Payment Links
+    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(link => {
+      const url = new URL(link.href);
+      url.searchParams.set('client_reference_id', userId);
+      url.searchParams.set('prefilled_email', session.user.email);
+      link.href = url.toString();
+    });
+  }, 500);
+});
+</script>
 </body>
 </html>

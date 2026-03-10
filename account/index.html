@@ -511,7 +511,8 @@
     <a href="/" class="account-nav-logo">Stop Being Alone</a>
     <div class="account-nav-right">
       <a href="/" class="account-nav-link">Home</a>
-      <a href="/blog" class="account-nav-link">Blog</a><a href="/chat/" class="account-nav-link" style="color:#4CAF9F;font-weight:500;">Talk to Max</a>
+      <a href="/blog" class="account-nav-link">Blog</a>
+      <a href="/chat/" class="account-nav-link" style="color:#4CAF9F;font-weight:500;">Talk to Max</a>
       <button class="account-logout-btn" onclick="signOut()">Log out</button>
     </div>
   </nav>
@@ -876,6 +877,16 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadAccount);
+
+    // Show upgrade success message
+    if (new URLSearchParams(window.location.search).get('upgraded') === 'true') {
+      setTimeout(() => {
+        const banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;padding:16px;background:#4CAF9F;color:white;text-align:center;font-family:DM Sans,sans-serif;font-size:15px;z-index:9999;animation:fadeIn 0.3s ease';
+        banner.innerHTML = 'Welcome to unlimited Max. No more limits, just real conversations. <button onclick="this.parentElement.remove();history.replaceState(null,null,location.pathname)" style="background:none;border:none;color:white;text-decoration:underline;cursor:pointer;font-family:inherit;font-size:inherit;margin-left:8px">Got it</button>';
+        document.body.prepend(banner);
+      }, 500);
+    }
   </script>
 
 <script src="/js/max-widget.js" defer></script>
