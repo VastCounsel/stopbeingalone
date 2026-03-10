@@ -223,13 +223,13 @@
         to { opacity: 1; transform: translateY(0); }
       }
       .max-msg.assistant {
-        background: white;
+        background: #4CAF9F;
+        color: white;
         align-self: flex-start;
         border-bottom-left-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       }
       .max-msg.user {
-        background: #4CAF9F;
+        background: #2D2D2D;
         color: white;
         align-self: flex-end;
         border-bottom-right-radius: 4px;

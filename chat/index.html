@@ -155,18 +155,16 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .msg.assistant {
-      background: var(--white);
+      background: var(--accent);
+      color: white;
       align-self: flex-start;
       border-bottom-left-radius: 6px;
-      box-shadow: var(--shadow-sm);
-      color: var(--ink);
     }
     .msg.user {
-      background: var(--accent);
+      background: #2D2D2D;
       color: white;
       align-self: flex-end;
       border-bottom-right-radius: 6px;
-      box-shadow: 0 2px 8px rgba(76, 175, 159, 0.25);
     }
     .msg.system {
       background: transparent;
@@ -510,7 +508,11 @@
         const res = await callAPI(null);
         hideTyping();
         if (res.history && res.history.length > 0) {
-          res.history.forEach(m => addMsg(m.role, m.content));
+          // Show only last user message + last assistant message for context
+          const lastUser = [...res.history].reverse().find(m => m.role === 'user');
+          const lastAssistant = [...res.history].reverse().find(m => m.role === 'assistant');
+          if (lastUser) addMsg('user', lastUser.content);
+          if (lastAssistant) addMsg('assistant', lastAssistant.content);
         } else if (res.response) {
           addMsg('assistant', res.response);
         }
