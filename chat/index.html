@@ -443,6 +443,7 @@
     // ── STATE ──
     let isLoading = false;
     let session = null;
+    let initialized = false;
 
     // ── ONBOARDING OPTIONS ──
     const ONBOARDING = {
@@ -495,27 +496,24 @@
     const modelBadge = document.getElementById('modelBadge');
 
     // ── INIT ──
-    async function init() {
-      const { data } = await supabaseClient.auth.getSession();
-      session = data.session;
+    async function startChat(s) {
+      session = s;
+      inputArea.style.display = '';
 
-      if (!session) {
-        showLogin();
-        return;
-      }
-
-      // Start conversation
       sendBtn.addEventListener('click', sendMessage);
       chatInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
       });
 
-      // Load first message from Max
       showTyping();
       try {
         const res = await callAPI(null);
         hideTyping();
-        if (res.response) addMsg('assistant', res.response);
+        if (res.history && res.history.length > 0) {
+          res.history.forEach(m => addMsg(m.role, m.content));
+        } else if (res.response) {
+          addMsg('assistant', res.response);
+        }
         if (res.chips) renderChips(res.chips.step, res.chips.options);
       } catch {
         hideTyping();
@@ -560,6 +558,7 @@
       if (!text) return;
 
       chatInput.value = '';
+      removeChips();
       addMsg('user', text);
       isLoading = true;
       sendBtn.disabled = true;
@@ -589,7 +588,15 @@
     }
 
     // ── ONBOARDING CHIPS ──
+    function removeChips() {
+      const existing = messagesEl.querySelectorAll('.chips-container');
+      existing.forEach(el => el.remove());
+    }
+
     function renderChips(step, options) {
+      // Remove any existing chips first
+      removeChips();
+
       let selected = [];
       const container = document.createElement('div');
       container.className = 'chips-container';
@@ -602,23 +609,32 @@
           chip.classList.toggle('selected');
           if (chip.classList.contains('selected')) selected.push(opt);
           else selected = selected.filter(o => o !== opt);
-          continueBtn.classList.toggle('visible', selected.length > 0);
+          continueBtn.classList.toggle('visible', selected.length > 0 || otherInput.value.trim().length > 0);
         });
         container.appendChild(chip);
       });
 
-      // Other
+      // Other input
       const other = document.createElement('div');
       other.className = 'chip-other';
-      other.innerHTML = '<input type="text" placeholder="Other (type here)">';
+      const otherInput = document.createElement('input');
+      otherInput.type = 'text';
+      otherInput.placeholder = 'Something else? Type here';
+      otherInput.addEventListener('input', () => {
+        continueBtn.classList.toggle('visible', selected.length > 0 || otherInput.value.trim().length > 0);
+      });
+      otherInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); continueBtn.click(); }
+      });
+      other.appendChild(otherInput);
       container.appendChild(other);
 
-      // Continue
+      // Continue button
       const continueBtn = document.createElement('button');
       continueBtn.className = 'chip-continue';
       continueBtn.textContent = 'Continue';
       continueBtn.addEventListener('click', async () => {
-        const otherVal = other.querySelector('input').value.trim();
+        const otherVal = otherInput.value.trim();
         if (otherVal) selected.push(otherVal);
         if (selected.length === 0) return;
 
@@ -677,28 +693,14 @@
       setTimeout(() => { messagesEl.scrollTop = messagesEl.scrollHeight; }, 50);
     }
 
-    // ── GO ──
-    init();
-
-    // Re-init after login via auth modal
+    // ── GO ── Single entry point via onAuthStateChange
     supabaseClient.auth.onAuthStateChange((event, newSession) => {
-      if (event === 'SIGNED_IN' && !session && newSession) {
-        session = newSession;
-        messagesEl.innerHTML = '';
-        inputArea.style.display = '';
-        sendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-        });
-        showTyping();
-        callAPI(null).then(res => {
-          hideTyping();
-          if (res.response) addMsg('assistant', res.response);
-          if (res.chips) renderChips(res.chips.step, res.chips.options);
-        }).catch(() => {
-          hideTyping();
-          addMsg('assistant', 'Hey, I\'m Max. Small technical hiccup. Try refreshing.');
-        });
+      if (initialized) return;
+      if (newSession) {
+        initialized = true;
+        startChat(newSession);
+      } else if (event === 'INITIAL_SESSION') {
+        showLogin();
       }
     });
   </script>

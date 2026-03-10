@@ -565,6 +565,7 @@
     if (!text) return;
 
     input.value = '';
+    removeChips();
     addMessage('user', text);
 
     isLoading = true;
@@ -659,8 +660,15 @@
     }
   }
 
+  // ── Remove existing chips ──
+  function removeChips() {
+    const existing = document.querySelectorAll('.max-chips');
+    existing.forEach(el => el.remove());
+  }
+
   // ── Render Chips ──
   function renderChips(step, options) {
+    removeChips();
     const messagesEl = document.querySelector('.max-messages');
     selectedOptions = [];
 
@@ -678,11 +686,8 @@
         } else {
           selectedOptions = selectedOptions.filter(o => o !== opt);
         }
-        // Show continue button if at least one selected
-        const continueBtn = container.querySelector('.max-chip-continue');
-        if (continueBtn) {
-          continueBtn.classList.toggle('visible', selectedOptions.length > 0);
-        }
+        const cb = container.querySelector('.max-chip-continue');
+        if (cb) cb.classList.toggle('visible', selectedOptions.length > 0 || otherInput.value.trim().length > 0);
       });
       container.appendChild(chip);
     });
@@ -690,7 +695,17 @@
     // Other field
     const otherDiv = document.createElement('div');
     otherDiv.className = 'max-chip-other';
-    otherDiv.innerHTML = '<input type="text" placeholder="Other (type here)">';
+    const otherInput = document.createElement('input');
+    otherInput.type = 'text';
+    otherInput.placeholder = 'Something else? Type here';
+    otherInput.addEventListener('input', () => {
+      const cb = container.querySelector('.max-chip-continue');
+      if (cb) cb.classList.toggle('visible', selectedOptions.length > 0 || otherInput.value.trim().length > 0);
+    });
+    otherInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); continueBtn.click(); }
+    });
+    otherDiv.appendChild(otherInput);
     container.appendChild(otherDiv);
 
     // Continue button
@@ -698,17 +713,12 @@
     continueBtn.className = 'max-chip-continue';
     continueBtn.textContent = 'Continue';
     continueBtn.addEventListener('click', () => {
-      const otherInput = otherDiv.querySelector('input').value.trim();
-      if (otherInput) selectedOptions.push(otherInput);
+      const otherVal = otherInput.value.trim();
+      if (otherVal) selectedOptions.push(otherVal);
       if (selectedOptions.length === 0) return;
 
-      // Show what user selected as a message
       addMessage('user', selectedOptions.join(', '));
-
-      // Remove chips
       container.remove();
-
-      // Send to backend
       sendOnboardingResponse(step, selectedOptions);
     });
     container.appendChild(continueBtn);
