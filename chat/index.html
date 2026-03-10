@@ -155,8 +155,8 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .msg.assistant {
-      background: var(--accent);
-      color: white;
+      background: #D5F0E5;
+      color: #2D2D2D;
       align-self: flex-start;
       border-bottom-left-radius: 6px;
     }
@@ -572,8 +572,7 @@
         if (data.response) addMsg('assistant', data.response);
         if (data.chips) renderChips(data.chips.step, data.chips.options);
         if (data.model_used) {
-          modelBadge.textContent = data.model_used;
-          modelBadge.style.display = 'inline-block';
+          // model badge hidden intentionally
         }
         if (data.quota_warning || data.quota_exceeded) {
           quotaBar.innerHTML = `${data.messages_used}/${data.messages_limit} free messages this week. <a href="/#pricing">Upgrade</a> for unlimited.`;

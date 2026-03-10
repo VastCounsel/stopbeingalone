@@ -223,8 +223,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
       .max-msg.assistant {
-        background: #4CAF9F;
-        color: white;
+        background: #D5F0E5;
+        color: #2D2D2D;
         align-self: flex-start;
         border-bottom-left-radius: 4px;
       }
