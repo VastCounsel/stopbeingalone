@@ -1,14 +1,12 @@
-plugins = []
-headers = []
+functionsDirectory = "/Users/jules/Desktop/Stop Being Alone/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
+headersOrigin = "config"
 redirects = []
-
-[functions]
-
-[functions."*"]
 
 [build]
 publish = "/Users/jules/Desktop/Stop Being Alone"
-publishOrigin = "default"
+publishOrigin = "config"
+functions = "/Users/jules/Desktop/Stop Being Alone/netlify/functions"
 
 [build.environment]
 
@@ -23,3 +21,22 @@ publishOrigin = "default"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions.max-memory]
+schedule = "0 0 * * 0"
+
+[functions."*"]
+
+[[plugins]]
+origin = "config"
+package = "@netlify/plugin-functions-install-core"
+
+[plugins.inputs]
+
+[[headers]]
+for = "/js/*"
+
+[headers.values]
+Cache-Control = "public, max-age=3600"

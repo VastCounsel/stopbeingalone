@@ -1,0 +1,14 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[functions."max-memory"]
+  schedule = "0 0 * * 0"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
