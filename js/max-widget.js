@@ -187,6 +187,16 @@
         line-height: 1;
       }
       .max-close:hover { color: #3A3A3A; }
+      .max-expand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        color: #999;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .max-expand:hover { color: #4CAF9F; }
 
       /* Messages area */
       .max-messages {
@@ -450,7 +460,12 @@
             <span>Your companion</span>
           </div>
         </div>
-        <button class="max-close" aria-label="Close">&times;</button>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <a href="/chat/" class="max-expand" aria-label="Open full chat" title="Open full chat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </a>
+          <button class="max-close" aria-label="Close">&times;</button>
+        </div>
       </div>
       <div class="max-quota"></div>
       <div class="max-messages"></div>
