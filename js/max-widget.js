@@ -427,9 +427,21 @@
           left: 0;
           width: 100%;
           height: 100%;
+          height: 100dvh;
           border-radius: 0;
+          padding-bottom: env(safe-area-inset-bottom);
         }
         #max-widget-bubble { bottom: 16px; right: 16px; }
+        .max-login {
+          padding: 24px 20px;
+          justify-content: center;
+          min-height: 100%;
+        }
+        .max-login h3 { font-size: 20px; }
+        .max-login-btn { width: 100%; padding: 14px; }
+        .max-header { padding: 12px 16px; }
+        .max-messages { padding: 12px; }
+        .max-input-area { padding: 10px 12px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
       }
     `;
     document.head.appendChild(style);
