@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Being Alone | Your Plan to Build Real Connections</title>
+<meta name="description" content="An AI companion + real activities in your city. Your personalized weekly plan to meet people, join activities, and never feel alone again. Free to start.">
+<meta name="keywords" content="stop being alone, loneliness solution, how to make friends, loneliness app, social connection, AI companion loneliness, loneliness epidemic">
+<link rel="canonical" href="https://stopbeingalone.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stop Being Alone | Build Real Connections">
+<meta property="og:description" content="An AI companion + real activities in your city. Your personalized weekly plan to never feel alone again.">
+<meta property="og:url" content="https://stopbeingalone.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@stopbeingalone">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Stop Being Alone","url":"https://stopbeingalone.com","description":"AI-powered companion and personalized weekly plan to build real social connections.","applicationCategory":"HealthApplication","offers":[{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Free tier"},{"@type":"Offer","price":"49","priceCurrency":"USD","billingPeriod":"P1M"}]}
+</script>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<style>
+:root{--cream:#F5F0E9;--cream-dark:#EDE4D9;--ink:#3A3A3A;--ink-light:#5A5A5A;--ink-muted:#9A9590;--accent:#4CAF9F;--rose:#FF9F8A;--blue-soft:#7AACB8;--card-bg:#FFFFFF;--card-border:#E5DDD4;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif;--section-py:96px;--max-w:1200px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 32px}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(245,240,233,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(58,58,58,0.06)}
+.nav-logo{font-family:var(--serif);font-size:18px;color:var(--ink);text-decoration:none}
+.nav-logo em{font-style:italic}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:14px;color:var(--ink-muted);text-decoration:none;font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.cta{background:var(--accent);color:white;padding:8px 20px;border-radius:100px;font-weight:500;font-size:13px}
+.nav-links a.cta:hover{background:#3d9e90}
+
+/* HERO */
+.hero{padding:140px 0 64px;text-align:center;position:relative}
+.hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:0}
+.hero .container{position:relative;z-index:1}
+.hero h1{font-family:var(--serif);font-size:clamp(48px,7vw,96px);font-weight:400;line-height:1.05;letter-spacing:-.04em;margin-bottom:24px}
+.hero h1 em{font-style:italic;position:relative;display:inline-block}
+.hero h1 em::after{content:'';position:absolute;bottom:6px;left:-4px;right:-4px;height:14px;background:var(--accent);opacity:.22;z-index:-1;border-radius:2px;transform:skewX(-3deg)}
+.hero-sub{max-width:520px;margin:0 auto 32px;font-size:19px;line-height:1.7;color:var(--ink-light);font-weight:300}
+
+/* Hero input */
+.hero-input-wrap{max-width:520px;margin:0 auto 12px;display:flex;gap:8px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:100px;padding:6px 6px 6px 24px;transition:box-shadow .3s}
+.hero-input-wrap:focus-within{box-shadow:0 0 0 3px rgba(76,175,159,.15)}
+.hero-input-wrap input{flex:1;border:none;background:none;font-family:var(--sans);font-size:15px;color:var(--ink);outline:none;font-weight:300}
+.hero-input-wrap input::placeholder{color:var(--ink-muted)}
+.hero-input-wrap button{background:var(--ink);color:var(--cream);border:none;padding:12px 28px;border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.hero-input-wrap button:hover{background:#2a2a2a}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:600px;margin:0 auto 24px}
+.hero-chip{padding:8px 16px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:100px;font-size:13px;color:var(--ink-light);cursor:pointer;transition:all .2s;font-weight:300}
+.hero-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Badge ticker */
+.badge-track{overflow:hidden;margin-top:32px;-webkit-mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)}
+.badge-inner{display:flex;gap:12px;animation:badgeScroll 30s linear infinite;width:max-content}
+@keyframes badgeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-badge{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:12px 20px;min-width:140px;flex-shrink:0}
+.hero-badge-name{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted);font-weight:500;white-space:nowrap}
+.hero-badge-org{font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:400;line-height:1.2;white-space:nowrap}
+
+/* Social proof bar */
+.social-proof{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:24px}
+.social-proof-faces{display:flex}
+.social-proof-face{width:32px;height:32px;border-radius:50%;border:2px solid var(--cream);margin-left:-8px;background:var(--cream-dark);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:14px}
+.social-proof-face:first-child{margin-left:0}
+.social-proof-text{font-size:13px;color:var(--ink-light);font-weight:300}
+.social-proof-stars{color:#E8B84B;font-size:14px;letter-spacing:1px}
+
+/* SECTION TITLES (reusable) */
+.section-title{font-family:var(--serif);font-size:clamp(32px,3.5vw,44px);font-weight:400;line-height:1.15;letter-spacing:-.02em;text-align:center;margin-bottom:12px}
+.section-title em{font-style:italic}
+.section-sub{text-align:center;font-size:16px;color:var(--ink-muted);font-weight:300;margin-bottom:48px}
+
+/* STATS SECTION */
+.stats-section{padding:var(--section-py) 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1060px;margin:0 auto}
+.stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:28px 24px;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;box-shadow:0 4px 24px rgba(0,0,0,.03)}
+.stat-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.07)}
+.stat-card-num{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.02em;margin-bottom:10px;color:var(--ink)}
+.stat-card-desc{font-size:13px;color:var(--ink-light);font-weight:300;line-height:1.5;margin-bottom:16px}
+.stat-card-bar{height:6px;background:var(--cream-dark);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.stat-card-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#C2E0D8,var(--accent));transition:width 1.5s ease}
+.stat-card-src{font-size:10px;color:var(--ink-muted);font-weight:400;opacity:.7}
+
+/* HOW */
+.how{padding:var(--section-py) 0}
+.how-title{font-family:var(--serif);font-size:clamp(32px,3.5vw,44px);font-weight:400;line-height:1.15;letter-spacing:-.02em;text-align:center;margin-bottom:56px}
+.how-title em{font-style:italic}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1060px;margin:0 auto}
+.how-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:36px 28px;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;box-shadow:0 4px 24px rgba(0,0,0,.03)}
+.how-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.07)}
+.how-card-step{font-family:var(--serif);font-size:14px;font-style:italic;color:var(--accent);font-weight:600;margin-bottom:16px}
+.how-card-title{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.25;margin-bottom:12px}
+.how-card-desc{font-size:14.5px;color:var(--ink-light);font-weight:300;line-height:1.65;margin-bottom:20px}
+.mock-chat{border-top:1px solid var(--card-border);padding-top:20px;display:flex;flex-direction:column;gap:8px}
+.mock-bubble{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;max-width:90%}
+.mock-bubble.ai{background:#D5F0E5;color:var(--ink);border-bottom-left-radius:4px;align-self:flex-start}
+.mock-bubble.user{background:var(--ink);color:var(--cream);border-bottom-right-radius:4px;align-self:flex-end}
+.mock-typing{display:flex;gap:4px;padding:8px 14px;align-self:flex-start}
+.mock-typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.4;animation:typing 1.2s infinite}
+.mock-typing span:nth-child(2){animation-delay:.2s}
+.mock-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.mock-events{border-top:1px solid var(--card-border);padding-top:20px;display:flex;flex-direction:column;gap:10px}
+.mock-event{display:flex;align-items:center;gap:12px;font-size:13px}
+.mock-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mock-dot.match{background:var(--accent)}
+.mock-dot.maybe{background:var(--blue-soft)}
+.mock-event-info{flex:1}
+.mock-event-name{font-weight:500;color:var(--ink)}
+.mock-event-meta{font-size:11px;color:var(--ink-muted);font-weight:300}
+.mock-event-tag{font-size:10px;padding:2px 8px;border-radius:100px;background:rgba(76,175,159,.1);color:var(--accent);font-weight:500}
+.mock-week{border-top:1px solid var(--card-border);padding-top:20px;display:flex;flex-direction:column;gap:8px}
+.mock-week-row{display:flex;align-items:center;gap:12px;font-size:13px;padding:6px 0}
+.mock-week-day{font-weight:500;color:var(--ink);min-width:32px}
+.mock-week-action{flex:1;color:var(--ink-light);font-weight:300}
+.mock-week-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--card-border)}
+.mock-week-check.done{background:var(--accent);border-color:var(--accent);position:relative}
+.mock-week-check.done::after{content:'';position:absolute;top:3px;left:5px;width:5px;height:8px;border:solid white;border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+/* MAX PREVIEW */
+.max-preview{padding:var(--section-py) 0;background:var(--card-bg);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)}
+.max-preview-inner{max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.max-preview-text h2{font-family:var(--serif);font-size:clamp(28px,3vw,36px);font-weight:400;line-height:1.2;margin-bottom:16px}
+.max-preview-text h2 em{font-style:italic}
+.max-preview-text p{font-size:15px;color:var(--ink-light);font-weight:300;line-height:1.75;margin-bottom:16px}
+.max-preview-text a{color:var(--accent);font-weight:500;text-decoration:none;font-size:15px}
+.max-preview-chat{background:var(--cream);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--card-border)}
+.max-preview-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted);font-weight:500;margin-bottom:8px}
+
+/* PROOF */
+.proof{padding:var(--section-py) 0}
+.proof-quote{text-align:center;padding:0 32px;margin-bottom:56px}
+.proof-quote p{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-style:italic;line-height:1.4;color:var(--ink);max-width:800px;margin:0 auto}
+.proof-quote cite{display:block;margin-top:20px;font-family:var(--sans);font-size:13px;font-style:normal;color:var(--ink-muted)}
+.proof-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:960px;margin:0 auto}
+.proof-stat{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:28px 24px;text-align:center;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;box-shadow:0 4px 24px rgba(0,0,0,.03)}
+.proof-stat:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.07)}
+.proof-stat-num{font-family:var(--serif);font-size:40px;color:var(--accent);line-height:1;margin-bottom:10px}
+.proof-stat-label{font-size:13px;color:var(--ink-light);font-weight:300;line-height:1.5;margin-bottom:12px}
+.proof-stat-src{font-size:10px;color:var(--ink-muted);font-weight:400;opacity:.6}
+
+/* REVIEWS */
+.reviews{padding:48px 0 var(--section-py)}
+.reviews-grid{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;max-width:900px;margin:0 auto}
+.review-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px;max-width:270px;flex:1;min-width:240px}
+.review-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.review-avatar{width:40px;height:40px;border-radius:50%;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.review-info{flex:1}
+.review-name{font-size:14px;font-weight:500;color:var(--ink)}
+.review-meta{font-size:11px;color:var(--ink-muted);font-weight:300}
+.review-stars{color:#E8B84B;font-size:12px;letter-spacing:1px}
+.review-text{font-size:14px;color:var(--ink-light);font-weight:300;line-height:1.6}
+
+/* VOICES */
+.voices{padding:var(--section-py) 0;overflow:hidden}
+.voices-title{font-family:var(--serif);font-size:clamp(32px,3.5vw,44px);font-weight:400;line-height:1.15;letter-spacing:-.02em;text-align:center;margin-bottom:8px}
+.voices-title em{font-style:italic}
+.voices-sub{text-align:center;font-size:15px;color:var(--ink-muted);font-weight:300;margin-bottom:40px}
+.voices-wall{display:flex;flex-direction:column;gap:12px}
+.voices-row{display:flex;gap:12px;animation:voiceScroll 40s linear infinite;width:max-content}
+.voices-row:nth-child(2){animation-direction:reverse;animation-duration:45s}
+@keyframes voiceScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.voice-pill{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:16px 20px;font-size:14px;color:var(--ink-light);font-weight:300;line-height:1.5;min-width:280px;max-width:400px;flex-shrink:0}
+.voice-pill q{quotes:none}
+.voice-pill-sub{display:block;margin-top:8px;font-size:11px;color:var(--ink-muted);font-weight:400}
+
+/* PRICING */
+.pricing{padding:var(--section-py) 0}
+.pricing-title{font-family:var(--serif);font-size:clamp(32px,3.5vw,44px);font-weight:400;line-height:1.15;letter-spacing:-.02em;text-align:center;margin-bottom:8px}
+.pricing-title em{font-style:italic}
+.pricing-sub{text-align:center;font-size:15px;color:var(--ink-muted);font-weight:300;margin-bottom:48px}
+.pricing-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1080px;margin:0 auto;border:1px solid var(--card-border);border-radius:24px;overflow:hidden;background:var(--card-bg)}
+.pricing-card{padding:40px 32px;display:flex;flex-direction:column;border-right:1px solid var(--card-border)}
+.pricing-card:last-child{border-right:none}
+.pricing-card-dark{background:var(--ink);color:var(--cream)}
+.pricing-card-dark .pricing-card-tagline{color:var(--accent)}
+.pricing-card-dark .pricing-card-desc{color:rgba(245,240,233,0.7)}
+.pricing-card-dark .pricing-card-period{color:rgba(245,240,233,0.5)}
+.pricing-card-dark .pricing-card-daily{color:var(--accent)}
+.pricing-card-dark .pricing-fine{color:rgba(245,240,233,0.4)}
+.pricing-card-dark .pricing-card-price{color:var(--cream)}
+.pricing-card-free{background:rgba(76,175,159,0.04)}
+.pricing-card-name{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.2;margin-bottom:8px}
+.pricing-card-tagline{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:16px}
+.pricing-card-desc{font-size:14px;color:var(--ink-light);font-weight:300;line-height:1.65;flex:1}
+.pricing-card-bottom{padding-top:28px}
+.pricing-card-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
+.pricing-card-price{font-family:var(--serif);font-size:40px;font-weight:400;line-height:1;letter-spacing:-.03em}
+.pricing-card-period{font-size:14px;color:var(--ink-muted);font-weight:300}
+.pricing-card-daily{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:24px}
+.pricing-btn{display:block;text-align:center;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+.pricing-btn-light{background:transparent;color:var(--ink);border:1px solid var(--card-border)}
+.pricing-btn-light:hover{background:var(--ink);color:var(--cream);transform:translateY(-2px)}
+.pricing-btn-accent{background:var(--accent);color:#fff}
+.pricing-btn-accent:hover{background:#3d9e90;box-shadow:0 8px 32px rgba(76,175,159,.3);transform:translateY(-2px)}
+.pricing-btn-cream{background:var(--cream);color:var(--ink)}
+.pricing-btn-cream:hover{background:#fff;box-shadow:0 8px 32px rgba(0,0,0,.15);transform:translateY(-2px)}
+.pricing-btn-outline-accent{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.pricing-btn-outline-accent:hover{background:var(--accent);color:white;transform:translateY(-2px)}
+.pricing-fine{text-align:center;font-size:11px;color:var(--ink-muted);font-weight:300;margin-top:10px}
+.pricing-save{text-align:center;font-size:12px;font-weight:600;color:var(--accent);margin-top:10px}
+
+/* FAQ */
+.faq{padding:var(--section-py) 0}
+.faq-title{font-family:var(--serif);font-size:clamp(28px,3vw,36px);font-weight:400;text-align:center;margin-bottom:40px}
+.faq-title em{font-style:italic}
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:1px;background:var(--card-border);border-radius:16px;overflow:hidden}
+.faq-item{background:var(--card-bg);padding:24px 28px;cursor:pointer}
+.faq-q{font-family:var(--serif);font-size:17px;font-weight:400;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q::after{content:'+';font-family:var(--sans);font-size:20px;color:var(--ink-muted);font-weight:300;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:15px;color:var(--ink-light);font-weight:300;line-height:1.7}
+.faq-item.open .faq-a{max-height:200px;padding-top:16px}
+
+/* FINAL */
+.final{padding:var(--section-py) 0;text-align:center}
+.final h2{font-family:var(--serif);font-size:clamp(32px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.final h2 em{font-style:italic}
+.final p{color:var(--ink-light);font-size:17px;font-weight:300;margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto}
+.hero-cta{display:inline-block;padding:18px 48px;background:var(--ink);color:var(--cream);border-radius:100px;text-decoration:none;font-weight:500;font-size:16px;transition:all .3s}
+.hero-cta:hover{background:#2a2a2a;box-shadow:0 12px 40px rgba(0,0,0,.15);transform:translateY(-2px)}
+
+/* FOOTER */
+.footer{padding:64px 0 40px;border-top:1px solid var(--card-border)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand{font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:12px}
+.footer-brand-desc{font-size:14px;color:var(--ink-muted);font-weight:300;line-height:1.6;max-width:280px}
+.footer-col-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:var(--ink-muted);font-weight:300;margin-bottom:10px;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--card-border);transition:color .2s}
+.footer-col a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--card-border);font-size:12px;color:var(--ink-muted);font-weight:300}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:900px){.how-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.proof-stats{grid-template-columns:1fr 1fr}.pricing-cards{grid-template-columns:1fr 1fr;border-radius:20px}.pricing-card{border-right:none;border-bottom:1px solid var(--card-border)}.pricing-card:last-child{border-bottom:none}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.max-preview-inner{grid-template-columns:1fr}}
+@media(max-width:600px){.hero h1{font-size:42px}.stats-grid{grid-template-columns:1fr}.proof-stats{grid-template-columns:1fr 1fr}.nav-links a:not(.cta){display:none}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px;text-align:center}.container{padding:0 16px}.hero-chips{gap:6px}.pricing-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+  <div class="nav-links">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/chat/" class="cta">Talk to Max</a>
+  </div>
+</nav>
+
+<!-- ═══ 1. HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <h1>Stop Being <em>Alone.</em></h1>
+    <p class="hero-sub">Loneliness affects 1 in 6 people. It doesn't have to be you. Meet Max, your AI companion that finds real activities in your city and builds you a weekly plan to reconnect.</p>
+
+    <div class="hero-input-wrap">
+      <input type="text" id="hero-input" placeholder="What makes you feel most alone?">
+      <button onclick="window.location.href='/chat/'">Talk to Max &rarr;</button>
+    </div>
+    <div class="hero-chips">
+      <span class="hero-chip" onclick="document.getElementById('hero-input').value=this.textContent">I moved to a new city</span>
+      <span class="hero-chip" onclick="document.getElementById('hero-input').value=this.textContent">My friends drifted away</span>
+      <span class="hero-chip" onclick="document.getElementById('hero-input').value=this.textContent">I work remotely</span>
+      <span class="hero-chip" onclick="document.getElementById('hero-input').value=this.textContent">I went through a breakup</span>
+      <span class="hero-chip" onclick="document.getElementById('hero-input').value=this.textContent">I struggle to make friends</span>
+    </div>
+
+    <!-- Trust line -->
+    <p style="margin-top:20px;font-size:13px;color:var(--ink-muted);font-weight:300">Free to start. No credit card needed.</p>
+
+    <!-- Authority ticker -->
+    <div class="badge-track">
+      <div class="badge-inner">
+        <div class="hero-badge"><div class="hero-badge-name">Recognized by</div><div class="hero-badge-org">WHO</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">85 years of data</div><div class="hero-badge-org">Harvard</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Official advisory</div><div class="hero-badge-org">U.S. Surgeon General</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">280 studies</div><div class="hero-badge-org">APA Meta-Analysis</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">871,000 deaths/year</div><div class="hero-badge-org">WHO Report 2025</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Loneliness = 15 cigs/day</div><div class="hero-badge-org">Surgeon General</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Peer-reviewed</div><div class="hero-badge-org">Lancet 2025</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">30,000 participants</div><div class="hero-badge-org">Global Research</div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="hero-badge"><div class="hero-badge-name">Recognized by</div><div class="hero-badge-org">WHO</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">85 years of data</div><div class="hero-badge-org">Harvard</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Official advisory</div><div class="hero-badge-org">U.S. Surgeon General</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">280 studies</div><div class="hero-badge-org">APA Meta-Analysis</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">871,000 deaths/year</div><div class="hero-badge-org">WHO Report 2025</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Loneliness = 15 cigs/day</div><div class="hero-badge-org">Surgeon General</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">Peer-reviewed</div><div class="hero-badge-org">Lancet 2025</div></div>
+        <div class="hero-badge"><div class="hero-badge-name">30,000 participants</div><div class="hero-badge-org">Global Research</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2. THE CRISIS ═══ -->
+<section class="stats-section" id="crisis">
+  <div class="container">
+    <h2 class="section-title reveal">The crisis in <em>numbers.</em></h2>
+    <p class="section-sub reveal">Loneliness is now recognized as a global public health emergency.</p>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-card-num">871K</div>
+        <div class="stat-card-desc">deaths per year linked to loneliness and social isolation worldwide</div>
+        <div class="stat-card-bar"><div class="stat-card-bar-fill" style="width:0%" data-target="87%"></div></div>
+        <div class="stat-card-src">WHO Commission, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">1 in 6</div>
+        <div class="stat-card-desc">people worldwide experience loneliness regularly</div>
+        <div class="stat-card-bar"><div class="stat-card-bar-fill" style="width:0%" data-target="62%"></div></div>
+        <div class="stat-card-src">WHO, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num" style="font-size:28px">= 15 cigs/day</div>
+        <div class="stat-card-desc">the mortality risk equivalent of chronic loneliness</div>
+        <div class="stat-card-bar"><div class="stat-card-bar-fill" style="width:0%;background:linear-gradient(90deg,#FFD4C8,var(--rose))" data-target="75%"></div></div>
+        <div class="stat-card-src">U.S. Surgeon General, 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">$406B</div>
+        <div class="stat-card-desc">annual economic cost of loneliness in the United States alone</div>
+        <div class="stat-card-bar"><div class="stat-card-bar-fill" style="width:0%;background:linear-gradient(90deg,#B8D4DC,var(--blue-soft))" data-target="65%"></div></div>
+        <div class="stat-card-src">Cigna / Surgeon General</div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px"><a href="/research" style="color:var(--accent);font-size:14px;font-weight:500;text-decoration:none">Explore the full research &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ═══ 3. HOW IT WORKS ═══ -->
+<section class="how" id="how">
+  <div class="container">
+    <h2 class="how-title reveal">Here's how it <em>works.</em></h2>
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <div class="how-card-step">Step one</div>
+        <div class="how-card-title">A companion that knows you</div>
+        <p class="how-card-desc">Max learns your story, your city, and what holds you back. Real conversation, not a form.</p>
+        <div class="mock-chat">
+          <div class="mock-bubble ai">Hey, how's it going?</div>
+          <div class="mock-bubble user">I just moved to NYC and I don't know anyone.</div>
+          <div class="mock-bubble ai">That's a big step. Do you prefer small groups or one-on-one?</div>
+          <div class="mock-typing"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-card-step">Step two</div>
+        <div class="how-card-title">Activities picked for you</div>
+        <p class="how-card-desc">Real events in your city, matched to your interests. With links. We do the research.</p>
+        <div class="mock-events">
+          <div class="mock-event"><span class="mock-dot match"></span><div class="mock-event-info"><div class="mock-event-name">November Project NYC</div><div class="mock-event-meta">Free outdoor workout, Wed 6:30am</div></div><span class="mock-event-tag">Strong match</span></div>
+          <div class="mock-event"><span class="mock-dot match"></span><div class="mock-event-info"><div class="mock-event-name">Brooklyn Book Club</div><div class="mock-event-meta">Bi-weekly, Sun 2pm</div></div><span class="mock-event-tag">Your pace</span></div>
+          <div class="mock-event"><span class="mock-dot maybe"></span><div class="mock-event-info"><div class="mock-event-name">Chelsea Climbing Gym</div><div class="mock-event-meta">Beginner-friendly</div></div></div>
+        </div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-card-step">Step three</div>
+        <div class="how-card-title">A plan every week</div>
+        <p class="how-card-desc">Every Monday: one activity, one person to reach out to, one step forward.</p>
+        <div class="mock-week">
+          <div class="mock-week-row"><span class="mock-week-day">Mon</span><span class="mock-week-action">Message an old friend</span><span class="mock-week-check done"></span></div>
+          <div class="mock-week-row"><span class="mock-week-day">Wed</span><span class="mock-week-action">Attend book club</span><span class="mock-week-check done"></span></div>
+          <div class="mock-week-row"><span class="mock-week-day">Fri</span><span class="mock-week-action">Try morning run group</span><span class="mock-week-check"></span></div>
+          <div class="mock-week-row"><span class="mock-week-day">Sun</span><span class="mock-week-action">Reflect + plan next week</span><span class="mock-week-check"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. MAX PREVIEW ═══ -->
+<section class="max-preview">
+  <div class="container">
+    <div class="max-preview-inner">
+      <div class="max-preview-text">
+        <h2>Meet <em>Max.</em></h2>
+        <p>Max is not a therapist. Not a chatbot with canned responses. He's an AI companion trained on proven conversational techniques that actually help people reconnect.</p>
+        <p>He knows your city, remembers your story, and suggests real activities with real links. No generic advice. No fake positivity.</p>
+        <p><strong>Will talking to an AI actually help?</strong> Yes. A 2025 meta-analysis of 280 studies found that guided self-help interventions produce strong, lasting results. Max is built on that science.</p>
+        <a href="/chat/">Try a free conversation &rarr;</a>
+      </div>
+      <div class="max-preview-chat">
+        <div class="max-preview-label">Live preview</div>
+        <div class="mock-bubble ai" style="margin-bottom:6px">Hey Sarah, how's it going?</div>
+        <div class="mock-bubble user" style="margin-bottom:6px">Not great honestly. I've been in London 3 months and still don't know anyone.</div>
+        <div class="mock-bubble ai" style="margin-bottom:6px">3 months, that's still really early. What do you do for fun?</div>
+        <div class="mock-bubble user" style="margin-bottom:6px">I like running but I always go alone.</div>
+        <div class="mock-bubble ai">There's a free group called November Project London. Outdoor workouts, super welcoming. <span style="color:var(--accent);text-decoration:underline">november-project.com/london</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. PROOF ═══ -->
+<section class="proof">
+  <div class="container">
+    <h2 class="section-title reveal">Built on <em>science.</em></h2>
+    <p class="section-sub reveal">Not opinions. Not vibes. Decades of peer-reviewed research.</p>
+
+    <div class="proof-quote reveal">
+      <p>Good relationships keep us happier, healthier, and help us live longer. Loneliness kills.</p>
+      <cite>Dr. Robert Waldinger, Harvard Study of Adult Development (85 years of data)</cite>
+    </div>
+
+    <div class="proof-stats reveal">
+      <div class="proof-stat">
+        <div class="proof-stat-num">280</div>
+        <div class="proof-stat-label">studies analyzed in the largest loneliness meta-analysis ever conducted</div>
+        <div class="proof-stat-src">APA, 2025</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-num">50h</div>
+        <div class="proof-stat-label">of shared time needed to become a casual friend</div>
+        <div class="proof-stat-src">Hall, 2019</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-num">200h</div>
+        <div class="proof-stat-label">of shared time needed to become a close friend</div>
+        <div class="proof-stat-src">Hall, 2019</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-num">3x</div>
+        <div class="proof-stat-label">more engagement with structured, guided interventions</div>
+        <div class="proof-stat-src">APA, 2025</div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px"><a href="/research" style="color:var(--accent);font-size:14px;font-weight:500;text-decoration:none">Read the full research &rarr;</a></p>
+  </div>
+</section>
+
+<!-- (Reviews removed - no invented testimonials) -->
+
+<!-- ═══ 6. VOICES ═══ -->
+<section class="voices">
+  <h2 class="voices-title reveal">This is who we're <em>building for.</em></h2>
+  <p class="voices-sub">Real words from real people across Reddit.</p>
+  <div class="voices-wall">
+    <div class="voices-row">
+      <div class="voice-pill"><q>I've always been proactive about fixing my loneliness problem, but no matter what I do, nothing changes.</q><span class="voice-pill-sub">r/lonely</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely but I'll never be able to, no matter what I do.</q><span class="voice-pill-sub">r/Schizoid</span></div>
+      <div class="voice-pill"><q>I just don't have any idea on how to fix my loneliness I guess?</q><span class="voice-pill-sub">r/AdviceForTeens</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely and find a partner...</q><span class="voice-pill-sub">r/loneliness</span></div>
+      <div class="voice-pill"><q>I recently made an appointment to talk to a therapist and I feel like it might be the start.</q><span class="voice-pill-sub">r/lonely</span></div>
+      <div class="voice-pill"><q>I've always been proactive about fixing my loneliness problem, but no matter what I do, nothing changes.</q><span class="voice-pill-sub">r/lonely</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely but I'll never be able to, no matter what I do.</q><span class="voice-pill-sub">r/Schizoid</span></div>
+      <div class="voice-pill"><q>I just don't have any idea on how to fix my loneliness I guess?</q><span class="voice-pill-sub">r/AdviceForTeens</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely and find a partner...</q><span class="voice-pill-sub">r/loneliness</span></div>
+      <div class="voice-pill"><q>I recently made an appointment to talk to a therapist and I feel like it might be the start.</q><span class="voice-pill-sub">r/lonely</span></div>
+    </div>
+    <div class="voices-row">
+      <div class="voice-pill"><q>I also know that if I want to stop being lonely, I need to focus on me.</q><span class="voice-pill-sub">r/blackladies</span></div>
+      <div class="voice-pill"><q>I'm not getting any closer to fixing my loneliness crisis.</q><span class="voice-pill-sub">r/DecidingToBeBetter</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely.</q><span class="voice-pill-sub">r/depression</span></div>
+      <div class="voice-pill"><q>A big part of me wants to tell my therapist about my loneliness but I'm afraid of being vulnerable.</q><span class="voice-pill-sub">r/lonely</span></div>
+      <div class="voice-pill"><q>I think the hardest part about loneliness is that there's no quick fix.</q><span class="voice-pill-sub">r/socialanxiety</span></div>
+      <div class="voice-pill"><q>I also know that if I want to stop being lonely, I need to focus on me.</q><span class="voice-pill-sub">r/blackladies</span></div>
+      <div class="voice-pill"><q>I'm not getting any closer to fixing my loneliness crisis.</q><span class="voice-pill-sub">r/DecidingToBeBetter</span></div>
+      <div class="voice-pill"><q>I want to stop being lonely.</q><span class="voice-pill-sub">r/depression</span></div>
+      <div class="voice-pill"><q>A big part of me wants to tell my therapist about my loneliness but I'm afraid of being vulnerable.</q><span class="voice-pill-sub">r/lonely</span></div>
+      <div class="voice-pill"><q>I think the hardest part about loneliness is that there's no quick fix.</q><span class="voice-pill-sub">r/socialanxiety</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. PRICING ═══ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <h2 class="pricing-title reveal">Start breaking the cycle <em>today.</em></h2>
+    <p class="pricing-sub">Less than a coffee a day. Cancel anytime.</p>
+    <div class="pricing-cards reveal">
+      <div class="pricing-card pricing-card-free">
+        <div class="pricing-card-name">Free</div>
+        <div class="pricing-card-tagline">Try it out</div>
+        <p class="pricing-card-desc">Talk to Max, 20 messages per week. Get a feel for the conversation, see if it clicks. No credit card, no commitment.</p>
+        <div class="pricing-card-bottom">
+          <div class="pricing-card-price-row"><div class="pricing-card-price">$0</div><div class="pricing-card-period">/forever</div></div>
+          <div class="pricing-card-daily">&nbsp;</div>
+          <a href="/chat/" class="pricing-btn pricing-btn-outline-accent">Start free</a>
+          <p class="pricing-fine">No signup required to try.</p>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-name">Monthly</div>
+        <div class="pricing-card-tagline">Start where you are</div>
+        <p class="pricing-card-desc">Unlimited Max. Weekly action plans. Events and activities in your city matched to you. Cancel anytime.</p>
+        <div class="pricing-card-bottom">
+          <div class="pricing-card-price-row"><div class="pricing-card-price">$49</div><div class="pricing-card-period">/month</div></div>
+          <div class="pricing-card-daily">$1.63/day</div>
+          <a href="https://buy.stripe.com/3cI5kwf63cWA9qI4nK6Na02" class="pricing-btn pricing-btn-light">Start 7-day free trial</a>
+          <p class="pricing-fine">Cancel anytime.</p>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-name">Yearly</div>
+        <div class="pricing-card-tagline">Commit to change</div>
+        <p class="pricing-card-desc">Same full access. Best price. Priority matching + monthly progress reports. Price locked forever.</p>
+        <div class="pricing-card-bottom">
+          <div class="pricing-card-price-row"><div class="pricing-card-price">$349</div><div class="pricing-card-period">/year</div></div>
+          <div class="pricing-card-daily">$0.96/day</div>
+          <a href="https://buy.stripe.com/28E3co4rp3m0byQ7zW6Na03" class="pricing-btn pricing-btn-accent">Get yearly access</a>
+          <div class="pricing-save">Save $239/year</div>
+        </div>
+      </div>
+      <div class="pricing-card pricing-card-dark">
+        <div class="pricing-card-name">Guided</div>
+        <div class="pricing-card-tagline" style="color:var(--accent)">Personal roadmap</div>
+        <p class="pricing-card-desc">Everything in Monthly + weekly missions, accountability check-ins, tailored roadmap. Real transformation.</p>
+        <div class="pricing-card-bottom">
+          <div class="pricing-card-price-row"><div class="pricing-card-price">$89</div><div class="pricing-card-period">/month</div></div>
+          <div class="pricing-card-daily">$2.97/day</div>
+          <a href="/share" class="pricing-btn pricing-btn-cream">Join waitlist</a>
+          <p class="pricing-fine">Be first when it launches.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. FAQ ═══ -->
+<section class="faq">
+  <div class="container">
+    <h2 class="faq-title reveal">Common <em>questions.</em></h2>
+    <div class="faq-list">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Will talking to an AI actually help me?</div>
+        <div class="faq-a">Yes. A 2025 meta-analysis of 280 studies found that guided self-help interventions produce strong, lasting reductions in loneliness. Max is built on proven conversational techniques (CBT, Humble Inquiry, empathic listening) and connects you to real activities. He's not replacing human connection. He's the bridge to it.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">What is Max exactly?</div>
+        <div class="faq-a">Max is an AI companion that learns your story, your city, and what holds you back. He suggests real activities with real links, builds you a weekly plan, and checks in on your progress. Not therapy. A coach in your pocket.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Is it really free?</div>
+        <div class="faq-a">Yes. You get 20 messages per week with Max, completely free, forever. No credit card needed. Paid plans unlock unlimited conversations and personalized action plans.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">How is this different from therapy or a dating app?</div>
+        <div class="faq-a">We don't diagnose or treat. We connect you with real, structured activities in your city and help you show up consistently. The focus is friendship and community, not romance or clinical support.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Is loneliness really a health risk?</div>
+        <div class="faq-a">Yes. The WHO and U.S. Surgeon General declared it a global health priority. +29% heart disease, +32% stroke, +64% dementia. Equivalent to smoking 15 cigarettes a day. 871,000 deaths per year worldwide.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL ═══ -->
+<section class="final">
+  <h2>You don't have to figure this out <em>alone.</em></h2>
+  <p>Max is ready when you are. Free, no signup, no pressure.</p>
+  <a href="/chat/" class="hero-cta">Talk to Max free</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand">Stop Being Alone</div><p class="footer-brand-desc">An AI-powered movement to solve the loneliness epidemic. Co-created with the people who live it every day.</p></div>
+      <div class="footer-col"><div class="footer-col-title">Navigate</div><a href="/">Home</a><a href="/research">Research</a><a href="/blog">Blog</a><a href="#pricing">Pricing</a></div>
+      <div class="footer-col"><div class="footer-col-title">Legal</div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col"><div class="footer-col-title">Connect</div><a href="mailto:jules@stopbeingalone.com">Email</a><a href="https://x.com/stopbeingalon" target="_blank" rel="noopener">X / Twitter</a><a href="https://www.instagram.com/stopbeingalone/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@stopbeingalone.com" target="_blank" rel="noopener">TikTok</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Stop Being Alone. All rights reserved.</span>
+      <span style="font-size:11px;opacity:.7">Sources: WHO &middot; U.S. Surgeon General &middot; APA &middot; Harvard &middot; Gallup &middot; Cigna</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Animate stat card bars on scroll
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('[data-target]').forEach((fill, i) => {
+          setTimeout(() => { fill.style.width = fill.dataset.target; }, i * 200);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.stats-grid').forEach(g => barObserver.observe(g));
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-auth.js"></script>
+<script src="/js/max-widget.js" defer></script>
+</body>
+</html>
