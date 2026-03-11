@@ -129,19 +129,20 @@ function updateUIForUser(user) {
 }
 
 function updateUIForGuest() {
+  const isFr = window.location.pathname.startsWith('/fr');
   const navCta = document.getElementById('nav-cta-auth');
   if (navCta) {
     navCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a>
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a>
+      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">${isFr ? 'Connexion' : 'Log in'}</a>
+      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">${isFr ? 'Inscription' : 'Sign up'}</a>
     `;
   }
 
   const mobileCta = document.getElementById('mobile-cta-auth');
   if (mobileCta) {
     mobileCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">Log in</a>
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">Sign up</a>
+      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">${isFr ? 'Connexion' : 'Log in'}</a>
+      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">${isFr ? 'Inscription' : 'Sign up'}</a>
     `;
   }
 }
@@ -182,22 +183,29 @@ function setAuthMode(mode) {
   if (successMsg) successMsg.style.display = 'none';
 
   if (mode === 'signup') {
-    title.textContent = 'Start your journey';
-    subtitle.textContent = 'Create your account to begin.';
-    submitBtn.textContent = 'Create account';
+    const isFr = window.location.pathname.startsWith('/fr');
+    title.textContent = isFr ? 'Commence ton parcours' : 'Start your journey';
+    subtitle.textContent = isFr ? 'Crée ton compte pour commencer.' : 'Create your account to begin.';
+    submitBtn.textContent = isFr ? 'Créer mon compte' : 'Create account';
     submitBtn.setAttribute('data-mode', 'signup');
-    switchText.innerHTML = 'Already have an account? <a href="#" onclick="setAuthMode(\'login\'); return false;">Log in</a>';
+    switchText.innerHTML = isFr
+      ? 'Déjà un compte ? <a href="#" onclick="setAuthMode(\'login\'); return false;">Connexion</a>'
+      : 'Already have an account? <a href="#" onclick="setAuthMode(\'login\'); return false;">Log in</a>';
     if (forgotLink) forgotLink.style.display = 'none';
   } else if (mode === 'login') {
-    title.textContent = 'Welcome back';
-    subtitle.textContent = 'Log in to your account.';
-    submitBtn.textContent = 'Log in';
+    const isFr = window.location.pathname.startsWith('/fr');
+    title.textContent = isFr ? 'Content de te revoir' : 'Welcome back';
+    subtitle.textContent = isFr ? 'Connecte-toi à ton compte.' : 'Log in to your account.';
+    submitBtn.textContent = isFr ? 'Connexion' : 'Log in';
     submitBtn.setAttribute('data-mode', 'login');
-    switchText.innerHTML = 'No account yet? <a href="#" onclick="setAuthMode(\'signup\'); return false;">Sign up</a>';
+    switchText.innerHTML = isFr
+      ? 'Pas encore de compte ? <a href="#" onclick="setAuthMode(\'signup\'); return false;">Inscription</a>'
+      : 'No account yet? <a href="#" onclick="setAuthMode(\'signup\'); return false;">Sign up</a>';
     if (forgotLink) forgotLink.style.display = 'block';
   } else if (mode === 'forgot') {
-    title.textContent = 'Reset your password';
-    subtitle.textContent = 'We\'ll send you a reset link.';
+    const isFr = window.location.pathname.startsWith('/fr');
+    title.textContent = isFr ? 'Réinitialise ton mot de passe' : 'Reset your password';
+    subtitle.textContent = isFr ? 'On t\'envoie un lien de réinitialisation.' : 'We\'ll send you a reset link.';
     submitBtn.textContent = 'Send reset link';
     submitBtn.setAttribute('data-mode', 'forgot');
     switchText.innerHTML = '<a href="#" onclick="setAuthMode(\'login\'); return false;">Back to login</a>';
