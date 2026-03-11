@@ -549,7 +549,7 @@
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${session.access_token}`,
           },
-          body: JSON.stringify({ message: null }),
+          body: JSON.stringify({ message: null, browser_language: navigator.language || 'en' }),
         });
         const data = await res.json();
         hideTyping();
@@ -613,7 +613,7 @@
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: text, browser_language: navigator.language || 'en' }),
       });
 
       const data = await res.json();

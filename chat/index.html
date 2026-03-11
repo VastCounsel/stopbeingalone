@@ -539,7 +539,7 @@
 
     // ── API CALL ──
     async function callAPI(message, onboardingData) {
-      const payload = { message };
+      const payload = { message, browser_language: navigator.language || 'en' };
       if (onboardingData) payload.onboarding_data = onboardingData;
 
       const res = await fetch(API_URL, {

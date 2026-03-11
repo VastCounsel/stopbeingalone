@@ -144,11 +144,17 @@ If nothing on this list fits, say so honestly and ask what else they might be in
 
 WHAT YOU KNOW: ${known.length ? known.join('. ') : 'Nothing yet.'}
 WHAT YOU STILL NEED TO LEARN: ${missing.join(', ')}
+USER LANGUAGE: ${p.language || 'en'}
 
 HOW THIS WORKS:
-You're NOT trying to fill out a form. You're having a real first conversation with someone who's probably a bit nervous. Think about how you'd talk to someone at a party who just told you they don't really know anyone there. You wouldn't interrogate them. You'd be warm, you'd be curious, you'd let it flow.
+You're NOT trying to fill out a form. You're having a real first conversation with someone who's probably a bit nervous.
 
-- If you don't know their name yet: Say hi. You're Max, you're here to help them stop feeling alone. Ask their name. That's your whole first message. Short and warm.
+LANGUAGE RULES:
+- If language is "fr": speak entirely in French. Use "tu", never "vous". Same warmth, same brevity.
+- If language is "en" (or anything else): speak English.
+- If the user writes in a different language than expected, switch to match them immediately.
+
+${n ? `- You already know their name is ${n} (from their account). Use it naturally. Don't ask for their name again. Start by greeting them and asking where they are based.` : `- You don't know their name yet. Say hi, you're Max, you're here to help them feel a little less alone. Ask their name. That's your whole first message.`}
 - If you have their name but not their city: Ask where they are, and say why (so you can suggest local stuff). One sentence.
 - Once you have name + city: just have a conversation. Be curious about their life. The things you still need to learn (situation, goals, obstacles, hobbies) will come up naturally as you talk. Don't force them.
 - If a topic comes up naturally, great. If not, gently steer toward it when there's a natural opening. But NEVER ask "What are your goals?" or "What obstacles do you face?" Those are form questions. Instead, be human:
@@ -234,7 +240,7 @@ exports.handler = async (event) => {
   if (event.httpMethod!=='POST') return json(405,{error:'Method not allowed'});
 
   try {
-    const {message} = JSON.parse(event.body);
+    const {message, browser_language} = JSON.parse(event.body);
     const ah = event.headers.authorization||event.headers.Authorization;
     if (!ah?.startsWith('Bearer ')) return json(401,{error:'Not authenticated'});
 
@@ -242,13 +248,29 @@ exports.handler = async (event) => {
     if (ae||!user) return json(401,{error:'Invalid token'});
     const uid = user.id;
 
+    // Extract name and language from auth metadata
+    const authName = user.user_metadata?.full_name || user.user_metadata?.name || null;
+    const authFirstName = authName ? authName.split(' ')[0] : null;
+    const authLang = (browser_language || user.user_metadata?.locale || 'en').substring(0, 2).toLowerCase();
+    const detectedLang = ['fr','en','es','de','pt','it'].includes(authLang) ? authLang : 'en';
+
     // Load profile
     let {data:rows} = await SB.from('user_profiles').select('*').eq('user_id',uid);
     let p = rows?.length ? rows[0] : null;
     if (!p) {
-      await SB.from('user_profiles').insert({user_id:uid, subscription_tier:'free', onboarding_complete:false, messages_this_week:0, messages_today:0, language:'en', situation:[], goals:[], obstacles:[], hobbies:[]});
+      await SB.from('user_profiles').insert({user_id:uid, first_name: authFirstName, subscription_tier:'free', onboarding_complete:false, messages_this_week:0, messages_today:0, language: detectedLang, situation:[], goals:[], obstacles:[], hobbies:[]});
       const {data:r2} = await SB.from('user_profiles').select('*').eq('user_id',uid);
-      p = r2?.length ? r2[0] : {user_id:uid,first_name:null,city:null,situation:[],goals:[],obstacles:[],hobbies:[],onboarding_complete:false,subscription_tier:'free',messages_this_week:0,messages_today:0,language:'en'};
+      p = r2?.length ? r2[0] : {user_id:uid,first_name:authFirstName,city:null,situation:[],goals:[],obstacles:[],hobbies:[],onboarding_complete:false,subscription_tier:'free',messages_this_week:0,messages_today:0,language:detectedLang};
+    }
+    // Update first_name from auth if profile has none
+    if (!p.first_name && authFirstName) {
+      await SB.from('user_profiles').update({first_name: authFirstName}).eq('user_id', uid);
+      p.first_name = authFirstName;
+    }
+    // Update language if profile still has default 'en' but browser says otherwise
+    if (p.language === 'en' && detectedLang !== 'en' && browser_language) {
+      await SB.from('user_profiles').update({language: detectedLang}).eq('user_id', uid);
+      p.language = detectedLang;
     }
 
     console.log('Profile:', p.first_name, p.city, 'missing:', missingFields(p));
@@ -303,7 +325,7 @@ User message: "${message}"`;
 
     // Quotas
     if (p.onboarding_complete && message) {
-      if (p.subscription_tier==='free' && p.messages_this_week>=12) return json(200,{quota_exceeded:true});
+      if (p.subscription_tier==='free' && p.messages_this_week>=20) return json(200,{quota_exceeded:true});
       if (['monthly','yearly','guided'].includes(p.subscription_tier) && p.messages_today>=200) return json(200,{response:`That's a lot of messages for one day. Let's pick this back up tomorrow, yeah?`,quota_exceeded:true});
     }
 
