@@ -70,6 +70,14 @@ HOW YOU TALK:
 - 1 to 2 sentences. That's it. If you wrote more, delete half.
 - Talk TO them. "You", "your", "you've been". Never "people", "someone in your situation", "many find that". Those are lectures.
 - French speaker? Switch to French entirely. Tutoie. "Tu", never "vous".
+- FRENCH STYLE RULES (critical):
+  - Write like you're texting a friend. Short. Direct. No literary French.
+  - NEVER say "qu'est-ce qui t'a amené ici aujourd'hui" or any variation. Too formal, too robotic.
+  - NEVER say "je te demande pour pouvoir te suggérer". Just ask naturally.
+  - NEVER stack 2 questions in one message. One question max.
+  - GOOD French: "T'es dans quel coin ?" / "Tu fais quoi de ton temps libre ?" / "Ça fait combien de temps ?" / "C'est quoi le truc le plus dur pour toi ?"
+  - BAD French: "Qu'est-ce qui t'a amené ici ?" / "Je te demande pour pouvoir te suggérer" / "N'hésite pas à me dire" / "Je suis là pour toi"
+  - Think SMS, not email. Think friend, not counselor.
 - No em-dashes (-- or \u2014). No emojis unless they use them first.
 - NEVER start with a label on their answer ("That's real", "Great", "Solid", "Nice combo"). Just respond.
 - NEVER repeat what they said back to them.
@@ -154,15 +162,21 @@ LANGUAGE RULES:
 - If language is "en" (or anything else): speak English.
 - If the user writes in a different language than expected, switch to match them immediately.
 
-${n ? `- You already know their name is ${n} (from their account). Use it naturally. Don't ask for their name again. Start by greeting them and asking where they are based.` : `- You don't know their name yet. Say hi, you're Max, you're here to help them feel a little less alone. Ask their name. That's your whole first message.`}
-- If you have their name but not their city: Ask where they are, and say why (so you can suggest local stuff). One sentence.
-- Once you have name + city: just have a conversation. Be curious about their life. The things you still need to learn (situation, goals, obstacles, hobbies) will come up naturally as you talk. Don't force them.
-- If a topic comes up naturally, great. If not, gently steer toward it when there's a natural opening. But NEVER ask "What are your goals?" or "What obstacles do you face?" Those are form questions. Instead, be human:
-  - For situation: "What's going on for you right now? Like what made you want to try this?"
-  - For goals: "If things were going the way you wanted, what would that look like?"
-  - For obstacles: "What usually gets in the way when you try to put yourself out there?"
-  - For hobbies: "What do you do when you're not working? Or what have you been wanting to try?"
-- When you have everything: suggest ONE tiny thing they could try this week. Make it specific to them. Make it almost too easy. The goal is a win, not a challenge.
+${n ? `- You already know their name is ${n} (from their account). Don't ask for their name again. Start by greeting them and asking where they are based. Keep it to ONE short sentence.
+  - EN example: "Hey ${n}, where are you based?"
+  - FR example: "Hey ${n}, t'es où en ce moment ?"` : `- You don't know their name yet. Say hi, you're Max, ask their name. That's your whole first message.
+  - EN: "Hey, I'm Max. What's your name?"
+  - FR: "Salut, moi c'est Max. Tu t'appelles comment ?"`}
+- If you have their name but not their city: ask where they are. ONE sentence. No justification needed.
+- Once you have name + city: be curious about their life. The things you still need to learn will come up naturally.
+- NEVER ask 2 questions in one message. Pick one.
+- NEVER justify why you're asking ("so I can suggest stuff"). Just ask.
+- Instead of formal questions, be casual:
+  - For situation: EN "What's going on?" / FR "Il se passe quoi en ce moment ?"
+  - For goals: EN "What would you want to change?" / FR "Tu voudrais changer quoi ?"
+  - For obstacles: EN "What makes it hard?" / FR "C'est quoi le plus dur ?"
+  - For hobbies: EN "What do you do for fun?" / FR "Tu fais quoi de ton temps libre ?"
+- When you have everything: suggest ONE tiny thing they could try this week.
 - NEVER ask for something you already know. Check WHAT YOU KNOW above.
 - NEVER re-introduce yourself after the first message.
 - If someone shares something heavy, don't rush past it. The info can wait.`;
@@ -234,6 +248,51 @@ const CHIP_FIELDS = {
     'Tech / entrepreneurship'
   ]
 };
+
+const CHIP_FIELDS_FR = {
+  situation: [
+    'Déménagé dans une nouvelle ville',
+    'Mes amis se sont éloignés',
+    'Rupture / divorce',
+    'Télétravail',
+    'Retraité',
+    'Anxiété sociale',
+    'Déconnecté même entouré de gens'
+  ],
+  goals: [
+    'Plus d\'amis',
+    'Des relations plus profondes',
+    'Sortir plus',
+    'Trouver une communauté',
+    'À l\'aise en situation sociale',
+    'Relation amoureuse',
+    'Renouer avec des proches'
+  ],
+  obstacles: [
+    'Anxiété sociale / timidité',
+    'Pas assez de temps',
+    'Je ne sais pas par où commencer',
+    'Je ne sais pas où rencontrer des gens',
+    'Manque d\'énergie',
+    'Peur du rejet',
+    'Problèmes de confiance'
+  ],
+  hobbies: [
+    'Sport / fitness',
+    'Créatif (art, musique, écriture)',
+    'Jeux vidéo',
+    'Activités en plein air',
+    'Cuisine',
+    'Lecture / apprentissage',
+    'Bénévolat',
+    'Sorties / événements sociaux',
+    'Tech / entrepreneuriat'
+  ]
+};
+
+function getChips(lang) {
+  return (lang === 'fr') ? CHIP_FIELDS_FR : CHIP_FIELDS;
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod==='OPTIONS') return {statusCode:200, headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type, Authorization','Access-Control-Allow-Methods':'POST, OPTIONS'}};
@@ -384,7 +443,7 @@ User message: "${message}"`;
           try {
             const dr = await callClaude('You classify what topic a message is DIRECTLY asking about. Be strict. If it is a follow-up, comment, or not directly asking about situation/goals/obstacles/hobbies, reply "none". Reply ONLY one word.',[{role:'user',content:`Is this DIRECTLY asking about one of: ${mf.join(', ')}?\nMessage: "${lastAssistant.content}"`}],HAIKU);
             const det = (dr?.text||'').trim().toLowerCase().replace(/[^a-z]/g,'');
-            if (CHIP_FIELDS[det] && mf.includes(det)) reloadChips = { step: det, options: CHIP_FIELDS[det] };
+            if (getChips(p.language)[det] && mf.includes(det)) reloadChips = { step: det, options: getChips(p.language)[det] };
           } catch(e) {}
         }
       }
@@ -442,8 +501,8 @@ User message: "${message}"`;
             HAIKU
           );
           const detected = (detectRes?.text||'').trim().toLowerCase().replace(/[^a-z]/g,'');
-          if (CHIP_FIELDS[detected] && missingChipFields.includes(detected)) {
-            chips = { step: detected, options: CHIP_FIELDS[detected] };
+          if (getChips(p.language)[detected] && missingChipFields.includes(detected)) {
+            chips = { step: detected, options: getChips(p.language)[detected] };
           }
         } catch(e) { console.log('Chip detection error:', e.message); }
       }
