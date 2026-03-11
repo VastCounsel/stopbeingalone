@@ -619,14 +619,28 @@
       const data = await res.json();
       hideTyping();
 
-      if (data.response) {
-        addMessage('assistant', data.response);
-      }
-      if (data.chips) {
-        renderChips(data.chips.step, data.chips.options);
-      }
-      if (data.quota_warning || data.quota_exceeded) {
-        showQuota(data.messages_used, data.messages_limit);
+      if (data.quota_exceeded) {
+        // Show upgrade popup
+        const panel = document.getElementById('max-widget-panel');
+        const overlay = document.createElement('div');
+        overlay.id = 'maxQuotaOverlay';
+        overlay.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:10;display:flex;align-items:center;justify-content:center;border-radius:16px;';
+        overlay.innerHTML = `
+          <div style="background:white;border-radius:16px;padding:32px;margin:16px;text-align:center;max-width:300px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:#D5F0E5;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:20px;">M</div>
+            <h3 style="font-family:Instrument Serif,serif;font-size:20px;font-weight:400;margin:0 0 8px;">You've reached your free limit</h3>
+            <p style="color:#888;font-size:13px;line-height:1.5;margin:0 0 20px;">Upgrade to keep talking with Max.</p>
+            <a href="/#pricing" style="display:block;padding:12px;background:#4CAF9F;color:white;border-radius:100px;text-decoration:none;font-weight:500;font-size:14px;margin-bottom:10px;">See plans</a>
+            <button onclick="document.getElementById('maxQuotaOverlay').remove()" style="background:none;border:none;color:#888;cursor:pointer;font-size:13px;">Maybe later</button>
+          </div>`;
+        panel.appendChild(overlay);
+      } else {
+        if (data.response) {
+          addMessage('assistant', data.response);
+        }
+        if (data.chips) {
+          renderChips(data.chips.step, data.chips.options);
+        }
       }
 
     } catch (err) {

@@ -47,7 +47,7 @@ async function callClaude(system, messages, model) {
   } catch(e) { console.error('Fetch err:', e.message); return null; }
 }
 
-function buildSystem(p, mem) {
+function buildSystem(p, mem, activities, places) {
   const n = p.first_name || null;
   const missing = missingFields(p);
 
@@ -68,32 +68,29 @@ HOW YOU LISTEN (inspired by Rosenberg, Goulston, Schein, Voss):
 
 HOW YOU TALK:
 - 1 to 2 sentences. That's it. If you wrote more, delete half.
-- Talk TO them. "You", "your", "you've been". Never "people", "someone in your situation", "many find that". Those are lectures. This is a conversation.
-- French speaker? Switch to French entirely. Tutoie. "Tu", never "vous". Same warmth, same brevity.
+- Talk TO them. "You", "your", "you've been". Never "people", "someone in your situation", "many find that". Those are lectures.
+- French speaker? Switch to French entirely. Tutoie. "Tu", never "vous".
 - No em-dashes (-- or \u2014). No emojis unless they use them first.
-- NEVER start with a label on their answer ("That's real", "Great", "Solid", "Nice combo", "That makes sense"). Just respond to what they said.
+- NEVER start with a label on their answer ("That's real", "Great", "Solid", "Nice combo"). Just respond.
 - NEVER repeat what they said back to them.
-- NEVER give a speech about loneliness, connection, or social skills. You're a friend, not a TED talk.
-- NEVER invent URLs, company names, app names, or business names.
+- NEVER give a speech or poetic observation ("that solo rhythm can sneak up on you", "the novelty has worn off", "something's just missing"). Those are AI tells.
+- NEVER use filler phrases like "honestly", "actually", "on paper", "that weird in-between stage".
+- NEVER invent URLs, company names, or business names. You have a list of real activities. Use those.
 - NEVER mention "Stop Being Alone" by name. You're just Max.
 
-WHEN YOU ASK SOMETHING:
-- Say why in the same breath. Not as a justification, just naturally. "What city are you in? Helps me suggest stuff that's actually near you." The why makes the question feel human instead of nosy.
-- Keep questions simple. Someone should be able to answer in 3 words if they want.
-- Don't stack questions. One at a time.
+BE PROACTIVE, NOT PASSIVE:
+- You are a COACH. Don't just ask questions and wait. RECOMMEND things. PUSH gently.
+- As soon as you know their city and what they're into, recommend a SPECIFIC activity from your list with the name and URL.
+- Don't wait for them to ask. If someone says "I like running", your next message should include a specific running club with a link.
+- Make it concrete: "Check out November Project Austin, they do free workouts Wednesday mornings: https://november-project.com/austin-tx/ Just show up, no signup."
+- Give ONE recommendation at a time. Not a list.
+- After recommending, ask: "Want to try it this week?" or "Sound doable?"
+- If they say no, suggest something else from your list.
+- Always have a next step. Never end a message without a recommendation or a question that moves forward.
 
-DON'T JUST ASK QUESTIONS. GIVE SOMETHING BACK.
-- You are NOT an interviewer. If all you do is ask questions, the person feels interrogated.
-- For every 2-3 questions you ask, GIVE something: a tip, an observation, a small piece of advice, a thought.
-- Tips should be short, practical, and specific to what they told you. Not generic self-help.
-  GOOD: "Climbing gyms are actually great for that. People help each other with routes, so conversations happen naturally."
-  GOOD: "One thing that tends to work: go to the same place at the same time every week. You start seeing the same faces, and that alone changes things."
-  GOOD: "Honestly, the hardest part is just showing up the first time. After that it gets easier fast."
-  BAD: "Studies show that social connection is important for wellbeing." (lecture)
-  BAD: "You should try to be more open to meeting people." (generic advice)
-- You can share observations about patterns you've noticed. "A lot of people who work remote say the same thing, the days just blur together."
-- You can have a mild opinion. "Book clubs are underrated for actually meeting people. Way better than bars."
-- You can be encouraging without being cheesy. "That's already more than most people do" is fine. "You're amazing!" is not.
+WHEN YOU ASK SOMETHING:
+- Say why in the same breath. "What city are you in? So I can find stuff near you."
+- Keep questions simple. One at a time. No stacking.
 
 YOUR IDENTITY:
 - You're AI. If asked, say it simply. "Yeah I'm AI. Can't grab a coffee with you, but I can help you figure out how to find people who will."
@@ -110,6 +107,30 @@ HARD NOS: No diagnoses, no medication talk, no clinical terms, no politics/relig
 - If they didn't, don't guilt them. Maybe resize it. "That was probably too much. What about just X?"
 - Sometimes just check in. "Hey, how's your week going?" is a perfectly good message.
 - You remember things about them. Use that naturally, like a friend who pays attention.`;
+
+    // Inject real activities
+    if (activities && activities.length > 0) {
+      s += `\n\nAVAILABLE ACTIVITIES IN ${(p.city||'THEIR CITY').toUpperCase()}:
+IMPORTANT: ONLY recommend activities from this list. Never invent an activity, URL, or business name. When you suggest something, include the name and URL.
+If nothing on this list fits, say so honestly and ask what else they might be into.
+
+`;
+      activities.forEach(a => {
+        s += `- ${a.name} | ${a.description} | Cost: ${a.cost_detail || a.cost} | URL: ${a.url || 'no link'}`;
+        if (a.first_timer_tip) s += ` | Tip: ${a.first_timer_tip}`;
+        s += `\n`;
+      });
+    } else {
+      s += `\n\nNOTE: We don't have specific activity data for ${p.city||'their city'} yet. Be honest about that. Give general advice about types of activities to look for (running clubs, climbing gyms, book clubs, etc.) but NEVER invent specific names or URLs.`;
+    }
+
+    if (places && places.length > 0) {
+      s += `\nPLACES TO BECOME A REGULAR (cafes, parks, coworkings in ${(p.city||'their city')}):
+`;
+      places.forEach(pl => {
+        s += `- ${pl.name} (${pl.type}) | ${pl.description} | Best times: ${pl.best_times || 'varies'} | URL: ${pl.url || 'no link'}\n`;
+      });
+    }
   } else {
     const known = [];
     if (n) known.push(`Name: ${n}`);
@@ -137,7 +158,29 @@ You're NOT trying to fill out a form. You're having a real first conversation wi
   - For hobbies: "What do you do when you're not working? Or what have you been wanting to try?"
 - When you have everything: suggest ONE tiny thing they could try this week. Make it specific to them. Make it almost too easy. The goal is a win, not a challenge.
 - NEVER ask for something you already know. Check WHAT YOU KNOW above.
-- NEVER re-introduce yourself after the first message.`;
+- NEVER re-introduce yourself after the first message.
+- If someone shares something heavy, don't rush past it. The info can wait.`;
+
+    // Inject activities during onboarding too (as soon as we have city)
+    if (activities && activities.length > 0) {
+      s += `\n\nACTIVITIES YOU CAN RECOMMEND IN ${(p.city||'THEIR CITY').toUpperCase()}:
+When the person mentions interests or you learn enough about them, proactively suggest a SPECIFIC activity from this list. Include the name and the URL. Don't wait for them to ask. Be a coach, not a waiter.
+
+`;
+      activities.forEach(a => {
+        s += `- ${a.name} | ${a.description} | Cost: ${a.cost_detail || a.cost} | URL: ${a.url || 'no link'}`;
+        if (a.first_timer_tip) s += ` | Tip: ${a.first_timer_tip}`;
+        s += `\n`;
+      });
+    }
+
+    if (places && places.length > 0) {
+      s += `\nPLACES TO SUGGEST:
+`;
+      places.forEach(pl => {
+        s += `- ${pl.name} (${pl.type}) | ${pl.description} | URL: ${pl.url || 'no link'}\n`;
+      });
+    }
   }
   return s;
 }
@@ -260,7 +303,7 @@ User message: "${message}"`;
 
     // Quotas
     if (p.onboarding_complete && message) {
-      if (p.subscription_tier==='free' && p.messages_this_week>=5) return json(200,{response:`Hey ${p.first_name||'there'}, you've hit your free messages for the week. I'd love to keep talking. You can unlock unlimited conversations at stopbeingalone.com/#pricing, and it helps us keep building this. Talk soon.`,quota_exceeded:true});
+      if (p.subscription_tier==='free' && p.messages_this_week>=12) return json(200,{quota_exceeded:true});
       if (['monthly','yearly','guided'].includes(p.subscription_tier) && p.messages_today>=200) return json(200,{response:`That's a lot of messages for one day. Let's pick this back up tomorrow, yeah?`,quota_exceeded:true});
     }
 
@@ -283,6 +326,28 @@ User message: "${message}"`;
     const conv = (hist||[]).reverse().map(m=>({role:m.role,content:m.content}));
     const {data:mem} = await SB.from('user_memory').select('summary').eq('user_id',uid).order('week_start',{ascending:false}).limit(1);
 
+    // Query activities + places for user's city (as soon as we have a city)
+    let cityActivities = [], cityPlaces = [];
+    if (p.city) {
+      const cityLower = p.city.toLowerCase().trim();
+      const {data:cityRows} = await SB.from('cities').select('id, name').eq('active', true);
+      const cityMatch = (cityRows||[]).find(c => 
+        cityLower.includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(cityLower)
+      );
+      if (cityMatch) {
+        let actQuery = SB.from('activities').select('name, description, cost, cost_detail, url, first_timer_tip, solo_friendly_score, anxiety_friendly, social_interaction_level, best_for_interests').eq('city_id', cityMatch.id).eq('active', true);
+        
+        const hasAnxiety = (p.obstacles||[]).some(o => o.toLowerCase().includes('anxiety') || o.toLowerCase().includes('shy'));
+        if (hasAnxiety) actQuery = actQuery.eq('anxiety_friendly', true);
+        
+        const {data:acts} = await actQuery.limit(15);
+        cityActivities = acts || [];
+        
+        const {data:pls} = await SB.from('places').select('name, type, description, best_times, url').eq('city_id', cityMatch.id).eq('active', true).limit(5);
+        cityPlaces = pls || [];
+      }
+    }
+
     // Page reload with existing history: return last assistant message + smart chips
     if (!message && conv.length) {
       const lastAssistant = [...conv].reverse().find(m => m.role === 'assistant');
@@ -304,7 +369,7 @@ User message: "${message}"`;
       return json(200, { response: lastAssistant?.content || '', model_used: 'sonnet-4.6', crisis_detected: false, chips: reloadChips, history: conv });
     }
 
-    const sys = crisis ? `You are Max. User may be in crisis. Acknowledge with care. Provide: 988 (call/text), Crisis Text Line (text HOME to 741741). French: 3114, SOS Amitie. NEVER minimize. User: ${p.first_name||'there'}.` : buildSystem(p, mem?.[0]?.summary||null);
+    const sys = crisis ? `You are Max. User may be in crisis. Acknowledge with care. Provide: 988 (call/text), Crisis Text Line (text HOME to 741741). French: 3114, SOS Amitie. NEVER minimize. User: ${p.first_name||'there'}.` : buildSystem(p, mem?.[0]?.summary||null, cityActivities, cityPlaces);
     if (message) conv.push({role:'user',content:message});
     if (!conv.length && !p.onboarding_complete) conv.push({role:'user',content:'[First visit]'});
 
