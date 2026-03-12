@@ -48,20 +48,28 @@ a:hover{text-decoration:underline}
 <main class="legal container">
 
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: March 8, 2026</p>
+<p class="updated">Last updated: March 11, 2026</p>
 
 <p>Stop Being Alone is operated by <strong>Vast Counsel LTD</strong>, a company registered in England and Wales. We take your privacy seriously. This policy explains what data we collect, why, and how we protect it.</p>
 
 <h2>What we collect</h2>
 <p>We collect only what's necessary to provide and improve our service:</p>
 <ul>
+  <li><strong>Account data</strong> when you sign up: email address and authentication credentials, stored securely via Supabase Auth</li>
+  <li><strong>Conversation data</strong> when you chat with Max, our AI companion: your messages and Max's responses are stored to maintain conversation continuity, provide personalized recommendations, and improve the service</li>
+  <li><strong>Payment data</strong> when you subscribe to a paid plan: processed securely by Stripe. We do not store your credit card details. Stripe provides us with your subscription status and payment history</li>
   <li><strong>Email address</strong> when you subscribe to our newsletter via Beehiiv</li>
   <li><strong>Usage data</strong> via Google Analytics (pages visited, time on site, device type, approximate location by country). This data is anonymized and cannot identify you personally</li>
   <li><strong>Form responses</strong> if you choose to share your experience through our qualification forms</li>
 </ul>
 
+<h2>AI processing</h2>
+<p>Max, our AI companion, is powered by Anthropic's Claude API. When you chat with Max, your messages are sent to Anthropic's API for processing. Anthropic does not use your conversations to train their models. Your conversation history is stored in our database (Supabase) to maintain continuity across sessions. You can request deletion of your conversation history at any time.</p>
+
 <h2>How we use your data</h2>
 <ul>
+  <li>To provide and personalize the Max AI companion experience</li>
+  <li>To process payments and manage your subscription</li>
   <li>To send you our newsletter and updates about Stop Being Alone</li>
   <li>To understand how people use our site and improve the experience</li>
   <li>To shape the product based on real feedback from real people</li>
@@ -71,9 +79,12 @@ a:hover{text-decoration:underline}
 <h2>Third-party services</h2>
 <p>We use the following services, each with their own privacy policies:</p>
 <ul>
+  <li><strong>Supabase</strong> for authentication and database (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a>)</li>
+  <li><strong>Anthropic</strong> for AI processing via Claude API (<a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic Privacy Policy</a>)</li>
+  <li><strong>Stripe</strong> for payment processing (<a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>)</li>
   <li><strong>Beehiiv</strong> for newsletter management (<a href="https://www.beehiiv.com/privacy" target="_blank" rel="noopener">Beehiiv Privacy Policy</a>)</li>
   <li><strong>Google Analytics</strong> for anonymized usage statistics (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>)</li>
-  <li><strong>Netlify</strong> for website hosting (<a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify Privacy Policy</a>)</li>
+  <li><strong>Netlify</strong> for website hosting and serverless functions (<a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify Privacy Policy</a>)</li>
 </ul>
 
 <h2>Cookies</h2>
@@ -92,7 +103,7 @@ a:hover{text-decoration:underline}
 <p>If you are a California resident, under the CCPA you have the right to know what data we collect, request its deletion, and opt out of any data sale. We do not sell personal data.</p>
 
 <h2>Data retention</h2>
-<p>We retain your email address for as long as you remain subscribed to our newsletter. Analytics data is retained for 14 months by Google Analytics. Form responses are retained for the duration of our product development. You can request deletion at any time.</p>
+<p>We retain your email address for as long as you remain subscribed to our newsletter. Conversation data with Max is retained for as long as your account is active, to maintain continuity. Payment records are retained as required by law and by Stripe's policies. Analytics data is retained for 14 months by Google Analytics. Form responses are retained for the duration of our product development. You can request deletion of any or all of your data at any time.</p>
 
 <h2>Security</h2>
 <p>We use industry-standard security measures including HTTPS encryption, secure third-party providers, and access controls. No method of transmission over the internet is 100% secure, but we do our best to protect your data.</p>

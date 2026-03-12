@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /public/
 
 Sitemap: https://stopbeingalone.com/sitemap.xml

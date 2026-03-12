@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1EYXP4CHSZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1EYXP4CHSZ');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat with Max - Stop Being Alone</title>
@@ -155,8 +158,8 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .msg.assistant {
-      background: #D5F0E5;
-      color: #2D2D2D;
+      background: var(--accent);
+      color: white;
       align-self: flex-start;
       border-bottom-left-radius: 6px;
     }
@@ -517,6 +520,14 @@
           addMsg('assistant', res.response);
         }
         if (res.chips) renderChips(res.chips.step, res.chips.options);
+
+        // Auto-send message from landing page ?msg= param
+        const urlMsg = new URLSearchParams(window.location.search).get('msg');
+        if (urlMsg && !res.history?.length) {
+          chatInput.value = urlMsg;
+          window.history.replaceState({}, '', '/chat/');
+          setTimeout(() => sendMessage(), 600);
+        }
       } catch {
         hideTyping();
         addMsg('assistant', 'Hey, I\'m Max. Small technical hiccup. Try refreshing.');
@@ -526,10 +537,15 @@
     // ── LOGIN ──
     function showLogin() {
       inputArea.style.display = 'none';
+      const urlMsg = new URLSearchParams(window.location.search).get('msg');
+      const contextLine = urlMsg
+        ? `<p style="font-style:italic;color:var(--ink-light);font-size:14px;margin-bottom:12px;padding:8px 16px;background:var(--cream);border-radius:8px;">"${urlMsg.length > 80 ? urlMsg.slice(0,77) + '...' : urlMsg}"</p>`
+        : '';
       messagesEl.innerHTML = `
         <div class="chat-login">
           <div class="chat-avatar" style="width:56px;height:56px;font-size:24px;">M</div>
           <h2>Meet Max</h2>
+          ${contextLine}
           <p>Your personal AI companion to help you build real connections. Sign up to start chatting with Max.</p>
           <button class="chat-login-btn primary" onclick="openAuthModal('signup')">Get started free</button>
           <button class="chat-login-btn secondary" onclick="openAuthModal('login')" style="background:transparent;color:var(--accent);border:1.5px solid var(--accent);margin-top:8px;">Log in</button>
@@ -539,7 +555,7 @@
 
     // ── API CALL ──
     async function callAPI(message, onboardingData) {
-      const payload = { message, browser_language: navigator.language || 'en' };
+      const payload = { message };
       if (onboardingData) payload.onboarding_data = onboardingData;
 
       const res = await fetch(API_URL, {
@@ -569,26 +585,13 @@
       try {
         const data = await callAPI(text);
         hideTyping();
-        if (data.quota_exceeded) {
-          // Show upgrade modal instead of Max message
-          messagesEl.innerHTML += `
-            <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s ease" id="quotaModal">
-              <div style="background:var(--white);border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15)">
-                <div style="width:56px;height:56px;border-radius:50%;background:#D5F0E5;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px">M</div>
-                <h3 style="font-family:Instrument Serif,serif;font-size:24px;font-weight:400;margin-bottom:8px">You've reached your free limit</h3>
-                <p style="color:var(--gray);font-size:15px;line-height:1.6;margin-bottom:24px">I'd love to keep talking. Upgrade to continue our conversation and get unlimited access to Max.</p>
-                <a href="/#pricing" style="display:block;padding:14px 24px;background:var(--accent);color:white;border-radius:100px;text-decoration:none;font-weight:500;font-size:15px;margin-bottom:12px">See plans</a>
-                <button onclick="document.getElementById('quotaModal').remove()" style="background:none;border:none;color:var(--gray);cursor:pointer;font-size:14px;font-family:DM Sans,sans-serif">Maybe later</button>
-              </div>
-            </div>`;
-        } else {
-          if (data.response) addMsg('assistant', data.response);
-          if (data.chips) renderChips(data.chips.step, data.chips.options);
-        }
+        if (data.response) addMsg('assistant', data.response);
+        if (data.chips) renderChips(data.chips.step, data.chips.options);
         if (data.model_used) {
-          // model badge hidden intentionally
+          modelBadge.textContent = data.model_used;
+          modelBadge.style.display = 'inline-block';
         }
-        if (data.quota_warning) {
+        if (data.quota_warning || data.quota_exceeded) {
           quotaBar.innerHTML = `${data.messages_used}/${data.messages_limit} free messages this week. <a href="/#pricing">Upgrade</a> for unlimited.`;
           quotaBar.classList.add('visible');
         }
