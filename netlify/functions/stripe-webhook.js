@@ -64,8 +64,8 @@ exports.handler = async (event) => {
         if (session.metadata?.tier) {
           tier = session.metadata.tier;
         } else if (session.amount_total) {
-          // Yearly is $349 = 34900 cents, Monthly is $49 = 4900 cents
-          tier = session.amount_total >= 30000 ? 'yearly' : 'monthly';
+          // Yearly is $299 = 29900 cents, Monthly is $29 = 2900 cents
+          tier = session.amount_total >= 20000 ? 'yearly' : 'monthly';
         }
 
         // Find user by client_reference_id (user_id) or by email

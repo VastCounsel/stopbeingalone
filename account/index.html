@@ -502,7 +502,22 @@
       .progress-highlights { grid-template-columns: 1fr; }
       .graph-canvas { height: 160px; }
     }
-  </style>
+  
+/* Auth nav buttons - subtle, same style as nav links */
+.nav-btn-login{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-btn-login:hover{color:var(--ink,#3A3A3A)}
+.nav-btn-signup{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-btn-signup:hover{color:var(--ink,#3A3A3A)}
+.nav-account-link{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-account-link:hover{color:var(--accent,#4CAF9F)}
+#nav-cta-auth{display:flex;align-items:center;gap:6px}
+
+/* Nav auth + CTA buttons */
+#nav-cta-auth a{font-size:13px;background:var(--ink,#3A3A3A);color:#fff;padding:8px 20px;border-radius:8px;font-weight:500;transition:background .2s;text-decoration:none;display:inline-block}
+#nav-cta-auth a:hover{background:#222}
+.nav-links a.cta{background:var(--accent,#4CAF9F);color:white;padding:8px 20px;border-radius:8px;font-weight:500;font-size:13px}
+.nav-links a.cta:hover{background:#3d9e90}
+</style>
 </head>
 <body>
 

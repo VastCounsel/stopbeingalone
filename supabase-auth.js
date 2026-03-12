@@ -132,18 +132,12 @@ function updateUIForGuest() {
   const isFr = window.location.pathname.startsWith('/fr');
   const navCta = document.getElementById('nav-cta-auth');
   if (navCta) {
-    navCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">${isFr ? 'Connexion' : 'Log in'}</a>
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">${isFr ? 'Inscription' : 'Sign up'}</a>
-    `;
+    navCta.innerHTML = '<a href="/login">Log in</a>';
   }
 
   const mobileCta = document.getElementById('mobile-cta-auth');
   if (mobileCta) {
-    mobileCta.innerHTML = `
-      <a href="#" onclick="openAuthModal('login'); return false;" class="nav-btn-login">${isFr ? 'Connexion' : 'Log in'}</a>
-      <a href="#" onclick="openAuthModal('signup'); return false;" class="nav-btn-signup">${isFr ? 'Inscription' : 'Sign up'}</a>
-    `;
+    mobileCta.innerHTML = '<a href="/login">Log in</a>';
   }
 }
 

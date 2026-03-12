@@ -190,6 +190,21 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 /* RESPONSIVE */
 @media(max-width:900px){.epi-grid,.explore-grid{grid-template-columns:1fr 1fr}.science-row,.science-row.reverse{grid-template-columns:1fr!important}.science-row .science-card,.science-row.reverse .science-card{order:0!important}.science-row .science-text,.science-row.reverse .science-text{order:0!important}.science-card{min-height:auto!important}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
 @media(max-width:600px){.epi-grid,.explore-grid{grid-template-columns:1fr}.r-hero h1{font-size:36px;white-space:normal}.nav-links a:not(.cta){display:none}.why-quote{padding:40px 20px}.why-quote p{font-size:22px}.container{padding:0 16px}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px;text-align:center}}
+
+/* Auth nav buttons - subtle, same style as nav links */
+.nav-btn-login{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-btn-login:hover{color:var(--ink,#3A3A3A)}
+.nav-btn-signup{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-btn-signup:hover{color:var(--ink,#3A3A3A)}
+.nav-account-link{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
+.nav-account-link:hover{color:var(--accent,#4CAF9F)}
+#nav-cta-auth{display:flex;align-items:center;gap:6px}
+
+/* Nav auth + CTA buttons */
+#nav-cta-auth a{font-size:13px;background:var(--ink,#3A3A3A);color:#fff;padding:8px 20px;border-radius:8px;font-weight:500;transition:background .2s;text-decoration:none;display:inline-block}
+#nav-cta-auth a:hover{background:#222}
+.nav-links a.cta{background:var(--accent,#4CAF9F);color:white;padding:8px 20px;border-radius:8px;font-weight:500;font-size:13px}
+.nav-links a.cta:hover{background:#3d9e90}
 </style>
 </head>
 <body>
@@ -201,6 +216,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
     <a href="/blog">Blog</a>
       <a href="https://stopbeingalone.com/activities">Activities</a>
     <a href="/research">Research</a>
+    <span id="nav-cta-auth"></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
 </nav>

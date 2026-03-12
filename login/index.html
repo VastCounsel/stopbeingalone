@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in | Stop Being Alone</title>
+<link rel="icon" href="/public/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#F5F0E9;--ink:#3A3A3A;--ink-light:#5A5A5A;--ink-muted:#9A9590;--accent:#4CAF9F;--border:#D9D2C9;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:48px 40px;max-width:420px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.04)}
+.login-logo{font-family:var(--serif);font-size:20px;margin-bottom:32px;text-decoration:none;color:var(--ink)}
+.login-logo em{font-style:italic}
+.login-title{font-family:var(--serif);font-size:28px;font-weight:400;font-style:italic;margin-bottom:8px}
+.login-sub{font-size:15px;color:var(--ink-muted);margin-bottom:32px;font-weight:300}
+.login-google{width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;background:#fff;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:border-color .2s}
+.login-google:hover{border-color:var(--accent)}
+.login-divider{display:flex;align-items:center;gap:12px;margin:24px 0;color:var(--ink-muted);font-size:13px}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.login-input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;margin-bottom:12px;transition:border-color .2s}
+.login-input:focus{border-color:var(--accent)}
+.login-forgot{font-size:13px;color:var(--ink-muted);text-align:right;display:block;margin-bottom:16px;text-decoration:none}
+.login-forgot:hover{color:var(--accent)}
+.login-btn{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background .2s}
+.login-btn:hover{background:#3d9e90}
+.login-switch{font-size:13px;color:var(--ink-muted);margin-top:24px}
+.login-switch a{color:var(--accent);text-decoration:none;font-weight:500}
+.login-error{background:#fef2f2;color:#dc2626;padding:10px;border-radius:8px;font-size:13px;margin-bottom:16px;display:none}
+.login-success{background:#f0fdf4;color:#16a34a;padding:10px;border-radius:8px;font-size:13px;margin-bottom:16px;display:none}
+.login-back{margin-top:24px;font-size:13px}
+.login-back a{color:var(--ink-muted);text-decoration:none}
+.login-back a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <a href="/" class="login-logo">Stop Being <em>Alone</em></a>
+  
+  <h1 class="login-title" id="loginTitle">Welcome back.</h1>
+  <p class="login-sub" id="loginSub">Log in to your account.</p>
+
+  <div id="loginError" class="login-error"></div>
+  <div id="loginSuccess" class="login-success"></div>
+
+  <button class="login-google" onclick="handleGoogle()">
+    <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.997 8.997 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+    Continue with Google
+  </button>
+
+  <div class="login-divider"><span>or</span></div>
+
+  <input type="email" id="loginEmail" class="login-input" placeholder="Email address" autocomplete="email">
+  <input type="password" id="loginPassword" class="login-input" placeholder="Password" autocomplete="current-password">
+  
+  <a href="#" class="login-forgot" id="forgotLink" onclick="switchMode('forgot'); return false;">Forgot password?</a>
+
+  <button class="login-btn" id="loginBtn" onclick="handleSubmit()">Log in</button>
+
+  <p class="login-switch" id="loginSwitch">Don't have an account? <a href="#" onclick="switchMode('signup'); return false;">Sign up</a></p>
+  
+  <p class="login-back"><a href="/">&larr; Back to Stop Being Alone</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://krytrynpohddtofrvtnm.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyeXRyeW5wb2hkZHRvZnJ2dG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNDMxNzUsImV4cCI6MjA4ODYxOTE3NX0.jja3j_TJJsyTvO5eRjAlMxOUAexgp_ZFxVJFlkQvYFk';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let currentMode = 'login';
+
+// Check if already logged in
+sb.auth.getSession().then(({data:{session}}) => {
+  if (session) window.location.href = '/account';
+});
+
+function switchMode(mode) {
+  currentMode = mode;
+  const title = document.getElementById('loginTitle');
+  const sub = document.getElementById('loginSub');
+  const btn = document.getElementById('loginBtn');
+  const sw = document.getElementById('loginSwitch');
+  const forgot = document.getElementById('forgotLink');
+  const pass = document.getElementById('loginPassword');
+  
+  document.getElementById('loginError').style.display = 'none';
+  document.getElementById('loginSuccess').style.display = 'none';
+
+  if (mode === 'login') {
+    title.textContent = 'Welcome back.';
+    sub.textContent = 'Log in to your account.';
+    btn.textContent = 'Log in';
+    sw.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchMode(\'signup\'); return false;">Sign up</a>';
+    forgot.style.display = 'block';
+    pass.style.display = 'block';
+  } else if (mode === 'signup') {
+    title.textContent = 'Start your journey.';
+    sub.textContent = 'Create your free account.';
+    btn.textContent = 'Create account';
+    sw.innerHTML = 'Already have an account? <a href="#" onclick="switchMode(\'login\'); return false;">Log in</a>';
+    forgot.style.display = 'none';
+    pass.style.display = 'block';
+  } else if (mode === 'forgot') {
+    title.textContent = 'Reset password.';
+    sub.textContent = 'We\'ll send you a reset link.';
+    btn.textContent = 'Send reset link';
+    sw.innerHTML = '<a href="#" onclick="switchMode(\'login\'); return false;">Back to log in</a>';
+    forgot.style.display = 'none';
+    pass.style.display = 'none';
+  }
+}
+
+async function handleSubmit() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const err = document.getElementById('loginError');
+  const suc = document.getElementById('loginSuccess');
+  err.style.display = 'none';
+  suc.style.display = 'none';
+
+  if (!email) { showError('Please enter your email.'); return; }
+
+  if (currentMode === 'forgot') {
+    const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: 'https://stopbeingalone.com/account'});
+    if (error) { showError(error.message); return; }
+    suc.textContent = 'Check your email for the reset link.';
+    suc.style.display = 'block';
+    return;
+  }
+
+  if (!password) { showError('Please enter a password.'); return; }
+
+  if (currentMode === 'login') {
+    const {data, error} = await sb.auth.signInWithPassword({email, password});
+    if (error) { showError(error.message); return; }
+    window.location.href = '/chat/';
+  } else {
+    const {data, error} = await sb.auth.signUp({email, password});
+    if (error) { showError(error.message); return; }
+    if (data.user && !data.session) {
+      suc.textContent = 'Check your email to confirm your account.';
+      suc.style.display = 'block';
+    } else {
+      window.location.href = '/chat/';
+    }
+  }
+}
+
+async function handleGoogle() {
+  const {error} = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: 'https://stopbeingalone.com/chat/' }
+  });
+  if (error) showError(error.message);
+}
+
+function showError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// URL params
+const params = new URLSearchParams(window.location.search);
+if (params.get('mode') === 'signup') switchMode('signup');
+</script>
+</body>
+</html>
