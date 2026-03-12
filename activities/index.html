@@ -95,7 +95,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ═══ SORT BAR ═══ */
 .sort-bar {
-  max-width: 1200px; margin: 0 auto; padding: 16px 40px;
+  max-width: 1100px; margin: 0 auto; padding: 16px 32px;
   display: flex; justify-content: flex-end; align-items: center; gap: 8px;
 }
 .sort-bar label { font-size: 14px; color: var(--ink-light); }
@@ -106,7 +106,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ═══ LAYOUT ═══ */
-.layout { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start; max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+.layout { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start; max-width: 1000px; margin: 0 auto; padding: 0 32px 80px; }
 
 /* ═══ SIDEBAR ═══ */
 
@@ -373,7 +373,6 @@ body { background: var(--cream) !important; }
 
 /* Sort bar: match blog sort row */
 .sort-bar {
-  max-width: var(--max-w) !important;
   margin: 0 auto !important;
   padding: 0 32px !important;
   display: flex !important;
@@ -394,7 +393,6 @@ body { background: var(--cream) !important; }
 
 /* Layout: match blog-outer + blog-wrap */
 .layout {
-  max-width: var(--max-w) !important;
   margin: 0 auto !important;
   padding: 0 32px 80px !important;
   display: grid !important;
@@ -874,7 +872,6 @@ body { background: var(--cream) !important; }
   grid-column: 2 !important;
   margin-bottom: 8px !important;
   padding: 0 !important;
-  max-width: none !important;
 }
 
 /* Auth nav buttons - subtle, same style as nav links */
@@ -891,6 +888,16 @@ body { background: var(--cream) !important; }
 #nav-cta-auth a:hover{background:#222}
 .nav-links a.cta{background:var(--accent,#4CAF9F);color:white;padding:8px 20px;border-radius:8px;font-weight:500;font-size:13px}
 .nav-links a.cta:hover{background:#3d9e90}
+
+
+
+
+
+/* === FINAL LAYOUT (single source of truth) === */
+.sort-bar { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+/* Content column: match blog-main */
+.content { min-width: 0; max-width: 720px; }
 </style>
 </head>
 <body>
@@ -903,7 +910,7 @@ body { background: var(--cream) !important; }
     <a href="/blog">Blog</a>
     <a href="/activities" class="active">Activities</a>
     <a href="/#pricing">Pricing</a>
-    <span id="nav-cta-auth"></span>
+    <span id="nav-cta-auth"><a href="/login">Log in</a></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
 </nav>
@@ -926,7 +933,7 @@ body { background: var(--cream) !important; }
 
 
 <!-- Mobile filter toggle -->
-<div style="max-width:1200px;margin:0 auto;padding:0 40px;">
+<div style="max-width:1000px;margin:0 auto;padding:0 32px;">
   <button class="mobile-filter-btn" id="mobileFilterBtn">Filters</button>
 </div>
 
@@ -1070,11 +1077,42 @@ function getChecked(attr) {
   return [...document.querySelectorAll(`input[data-${attr}]:checked`)].map(c=>c.dataset[attr]);
 }
 
+
+// City UUID to slug mapping
+var CITY_MAP = {
+  'c09b264f-33aa-4eed-b68f-dc7dbf0e3f0b': 'new-york',
+  '5b55c98a-bda3-48c1-a181-aaaea370b747': 'los-angeles',
+  '28cd1c3b-fa25-40aa-9c73-16f76fc528e9': 'london',
+  'fec939c8-3a87-4fa3-a1b8-90383aa07642': 'chicago',
+  '9ae9cbdd-2f6a-4485-a30b-ea334f7c4360': 'san-francisco',
+  '735bd749-5f0d-48f4-9569-b64dabdd0f1c': 'austin',
+  '9d3e49bb-db69-41e2-9358-f57e039379f6': 'miami',
+  '8a069705-1696-4a86-a2d2-aa2085904bbd': 'seattle',
+  '0ac0537c-6be0-4db8-8b4a-87b8ea203fca': 'boston'
+};
+var CITY_NAMES = {
+  'new-york': 'New York City',
+  'los-angeles': 'Los Angeles',
+  'london': 'London',
+  'chicago': 'Chicago',
+  'san-francisco': 'San Francisco',
+  'austin': 'Austin',
+  'miami': 'Miami',
+  'seattle': 'Seattle',
+  'boston': 'Boston'
+};
+
 async function load() {
   try {
     const {data,error}=await sb.from('activities').select('*').order('name');
     if(error) throw error;
-    all=data||[];
+    all=(data||[]).map(function(a) {
+      a.city_slug = CITY_MAP[a.city_id] || '';
+      a.city = CITY_NAMES[a.city_slug] || '';
+      a.theme_slug = (a.type || '').toLowerCase();
+      a.theme = a.type || '';
+      return a;
+    });
     updateCityCounts();
     applyFilters();
     document.getElementById('loading').style.display='none';
@@ -1101,8 +1139,21 @@ function applyFilters() {
 
   filtered=all.filter(a=>{
     const mc=!cities.length||(cities.includes((a.city_slug||'').toLowerCase()));
-    const mt=!themes.length||(themes.includes((a.theme_slug||'').toLowerCase()));
-    const ms=!q||(a.name||'').toLowerCase().includes(q)||(a.description||'').toLowerCase().includes(q)||(a.city||'').toLowerCase().includes(q)||(a.tags||[]).some(t=>t.toLowerCase().includes(q));
+    var bfi=a.best_for_interests;
+    var interests=[];
+    try{
+      if(Array.isArray(bfi)) interests=bfi;
+      else if(typeof bfi==='string'&&bfi) interests=JSON.parse(bfi);
+    }catch(e){}
+    interests=interests.map(function(x){return String(x).toLowerCase().replace(/[^a-z]/g,'');});
+    const mt=!themes.length||(themes.some(function(t){
+      var clean=t.toLowerCase().replace(/-/g,'').replace(/_/g,'');
+      return interests.some(function(i){return i.indexOf(clean)>=0||clean.indexOf(i)>=0;})
+        || String(a.description||'').toLowerCase().indexOf(t.replace(/-/g,' '))>=0
+        || String(a.name||'').toLowerCase().indexOf(t.replace(/-/g,' '))>=0;
+    }));
+    var tagArr=[];try{if(Array.isArray(a.tags))tagArr=a.tags;else if(typeof a.tags==='string'&&a.tags)tagArr=JSON.parse(a.tags);}catch(e){}
+    const ms=!q||(a.name||'').toLowerCase().indexOf(q)>=0||(a.description||'').toLowerCase().indexOf(q)>=0||(a.city||'').toLowerCase().indexOf(q)>=0||tagArr.some(function(t){return String(t).toLowerCase().indexOf(q)>=0;});
     return mc&&mt&&ms;
   });
   const sort=document.getElementById('sortSelect').value;
@@ -1205,19 +1256,13 @@ load();
 // Bridge: connect blog-style sidebar to activities filter system
 function toggleCity(el) {
   el.classList.toggle('active');
-  // Sync with hidden checkboxes
-  var city = el.dataset.value;
-  var cb = document.querySelector('input[data-city="' + city + '"]');
-  if (cb) { cb.checked = el.classList.contains('active'); }
-  // Or directly filter
-  applyFiltersFromSidebar();
+  window._currentPage = 1;
+  applyFilters();
 }
 function toggleTheme(el) {
   el.classList.toggle('active');
-  var theme = el.dataset.value;
-  var cb = document.querySelector('input[data-theme="' + theme + '"]');
-  if (cb) { cb.checked = el.classList.contains('active'); }
-  applyFiltersFromSidebar();
+  window._currentPage = 1;
+  applyFilters();
 }
 function applyFiltersFromSidebar() {
   window._currentPage = 1;
