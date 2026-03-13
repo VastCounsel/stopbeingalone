@@ -73,19 +73,12 @@ a { color: inherit; text-decoration: none; }
 .nav-links a.cta:hover { background: #3d9e90; }
 
 /* Mobile */
-.nav-hamburger { display: none; background: none; border: none; cursor: pointer; }
-.nav-hamburger svg { width: 24px; height: 24px; color: var(--ink); }
-.mobile-drawer {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--card-bg, #F5F0E9); z-index: 200; padding: 72px 40px 40px;
-  flex-direction: column; gap: 20px;
-}
-.mobile-drawer.open { display: flex; }
-.mobile-drawer a { font-size: 17px; color: var(--ink); font-weight: 500; }
-.mobile-drawer-close {
-  position: absolute; top: 16px; right: 24px;
-  background: none; border: none; font-size: 28px; cursor: pointer; color: var(--ink);
-}
+
+
+
+
+
+
 
 /* ═══ HERO (centered, serif italic) ═══ */
 .hero { padding: 120px 0 40px;
@@ -281,9 +274,11 @@ a { color: inherit; text-decoration: none; }
   border-radius: 4px; cursor: pointer; margin-bottom: 12px; text-align: left;
 }
 
+
+
 @media (max-width: 860px) {
   .nav-links { display: none; }
-  .nav-hamburger { display: block; }
+  
   .layout { grid-template-columns: 1fr; padding: 0 20px 48px; }
   .old-sidebar { position: static; display: none; }
   .sidebar.open { display: block; }
@@ -291,7 +286,7 @@ a { color: inherit; text-decoration: none; }
   .card { grid-template-columns: 88px 1fr; }
   .card-img { width: 88px; height: 68px; }
   .card-actions { grid-column: 1 / -1; flex-direction: row; }
-  .hero { padding: 40px 20px 16px; }
+  .hero { padding: 88px 20px 24px; }
   .sort-bar { padding: 12px 20px; }
   .nav { padding: 0 20px; }
 }
@@ -898,6 +893,55 @@ body { background: var(--cream) !important; }
 
 /* Content column: match blog-main */
 .content { min-width: 0; max-width: 720px; }
+
+/* Mobile hamburger + drawer */
+
+.mobile-drawer{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:#fff;z-index:200;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.1)}
+.mobile-drawer.open{right:0}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E5DDD4}
+.mobile-drawer-close{background:none;border:none;font-size:28px;cursor:pointer;color:#9A9590}
+.mobile-drawer-nav{display:flex;flex-direction:column;padding:16px 0}
+.mobile-drawer-nav a{padding:14px 20px;font-size:16px;color:#3A3A3A;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.04)}
+.mobile-drawer-nav .mobile-cta{margin:8px 20px;text-align:center;background:#4CAF9F;color:#fff;border-radius:8px;padding:14px;font-weight:500;border-bottom:none}
+#mobile-cta-auth a{background:#3A3A3A;color:#fff;border-radius:8px;text-align:center;margin:8px 20px;padding:14px;font-weight:500;display:block;border-bottom:none}
+@media(max-width:600px){
+  .nav-links{display:none}
+}
+
+/* Activities mobile: match blog exactly */
+@media(max-width:600px){
+  .hero h1{font-size:clamp(32px,8vw,48px)}
+  .hero{padding:88px 16px 24px}
+  .hero p{font-size:15px}
+  .layout{grid-template-columns:1fr;padding:0 16px 48px;gap:16px}
+  .blog-sidebar{position:static;top:auto}
+  .blog-sidebar .sb-section{margin-bottom:8px}
+  .content{max-width:100%}
+  .sort-bar{padding:0;margin-bottom:8px}
+  .nav-links{display:none}
+}
+
+@media(max-width:600px){
+  .mobile-filter-btn{display:none}
+}
+
+
+
+/* ═══ HAMBURGER + MOBILE NAV (SINGLE SOURCE OF TRUTH) ═══ */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink, #3A3A3A);
+  padding: 4px;
+  margin-left: 12px;
+}
+@media (max-width: 860px) {
+  .hamburger { display: block !important; }
+  .nav-links { display: none !important; }
+}
+
 </style>
 </head>
 <body>
@@ -913,14 +957,21 @@ body { background: var(--cream) !important; }
     <span id="nav-cta-auth"><a href="/login">Log in</a></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
 </nav>
 <div class="mobile-drawer" id="mobileDrawer">
-  <button class="mobile-drawer-close" id="drawerClose">&times;</button>
-  <a href="https://stopbeingalone.com/">Home</a>
-  <a href="https://stopbeingalone.com/blog">Blog</a>
-  <a href="https://stopbeingalone.com/activities">Activities</a>
-  <a href="https://stopbeingalone.com/research">Research</a>
-  <a href="https://stopbeingalone.com/chat/">Talk to Max</a>
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -1201,13 +1252,18 @@ function render() {
   if(!pagDiv){pagDiv=document.createElement('div');pagDiv.id='paginationEl';pagDiv.className='pagination';g.after(pagDiv);}
   pagDiv.innerHTML='';
   if(totalPages>1){
-    for(var pg=1;pg<=totalPages;pg++){
+    var startPg=Math.max(1,cp-2);
+    var endPg=Math.min(totalPages,startPg+4);
+    if(endPg-startPg<4)startPg=Math.max(1,endPg-4);
+    if(cp>1){var prev=document.createElement('button');prev.textContent='\u2039';prev.onclick=function(){window._currentPage=cp-1;render();window.scrollTo({top:document.getElementById('cards').offsetTop-100,behavior:'smooth'});};pagDiv.appendChild(prev);}
+    for(var pg=startPg;pg<=endPg;pg++){
       var btn=document.createElement('button');
       btn.textContent=pg;
       btn.className=pg===cp?'active':'';
       btn.onclick=(function(page){return function(){window._currentPage=page;render();window.scrollTo({top:document.getElementById('cards').offsetTop-100,behavior:'smooth'});};})(pg);
       pagDiv.appendChild(btn);
     }
+    if(cp<totalPages){var next=document.createElement('button');next.textContent='\u203A';next.onclick=function(){window._currentPage=cp+1;render();window.scrollTo({top:document.getElementById('cards').offsetTop-100,behavior:'smooth'});};pagDiv.appendChild(next);}
   }
   lw.style.display='none';
 }

@@ -228,7 +228,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 .reveal.visible{opacity:1;transform:none}
 
 @media(max-width:900px){.how-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.proof-stats{grid-template-columns:1fr 1fr}.pricing-cards{grid-template-columns:1fr!important;border-radius:20px}.pricing-card{border-right:none;border-bottom:1px solid var(--card-border)}.pricing-card:last-child{border-bottom:none}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.max-preview-inner{grid-template-columns:1fr}}
-@media(max-width:600px){.hero h1{font-size:42px}.hero-cta-btn{padding:14px 32px;font-size:15px}.hero-authority{gap:12px 20px}.hero-authority-sep{display:none}.stats-grid{grid-template-columns:1fr}.proof-stats{grid-template-columns:1fr 1fr}.nav-links a:not(.cta){display:none}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px;text-align:center}.container{padding:0 16px}.pricing-cards{grid-template-columns:1fr}}
+@media(max-width:600px){.hero h1{font-size:42px}.hero-cta-btn{padding:14px 32px;font-size:15px}.hero-authority{gap:12px 20px}.hero-authority-sep{display:block}.stats-grid{grid-template-columns:1fr}.proof-stats{grid-template-columns:1fr 1fr}.nav-links a:not(.cta){display:none}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px;text-align:center}.container{padding:0 16px}.pricing-cards{grid-template-columns:1fr}}
 
 /* Auth nav buttons - subtle, same style as nav links */
 .nav-btn-login{font-size:14px;color:var(--ink-muted,#9A9590);font-weight:400;transition:color .2s;text-decoration:none}
@@ -244,6 +244,93 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 #nav-cta-auth a:hover{background:#222}
 .nav-links a.cta{background:var(--accent,#4CAF9F);color:white;padding:8px 20px;border-radius:8px;font-weight:500;font-size:13px}
 .nav-links a.cta:hover{background:#3d9e90}
+
+
+
+
+
+
+/* ══ MOBILE FIXES ══ */
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--ink);padding:4px;margin-left:12px}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:#fff;z-index:200;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.1)}
+.mobile-drawer.open{right:0}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--card-border,#E5DDD4)}
+.mobile-drawer-close{background:none;border:none;font-size:28px;cursor:pointer;color:var(--ink-muted)}
+.mobile-drawer-nav{display:flex;flex-direction:column;padding:16px 0}
+.mobile-drawer-nav a{padding:14px 20px;font-size:16px;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.04)}
+.mobile-drawer-nav .mobile-cta{margin:16px 20px;text-align:center;background:var(--accent,#4CAF9F);color:#fff;border-radius:8px;padding:14px;font-weight:500;border-bottom:none}
+
+@media(max-width:600px){
+  /* Nav: hide all links, show only logo + hamburger */
+  .nav-links{display:none}
+  .hamburger{display:block}
+  
+  /* Authority: keep seps visible, shrink gap */
+  .hero-authority{gap:8px 16px}
+  .hero-authority-sep{display:block;height:14px}
+  .hero-authority-item{font-size:12px}
+  .hero-authority-item strong{font-size:13px}
+  
+  /* Max preview: chat below text */
+  .max-preview-inner{grid-template-columns:1fr}
+
+
+  
+  /* Tighter padding */
+  .hero{padding:88px 20px 24px}
+  .hero-cta-btn{padding:14px 32px;font-size:15px}
+  section[style*="section-py"]{padding-top:48px;padding-bottom:48px}
+  .max-preview{padding:48px 0}
+}
+
+
+/* Mobile drawer login button */
+#mobile-cta-auth a{background:var(--ink,#3A3A3A) !important;color:#fff !important;border-radius:8px !important;text-align:center !important;margin:8px 20px !important;padding:14px !important;font-weight:500 !important;display:block !important;border-bottom:none !important}
+.mobile-login:hover{background:#222}
+.mobile-drawer-nav .mobile-login{border-bottom:none}
+
+/* Mobile authority: only first item */
+@media(max-width:600px){
+  .hero-authority-sep{display:none}
+  .hero-authority-item:nth-child(n+3){display:none}
+  .hero-authority-item{font-size:17px}
+  .hero-authority-item strong{font-size:18px}
+  .hero-authority{gap:0}
+}
+
+
+  .max-preview-chat{order:0}
+  .max-preview-text{order:0}
+}
+
+/* Mobile max preview: text > chat > buttons */
+@media(max-width:900px){
+  .max-preview-inner{display:flex;flex-direction:column;gap:24px}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}
+
+@media(max-width:600px){
+  .max-preview-chat{display:none}
+}
+
+@media(max-width:600px){
+  .max-preview-inner{padding:32px 24px}
+  .max-preview-text p{margin-bottom:8px}
+}
+
+.max-preview-text p:last-of-type{margin-bottom:0}
+
+/* How it works: equal height cards */
+.how-grid{align-items:stretch}
+.how-grid > *{display:flex;flex-direction:column}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Stop Being Alone","url":"https://stopbeingalone.com","logo":"https://stopbeingalone.com/public/og-image.png","sameAs":["https://x.com/stopbeingalon"],"description":"AI-powered loneliness support. Real activities, real connections, real science.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","email":"jules@stopbeingalone.com","contactType":"customer support"}}
@@ -264,6 +351,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
     <span id="nav-cta-auth"><a href="/login">Log in</a></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
 </nav>
 
 <!-- ═══ 1. HERO ═══ -->
@@ -337,11 +425,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
         <p>Max is not a therapist. Not a chatbot with canned responses. He's an AI companion trained on proven conversational techniques that actually help people reconnect.</p>
         <p>He knows your city, remembers your story, and suggests real activities with real links. No generic advice. No fake positivity.</p>
         <p><strong>Will talking to an AI actually help?</strong> Yes. A 2025 meta-analysis of 280 studies found that guided self-help interventions produce strong, lasting results. Max is built on that science.</p>
-        <div style="display:flex;gap:12px;margin-top:24px">
-          <a href="/chat/" style="display:inline-block;padding:14px 28px;background:var(--accent);color:#fff;border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;white-space:nowrap">Talk to Max</a>
-          <a href="/research" style="display:inline-block;padding:14px 28px;background:var(--ink);color:var(--cream);border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;white-space:nowrap">See our research</a>
         </div>
-      </div>
       <div class="max-preview-chat">
         <div class="max-preview-label">Live preview</div>
         <div class="mock-bubble ai" style="margin-bottom:6px">Hey Sarah, how's it going?</div>
@@ -350,6 +434,10 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
         <div class="mock-bubble user" style="margin-bottom:6px">I like running but I always go alone.</div>
         <div class="mock-bubble ai">There's a free group called November Project London. Outdoor workouts, super welcoming. <span style="color:var(--accent);text-decoration:underline">november-project.com/london</span></div>
       </div>
+      <div style="display:flex;gap:12px;margin-top:0">
+          <a href="/chat/" style="display:inline-block;padding:14px 28px;background:var(--accent);color:#fff;border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;white-space:nowrap">Talk to Max</a>
+          <a href="/research" style="display:inline-block;padding:14px 28px;background:var(--ink);color:var(--cream);border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;white-space:nowrap">See our research</a>
+        </div>
     </div>
   </div>
 </section>
@@ -363,7 +451,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
       <div class="how-card reveal">
         <div class="how-card-step">Step one</div>
         <div class="how-card-title">Max really knows you</div>
-        <p class="how-card-desc">Max learns your story, your city, and what holds you back. Real conversation, not a form.</p>
+        <p class="how-card-desc">Max learns your story, your city, and what holds you back.</p>
         <div class="mock-chat">
           <div class="mock-bubble ai">Hey, how's it going?</div>
           <div class="mock-bubble user">I just moved to NYC and I don't know anyone.</div>
@@ -373,7 +461,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
       <div class="how-card reveal">
         <div class="how-card-step">Step two</div>
         <div class="how-card-title">Activities picked for you</div>
-        <p class="how-card-desc">Real events in your city, matched to your interests. With links. We do the research.</p>
+        <p class="how-card-desc">Real events in your city, matched to your interests. With links.</p>
         <div class="mock-events">
           <div class="mock-event"><span class="mock-dot match"></span><div class="mock-event-info"><div class="mock-event-name">November Project NYC</div><div class="mock-event-meta">Free outdoor workout, Wed 6:30am</div></div><span class="mock-event-tag">Strong match</span></div>
           <div class="mock-event"><span class="mock-dot match"></span><div class="mock-event-info"><div class="mock-event-name">Brooklyn Book Club</div><div class="mock-event-meta">Bi-weekly, Sun 2pm</div></div><span class="mock-event-tag">Your pace</span></div>
@@ -566,6 +654,26 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
   }, 1000);
 });
+</script>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
+</div>
+
+<script>
+document.getElementById('hamburger').addEventListener('click',function(){document.getElementById('mobileDrawer').classList.add('open');});
+document.getElementById('drawerClose').addEventListener('click',function(){document.getElementById('mobileDrawer').classList.remove('open');});
 </script>
 </body>
 </html>

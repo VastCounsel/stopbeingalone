@@ -283,5 +283,28 @@ document.addEventListener('DOMContentLoaded',()=>{
 <script>
 (function(){var s=document.querySelector('.toc-sidebar');if(!s||window.innerWidth<1100)return;var l=s.querySelectorAll('a[data-section]');var sc=[];l.forEach(function(a){var e=document.getElementById(a.dataset.section);if(e)sc.push({id:a.dataset.section,el:e,link:a});});if(!sc.length)return;var p=document.getElementById('tocProgress');function u(){var st=window.scrollY+window.innerHeight*0.3;var dh=document.documentElement.scrollHeight-window.innerHeight;var pc=Math.min(100,Math.max(0,(window.scrollY/dh)*100));if(p)p.style.height=pc+'%';var c=sc[0].id;for(var i=0;i<sc.length;i++){if(sc[i].el.offsetTop<=st)c=sc[i].id;}l.forEach(function(a){a.classList.toggle('active',a.dataset.section===c);});}window.addEventListener('scroll',u,{passive:true});u();})();
 </script>
-</body>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
+</div>
+<script>
+(function(){
+  var h=document.getElementById('hamburger');
+  var d=document.getElementById('mobileDrawer');
+  var c=document.getElementById('drawerClose');
+  if(h&&d)h.addEventListener('click',function(){d.classList.add('open');});
+  if(c&&d)c.addEventListener('click',function(){d.classList.remove('open');});
+})();
+</script></body>
 </html>

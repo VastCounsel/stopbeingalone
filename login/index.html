@@ -32,6 +32,21 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height
 .login-back{margin-top:24px;font-size:13px}
 .login-back a{color:var(--ink-muted);text-decoration:none}
 .login-back a:hover{color:var(--ink)}
+
+/* Mobile hamburger + drawer */
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--ink,#3A3A3A);padding:4px;margin-left:12px}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:#fff;z-index:200;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.1)}
+.mobile-drawer.open{right:0}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E5DDD4}
+.mobile-drawer-close{background:none;border:none;font-size:28px;cursor:pointer;color:#9A9590}
+.mobile-drawer-nav{display:flex;flex-direction:column;padding:16px 0}
+.mobile-drawer-nav a{padding:14px 20px;font-size:16px;color:#3A3A3A;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.04)}
+.mobile-drawer-nav .mobile-cta{margin:8px 20px;text-align:center;background:#4CAF9F;color:#fff;border-radius:8px;padding:14px;font-weight:500;border-bottom:none}
+#mobile-cta-auth a{background:#3A3A3A;color:#fff;border-radius:8px;text-align:center;margin:8px 20px;padding:14px;font-weight:500;display:block;border-bottom:none}
+@media(max-width:600px){
+  .hamburger{display:block}
+  .nav-links{display:none}
+}
 </style>
 </head>
 <body>
@@ -167,5 +182,28 @@ function showError(msg) {
 const params = new URLSearchParams(window.location.search);
 if (params.get('mode') === 'signup') switchMode('signup');
 </script>
-</body>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
+</div>
+<script>
+(function(){
+  var h=document.getElementById('hamburger');
+  var d=document.getElementById('mobileDrawer');
+  var c=document.getElementById('drawerClose');
+  if(h&&d)h.addEventListener('click',function(){d.classList.add('open');});
+  if(c&&d)c.addEventListener('click',function(){d.classList.remove('open');});
+})();
+</script></body>
 </html>

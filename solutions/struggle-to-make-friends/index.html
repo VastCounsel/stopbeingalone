@@ -143,6 +143,7 @@
     <span id="nav-cta-auth"><a href="/login">Log in</a></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
 </nav>
 
 <!-- HERO -->
@@ -560,5 +561,28 @@ document.addEventListener('DOMContentLoaded', () => {
   update();
 })();
 </script>
-</body>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
+</div>
+<script>
+(function(){
+  var h=document.getElementById('hamburger');
+  var d=document.getElementById('mobileDrawer');
+  var c=document.getElementById('drawerClose');
+  if(h&&d)h.addEventListener('click',function(){d.classList.add('open');});
+  if(c&&d)c.addEventListener('click',function(){d.classList.remove('open');});
+})();
+</script></body>
 </html>

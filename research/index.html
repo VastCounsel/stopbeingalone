@@ -205,6 +205,28 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
 #nav-cta-auth a:hover{background:#222}
 .nav-links a.cta{background:var(--accent,#4CAF9F);color:white;padding:8px 20px;border-radius:8px;font-weight:500;font-size:13px}
 .nav-links a.cta:hover{background:#3d9e90}
+
+/* Mobile hamburger + drawer */
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--ink,#3A3A3A);padding:4px;margin-left:12px}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:#fff;z-index:200;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.1)}
+.mobile-drawer.open{right:0}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E5DDD4}
+.mobile-drawer-close{background:none;border:none;font-size:28px;cursor:pointer;color:#9A9590}
+.mobile-drawer-nav{display:flex;flex-direction:column;padding:16px 0}
+.mobile-drawer-nav a{padding:14px 20px;font-size:16px;color:#3A3A3A;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.04)}
+.mobile-drawer-nav .mobile-cta{margin:8px 20px;text-align:center;background:#4CAF9F;color:#fff;border-radius:8px;padding:14px;font-weight:500;border-bottom:none}
+#mobile-cta-auth a{background:#3A3A3A;color:#fff;border-radius:8px;text-align:center;margin:8px 20px;padding:14px;font-weight:500;display:block;border-bottom:none}
+@media(max-width:600px){
+  .hamburger{display:block}
+  .nav-links{display:none}
+}
+
+@media(max-width:600px){
+  section{padding-top:40px;padding-bottom:40px}
+  .r-hero{padding-top:100px;padding-bottom:32px}
+  .final-cta{padding:40px 0}
+  .container{padding:0 16px}
+}
 </style>
 </head>
 <body>
@@ -219,6 +241,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
     <span id="nav-cta-auth"><a href="/login">Log in</a></span>
     <a href="/chat/" class="cta">Talk to Max</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
 </nav>
 
 <section class="r-hero">
@@ -318,7 +341,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
           <div class="risk-meter"><div class="risk-meter-label"><span>Heart disease</span><span>+29%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="72%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Stroke</span><span>+32%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="78%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Hypertension</span><span>+24%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="64%"></div></div></div>
-          <div class="science-card-source"><a href="https://www.hhs.gov/sites/default/files/surgeon-general-social-connection-advisory.pdf" target="_blank">WHO, 2025 &middot; U.S. Surgeon General</a></div>
+          <div class="science-card-source"><a href="https://www.hhs.gov/sites/default/files/surgeon-general-social-connection-advisory.pdf" target="_blank">WHO, 2025  U.S. Surgeon General</a></div>
         </div>
         <div class="science-text">
           <div class="science-text-eyebrow heart">Cardiovascular System</div>
@@ -338,7 +361,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
             <div class="compare-row"><span class="compare-label">Isolated</span><div class="compare-bar-track"><div class="compare-bar-fill" style="width:0%;background:var(--accent)" data-target="82%"></div></div><span class="compare-val">+64%</span></div>
             <div class="compare-row"><span class="compare-label">Depression</span><div class="compare-bar-track"><div class="compare-bar-fill" style="width:0%;background:#5DBAA8" data-target="68%"></div></div><span class="compare-val">+40%</span></div>
           </div>
-          <div class="science-card-source"><a href="https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(25)00175-6/fulltext" target="_blank">Lancet, 2025</a> &middot; <a href="https://www.adultdevelopmentstudy.org/" target="_blank">Harvard Study</a></div>
+          <div class="science-card-source"><a href="https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(25)00175-6/fulltext" target="_blank">Lancet, 2025</a>  <a href="https://www.adultdevelopmentstudy.org/" target="_blank">Harvard Study</a></div>
         </div>
         <div class="science-text">
           <div class="science-text-eyebrow brain">Neurological System</div>
@@ -358,7 +381,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
             <div class="compare-row"><span class="compare-label">Loneliness</span><div class="compare-bar-track"><div class="compare-bar-fill" style="width:0%;background:#6A9CB0" data-target="72%"></div></div><span class="compare-val">Equal</span></div>
             <div class="compare-row"><span class="compare-label">Obesity</span><div class="compare-bar-track"><div class="compare-bar-fill" style="width:0%;background:#8AB8C8" data-target="50%"></div></div><span class="compare-val">Lower</span></div>
           </div>
-          <div class="science-card-source"><a href="https://www.hhs.gov/surgeongeneral/reports-and-publications/connection/index.html" target="_blank">U.S. Surgeon General</a> &middot; <a href="https://www.who.int/groups/commission-on-social-connection/report" target="_blank">WHO, 2025</a></div>
+          <div class="science-card-source"><a href="https://www.hhs.gov/surgeongeneral/reports-and-publications/connection/index.html" target="_blank">U.S. Surgeon General</a>  <a href="https://www.who.int/groups/commission-on-social-connection/report" target="_blank">WHO, 2025</a></div>
         </div>
         <div class="science-text">
           <div class="science-text-eyebrow life">Mortality</div>
@@ -385,7 +408,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
           <div class="risk-meter"><div class="risk-meter-label"><span>CBT interventions</span><span>Strongest</span></div><div class="risk-meter-track"><div class="risk-meter-fill green" style="width:0%" data-target="92%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Gamification</span><span>3x engagement</span></div><div class="risk-meter-track"><div class="risk-meter-fill green" style="width:0%" data-target="78%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Solo programs</span><span>Maintained 6mo</span></div><div class="risk-meter-track"><div class="risk-meter-fill green" style="width:0%" data-target="65%"></div></div></div>
-          <div class="science-card-source"><a href="https://www.apa.org/news/press/releases/2025/10/loneliness-interventions" target="_blank">APA, 2025</a> &middot; <a href="https://www.apa.org/pubs/journals/releases/amp-amp0001578.pdf" target="_blank">Full PDF</a></div>
+          <div class="science-card-source"><a href="https://www.apa.org/news/press/releases/2025/10/loneliness-interventions" target="_blank">APA, 2025</a>  <a href="https://www.apa.org/pubs/journals/releases/amp-amp0001578.pdf" target="_blank">Full PDF</a></div>
         </div>
         <div class="science-text">
           <div class="science-text-eyebrow brain">What Works</div>
@@ -425,7 +448,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
           <div class="risk-meter"><div class="risk-meter-label"><span>Remote work isolation</span><span>72%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="72%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Third places lost (2000-2020)</span><span>-40%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="40%"></div></div></div>
           <div class="risk-meter"><div class="risk-meter-label"><span>Social media &rarr; loneliness</span><span>+34%</span></div><div class="risk-meter-track"><div class="risk-meter-fill red" style="width:0%" data-target="34%"></div></div></div>
-          <div class="science-card-source">APA 2025 &middot; U.S. Census &middot; JAMA 2023</div>
+          <div class="science-card-source">APA 2025  U.S. Census  JAMA 2023</div>
         </div>
         <div class="science-text">
           <div class="science-text-eyebrow econ">Why It's Getting Worse</div>
@@ -445,7 +468,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
     <p>Max is an AI companion that helps you build real connections in your city. One small step at a time. No pressure, no groups, just you.</p>
     <a href="/chat/" class="btn-accent">Talk to Max</a>
     <div style="margin-top:24px;display:flex;justify-content:center;gap:24px;font-size:12px;color:var(--ink-muted);position:relative;z-index:1">
-      <span>Free to start</span><span>&middot;</span><span>No credit card</span><span>&middot;</span><span>Real activities, real links</span>
+      <p style="text-align:center;margin-top:16px;font-size:14px;color:#9A9590;width:100%">Built on <strong style="color:#5A5A5A;font-weight:600">WHO</strong> and <strong style="color:#5A5A5A;font-weight:600">Harvard</strong> research.</p>
     </div>
   </div>
 </section>
@@ -571,7 +594,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-heigh
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Stop Being Alone. All rights reserved.</span>
-      <span class="footer-sources-line">Sources: WHO &middot; U.S. Surgeon General &middot; APA &middot; Gallup &middot; Lancet &middot; Harvard &middot; Cigna</span>
+      <span class="footer-sources-line">Sources: WHO  U.S. Surgeon General  APA  Gallup  Lancet  Harvard  Cigna</span>
     </div>
   </div>
 </footer>
@@ -605,5 +628,28 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase-auth.js"></script>
 <script src="/js/max-widget.js" defer></script>
-</body>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <a href="/" class="nav-logo">Stop Being <em>Alone</em></a>
+    <button class="mobile-drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <a href="/research">Research</a>
+    <a href="/blog">Blog</a>
+    <a href="/activities">Activities</a>
+    <a href="/#pricing">Pricing</a>
+    <span id="mobile-cta-auth"><a href="/login" class="mobile-login">Log in</a></span>
+    <a href="/chat/" class="mobile-cta">Talk to Max</a>
+  </nav>
+</div>
+<script>
+(function(){
+  var h=document.getElementById('hamburger');
+  var d=document.getElementById('mobileDrawer');
+  var c=document.getElementById('drawerClose');
+  if(h&&d)h.addEventListener('click',function(){d.classList.add('open');});
+  if(c&&d)c.addEventListener('click',function(){d.classList.remove('open');});
+})();
+</script></body>
 </html>
